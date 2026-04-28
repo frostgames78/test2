@@ -39,7 +39,7 @@ fn parse_file(filepath, master_program, base_dir, std_dir) {
     let sourceCode = readFile(filepath)
     if sourceCode == 0 {
         print("FATAL ERROR: Could not open file!")
-        print(filepath)
+        print_str(filepath) // FIXED: Uses print_str instead of print
         return 0
     }
 
@@ -103,7 +103,7 @@ fn main() {
 
     // Derive output filename from input: main.fyyy -> main.asm
     let out_file = str_concat(strip_extension(filename), ".asm")
-    print(str_concat("Writing to ", str_concat(out_file, "...")))
+    print_str(str_concat("Writing to ", str_concat(out_file, "..."))) // FIXED: Uses print_str instead of print
     writeFile(out_file, asm_code) 
 
     print("Compilation Complete!")

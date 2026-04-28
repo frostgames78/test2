@@ -599,6 +599,7 @@ sub_string:
     ret
 
 print_string:
+print_str:              ; FIXED: Added print_str alias to map to print_string
     mov rsi, rax
     mov rdx, 0
 .len_loop:

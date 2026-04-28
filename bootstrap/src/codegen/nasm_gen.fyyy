@@ -333,6 +333,7 @@ fn get_stdlib_asm() {
     asm = emit(asm, "; --- FROSTYYY STANDARD LIBRARY ---")
     
     asm = emit(asm, "print_string:")
+    asm = emit(asm, "print_str:")        // FIXED: ADDED print_str ALIAS HERE AS WELL
     asm = emit(asm, "    mov rsi, rax")
     asm = emit(asm, "    mov rdx, 0")
     asm = emit(asm, ".len_loop:")
@@ -434,7 +435,7 @@ fn get_stdlib_asm() {
     asm = emit(asm, "    push rdi")             // [rbp-8] = path
     
     // sys_open(path, O_RDONLY, 0)
-    asm = emit(asm, "    mov rax, SYS_OPEN")           
+    asm = emit(asm, "    mov rax, SYS_OPEN")        
     asm = emit(asm, "    mov rdi, [rbp - 8]")   // path
     asm = emit(asm, "    mov rsi, O_RDONLY")           
     asm = emit(asm, "    mov rdx, 0")           // mode
@@ -451,7 +452,7 @@ fn get_stdlib_asm() {
     asm = emit(asm, "    mov rsi, rsp")         // stat buffer
     asm = emit(asm, "    syscall")
     asm = emit(asm, "    mov r10, [rsp + 48]")  // r10 = st_size (offset 48)
-    asm = emit(asm, "    add r10, 1")           // +1 for null terminator
+    asm = emit(asm, "    add r10, 1")            // +1 for null terminator
     asm = emit(asm, "    add rsp, 144")         // pop stat buffer
     
     asm = emit(asm, "    mov rdi, r10")         // alloc size = file size + 1
@@ -465,7 +466,7 @@ fn get_stdlib_asm() {
     // sys_read(fd, buf, size)
     asm = emit(asm, "    mov rax, SYS_READ")           
     asm = emit(asm, "    mov rdi, r8")          // fd
-    asm = emit(asm, "    mov rsi, r9")          // buffer
+    asm = emit(asm, "    mov rsi, r9")           // buffer
     asm = emit(asm, "    mov rdx, r10")         // count = file size + 1
     asm = emit(asm, "    dec rdx")              // -1 for null terminator
     asm = emit(asm, "    syscall")
@@ -513,7 +514,7 @@ fn get_stdlib_asm() {
     
     asm = emit(asm, "    cmp rax, 0")
     asm = emit(asm, "    jl .write_error")
-    asm = emit(asm, "    mov r8, rax")          // r8 = fd
+    asm = emit(asm, "    mov r8, rax")           // r8 = fd
     
     // sys_write(fd, data, length)
     asm = emit(asm, "    mov rax, SYS_WRITE")           
