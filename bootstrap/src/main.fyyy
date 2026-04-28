@@ -39,7 +39,7 @@ fn parse_file(filepath, master_program, base_dir, std_dir) {
     let sourceCode = readFile(filepath)
     if sourceCode == 0 {
         print("FATAL ERROR: Could not open file!")
-        print_str(filepath) // FIXED: Uses print_str instead of print
+        print_str(filepath)
         return 0
     }
 
@@ -86,10 +86,34 @@ fn main() {
         return 1
     }
 
+    // --- Check if the input path exists ---
+    let check_file = readFile(filename)
+    if check_file == 0 {
+        print("invalid path")
+        return 1
+    }
+
+    // Check for optional flags and catch typos
+    let out_file = 0
+    let arg2 = getArg(2)
+    if arg2 != 0 {
+        if string_equals(arg2, "--asm") == 0 {
+            print("FATAL ERROR: Unknown flag provided!")
+            return 1
+        }
+        
+        if string_equals(arg2, "--asm") == 1 {
+            out_file = getArg(3)
+            if out_file == 0 {
+                print("FATAL ERROR: --asm flag requires an output path!")
+                return 1
+            }
+        }
+    }
+
     // Derive directories from input file path
     let file_dir = get_dir_from_path(filename)
     let base_dir = str_concat(file_dir, "/")
-    // std dir is a sibling of the src dir (e.g. bootstrap/src/ -> bootstrap/std/)
     let parent_dir = get_dir_from_path(file_dir)
     let std_dir = str_concat(parent_dir, "/")
 
@@ -101,10 +125,23 @@ fn main() {
     print("Generating NASM Assembly...")
     let asm_code = generate_nasm(master_program)
 
-    // Derive output filename from input: main.fyyy -> main.asm
-    let out_file = str_concat(strip_extension(filename), ".asm")
-    print_str(str_concat("Writing to ", str_concat(out_file, "..."))) // FIXED: Uses print_str instead of print
+    // Derive output filename from input if out_file is not set via flag
+    if out_file == 0 {
+        out_file = str_concat(strip_extension(filename), ".asm")
+    }
+
+    print_str(str_concat("Writing to ", str_concat(out_file, "..."))) 
+    
+    // Attempt to write the file
     writeFile(out_file, asm_code) 
+
+    // --- BULLETPROOF FIX: Verify the write actually succeeded ---
+    // If the directory didn't exist, the OS blocked the write, so reading it will return 0
+    let verify_write = readFile(out_file)
+    if verify_write == 0 {
+        print("FATAL ERROR: Failed to write output file! Does the target directory exist?")
+        return 1
+    }
 
     print("Compilation Complete!")
     return 0
