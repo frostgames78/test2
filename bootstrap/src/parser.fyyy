@@ -105,16 +105,12 @@ fn parse_return_statement(p) {
     return stmt
 }
 
-// FIX: Safely handles both function and method calls like `io.alloc()`
 fn parse_call_expression(p, left_node) {
     let stmt = ASTCallExpression(NODE_CALL, "", 0)
     
     if left_node.type == NODE_IDENT { stmt.call_name = left_node.ident_value }
     if left_node.type == NODE_PROPERTY_ACCESS { 
         stmt.call_name = left_node.access_prop 
-        // Legacy compatibility: io.alloc() maps to the stdlib alloc_mem function
-        // TODO: Replace with a proper module/namespace resolution system
-        if string_equals(stmt.call_name, "alloc") == 1 { stmt.call_name = "alloc_mem" }
     }
     
     next_parser_token(p) // Consume '('
@@ -206,8 +202,7 @@ fn parse_postfix_expression(p, left_node) {
 }
 
 fn parse_infix_expression(p, left_node) {
-    let curTok = p.curToken;
-    let operator_literal = curTok.literal
+    let curTok = p.curToken; let operator_literal = curTok.literal
     let precedence = cur_precedence(p)
     next_parser_token(p) 
     
@@ -261,7 +256,6 @@ fn parse_expression(p, precedence) {
             matched = 1
         }
         
-        // FIX: The loop now detects '(' and creates a call node naturally
         if matched == 0 {
             if peekType == TOK_LPAREN {
                 left_node = parse_call_expression(p, left_node)

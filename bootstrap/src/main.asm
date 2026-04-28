@@ -1,602 +1,1041 @@
-section .data
-    str_0 db `EOF`, 0
-    str_1 db `IDENT`, 0
-    str_2 db `INT`, 0
-    str_3 db `FLOAT`, 0
-    str_4 db `STRING`, 0
-    str_5 db `[`, 0
-    str_6 db `]`, 0
-    str_7 db `+`, 0
-    str_8 db `-`, 0
-    str_9 db `*`, 0
-    str_10 db `/`, 0
-    str_11 db `%`, 0
-    str_12 db `=`, 0
-    str_13 db `==`, 0
-    str_14 db `!=`, 0
-    str_15 db `<`, 0
-    str_16 db `>`, 0
-    str_17 db `<=`, 0
-    str_18 db `>=`, 0
-    str_19 db `(`, 0
-    str_20 db `)`, 0
-    str_21 db `{`, 0
-    str_22 db `}`, 0
-    str_23 db `=>`, 0
-    str_24 db `_`, 0
-    str_25 db `,`, 0
-    str_26 db `.`, 0
-    str_27 db `:`, 0
-    str_28 db `let`, 0
-    str_29 db `fn`, 0
-    str_30 db `print`, 0
-    str_31 db `match`, 0
-    str_32 db `import`, 0
-    str_33 db `if`, 0
-    str_34 db `else`, 0
-    str_35 db `while`, 0
-    str_36 db `return`, 0
-    str_37 db `const`, 0
-    str_38 db `struct`, 0
-    str_39 db `class`, 0
-    str_40 db `true`, 0
-    str_41 db `false`, 0
-    str_42 db `switch`, 0
-    str_43 db `case`, 0
-    str_44 db `default`, 0
-    str_45 db `UNKNOWN_TOKEN`, 0
-    str_46 db `let`, 0
-    str_47 db `fn`, 0
-    str_48 db `print`, 0
-    str_49 db `match`, 0
-    str_50 db `import`, 0
-    str_51 db `if`, 0
-    str_52 db `else`, 0
-    str_53 db `while`, 0
-    str_54 db `return`, 0
-    str_55 db `_`, 0
-    str_56 db `const`, 0
-    str_57 db `struct`, 0
-    str_58 db `class`, 0
-    str_59 db `true`, 0
-    str_60 db `false`, 0
-    str_61 db `switch`, 0
-    str_62 db `case`, 0
-    str_63 db `default`, 0
-    str_64 db ``, 0
-    str_65 db `==`, 0
-    str_66 db `=>`, 0
-    str_67 db `=`, 0
-    str_68 db `!=`, 0
-    str_69 db `!`, 0
-    str_70 db `<=`, 0
-    str_71 db `<<`, 0
-    str_72 db `<`, 0
-    str_73 db `>=`, 0
-    str_74 db `>>`, 0
-    str_75 db `>`, 0
-    str_76 db `++`, 0
-    str_77 db `+=`, 0
-    str_78 db `+`, 0
-    str_79 db `--`, 0
-    str_80 db `-=`, 0
-    str_81 db `-`, 0
-    str_82 db `*=`, 0
-    str_83 db `*`, 0
-    str_84 db `&&`, 0
-    str_85 db `&`, 0
-    str_86 db `||`, 0
-    str_87 db `|`, 0
-    str_88 db `/`, 0
-    str_89 db `%`, 0
-    str_90 db `^`, 0
-    str_91 db `~`, 0
-    str_92 db `.`, 0
-    str_93 db `:`, 0
-    str_94 db `[`, 0
-    str_95 db `]`, 0
-    str_96 db `(`, 0
-    str_97 db `)`, 0
-    str_98 db `,`, 0
-    str_99 db `{`, 0
-    str_100 db `}`, 0
-    str_101 db `EOF`, 0
-    str_102 db `ILLEGAL`, 0
-    str_103 db `--- SYNTAX ERROR ---`, 0
-    str_104 db `Expected: `, 0
-    str_105 db `But got: `, 0
-    str_106 db ``, 0
-    str_107 db `alloc`, 0
-    str_108 db `alloc_mem`, 0
-    str_109 db `[`, 0
-    str_110 db `[`, 0
-    str_111 db ``, 0
-    str_112 db `SYNTAX ERROR: Unexpected token at start of expression!`, 0
-    str_113 db `/`, 0
-    str_114 db `.fyyy`, 0
-    str_115 db `UNKNOWN STATEMENT TRIGGERED! Token Type:`, 0
-    str_116 db `0`, 0
-    str_117 db ``, 0
-    str_118 db `, `, 0
-    str_119 db `0`, 0
-    str_120 db `COMPILE ERROR: Unknown property accessed!`, 0
-    str_121 db `str_`, 0
-    str_122 db `    `, 0
-    str_123 db ` db `, 0
-    str_124 db `    mov rax, `, 0
-    str_125 db `0`, 0
-    str_126 db `1`, 0
-    str_127 db `    mov rax, `, 0
-    str_128 db `    ; WARNING: FLOAT MATH REQUIRES .DATA SECTION`, 0
-    str_129 db `    mov rax, 0`, 0
-    str_130 db `    mov rax, `, 0
-    str_131 db `    mov rax, `, 0
-    str_132 db `    mov rax, [rbp - `, 0
-    str_133 db `]`, 0
-    str_134 db `    ; ERROR: Undeclared Variable '`, 0
-    str_135 db `'!`, 0
-    str_136 db `    mov rax, [rax + `, 0
-    str_137 db `]`, 0
-    str_138 db `    ; --- call `, 0
-    str_139 db ` ---`, 0
-    str_140 db `    push rax`, 0
-    str_141 db `    pop rdi`, 0
-    str_142 db `    pop rsi`, 0
-    str_143 db `    pop rdi`, 0
-    str_144 db `    pop rdx`, 0
-    str_145 db `    pop rsi`, 0
-    str_146 db `    pop rdi`, 0
-    str_147 db `    pop rcx`, 0
-    str_148 db `    pop rdx`, 0
-    str_149 db `    pop rsi`, 0
-    str_150 db `    pop rdi`, 0
-    str_151 db `    pop r8`, 0
-    str_152 db `    pop rcx`, 0
-    str_153 db `    pop rdx`, 0
-    str_154 db `    pop rsi`, 0
-    str_155 db `    pop rdi`, 0
-    str_156 db `    pop r9`, 0
-    str_157 db `    pop r8`, 0
-    str_158 db `    pop rcx`, 0
-    str_159 db `    pop rdx`, 0
-    str_160 db `    pop rsi`, 0
-    str_161 db `    pop rdi`, 0
-    str_162 db `    call `, 0
-    str_163 db `    ; --- Array Literal ---`, 0
-    str_164 db `    push rdi`, 0
-    str_165 db `    mov rdi, `, 0
-    str_166 db `    call alloc_mem`, 0
-    str_167 db `    pop rdi`, 0
-    str_168 db `    push rax`, 0
-    str_169 db `    mov rbx, rax`, 0
-    str_170 db `    pop rax`, 0
-    str_171 db `    push rax`, 0
-    str_172 db `    mov qword [rax + `, 0
-    str_173 db `], rbx`, 0
-    str_174 db `    pop rax`, 0
-    str_175 db `-`, 0
-    str_176 db `    neg rax`, 0
-    str_177 db `!`, 0
-    str_178 db `    cmp rax, 0`, 0
-    str_179 db `    sete al`, 0
-    str_180 db `    movzx rax, al`, 0
-    str_181 db `~`, 0
-    str_182 db `    not rax`, 0
-    str_183 db `    push rax`, 0
-    str_184 db `    mov rbx, rax`, 0
-    str_185 db `    pop rax`, 0
-    str_186 db `[`, 0
-    str_187 db `    movzx rax, byte [rax + rbx]`, 0
-    str_188 db `+`, 0
-    str_189 db `    add rax, rbx`, 0
-    str_190 db `-`, 0
-    str_191 db `    sub rax, rbx`, 0
-    str_192 db `*`, 0
-    str_193 db `    imul rax, rbx`, 0
-    str_194 db `/`, 0
-    str_195 db `    cqo`, 0
-    str_196 db `    idiv rbx`, 0
-    str_197 db `%`, 0
-    str_198 db `    cqo`, 0
-    str_199 db `    idiv rbx`, 0
-    str_200 db `    mov rax, rdx`, 0
-    str_201 db `==`, 0
-    str_202 db `    cmp rax, rbx`, 0
-    str_203 db `    sete al`, 0
-    str_204 db `    movzx rax, al`, 0
-    str_205 db `!=`, 0
-    str_206 db `    cmp rax, rbx`, 0
-    str_207 db `    setne al`, 0
-    str_208 db `    movzx rax, al`, 0
-    str_209 db `<`, 0
-    str_210 db `    cmp rax, rbx`, 0
-    str_211 db `    setl al`, 0
-    str_212 db `    movzx rax, al`, 0
-    str_213 db `>`, 0
-    str_214 db `    cmp rax, rbx`, 0
-    str_215 db `    setg al`, 0
-    str_216 db `    movzx rax, al`, 0
-    str_217 db `<=`, 0
-    str_218 db `    cmp rax, rbx`, 0
-    str_219 db `    setle al`, 0
-    str_220 db `    movzx rax, al`, 0
-    str_221 db `>=`, 0
-    str_222 db `    cmp rax, rbx`, 0
-    str_223 db `    setge al`, 0
-    str_224 db `    movzx rax, al`, 0
-    str_225 db `&&`, 0
-    str_226 db `    test rax, rax`, 0
-    str_227 db `    setnz cl`, 0
-    str_228 db `    test rbx, rbx`, 0
-    str_229 db `    setnz dl`, 0
-    str_230 db `    and cl, dl`, 0
-    str_231 db `    movzx rax, cl`, 0
-    str_232 db `||`, 0
-    str_233 db `    or rax, rbx`, 0
-    str_234 db `    setnz al`, 0
-    str_235 db `    movzx rax, al`, 0
-    str_236 db `&`, 0
-    str_237 db `    and rax, rbx`, 0
-    str_238 db `|`, 0
-    str_239 db `    or rax, rbx`, 0
-    str_240 db `^`, 0
-    str_241 db `    xor rax, rbx`, 0
-    str_242 db `<<`, 0
-    str_243 db `    mov rcx, rbx`, 0
-    str_244 db `    shl rax, cl`, 0
-    str_245 db `>>`, 0
-    str_246 db `    mov rcx, rbx`, 0
-    str_247 db `    sar rax, cl`, 0
-    str_248 db `    ; --- struct definition: `, 0
-    str_249 db ` ---`, 0
-    str_250 db `    ; --- let `, 0
-    str_251 db ` ---`, 0
-    str_252 db `    mov qword [rbp - `, 0
-    str_253 db `], rax`, 0
-    str_254 db `    ; --- const `, 0
-    str_255 db ` ---`, 0
-    str_256 db `    mov qword [rbp - `, 0
-    str_257 db `], rax`, 0
-    str_258 db `    ; --- reassign `, 0
-    str_259 db ` ---`, 0
-    str_260 db `    mov qword [rbp - `, 0
-    str_261 db `], rax`, 0
-    str_262 db `    ; --- property assign ---`, 0
-    str_263 db `    push rax`, 0
-    str_264 db `    pop rcx`, 0
-    str_265 db `    mov qword [rax + `, 0
-    str_266 db `], rcx`, 0
-    str_267 db `    ; --- index assign ---`, 0
-    str_268 db `    push rax`, 0
-    str_269 db `    push rax`, 0
-    str_270 db `    pop rbx`, 0
-    str_271 db `    pop rcx`, 0
-    str_272 db `    mov byte [rax + rbx], cl`, 0
-    str_273 db `    ; --- standalone call ---`, 0
-    str_274 db `    ; --- return ---`, 0
-    str_275 db `    mov rsp, rbp`, 0
-    str_276 db `    pop rbp`, 0
-    str_277 db `    ret`, 0
-    str_278 db `    ; --- print() ---`, 0
-    str_279 db `    call print_string`, 0
-    str_280 db `    call print_int`, 0
-    str_281 db `.while_start_`, 0
-    str_282 db `.while_end_`, 0
-    str_283 db `:`, 0
-    str_284 db `    cmp rax, 0`, 0
-    str_285 db `    je `, 0
-    str_286 db `    jmp `, 0
-    str_287 db `:`, 0
-    str_288 db `.if_end_`, 0
-    str_289 db `    ; --- if ---`, 0
-    str_290 db `    cmp rax, 0`, 0
-    str_291 db `    je `, 0
-    str_292 db `:`, 0
-    str_293 db `.match_`, 0
-    str_294 db `    ; --- match ---`, 0
-    str_295 db `    push rax`, 0
-    str_296 db `_case_`, 0
-    str_297 db `:`, 0
-    str_298 db `    pop rbx`, 0
-    str_299 db `    push rbx`, 0
-    str_300 db `    cmp rax, rbx`, 0
-    str_301 db `    jne `, 0
-    str_302 db `_case_`, 0
-    str_303 db `    jmp `, 0
-    str_304 db `_end`, 0
-    str_305 db `_case_`, 0
-    str_306 db `:`, 0
-    str_307 db `    ; default _ case`, 0
-    str_308 db `_end:`, 0
-    str_309 db `    pop rax`, 0
-    str_310 db ``, 0
-    str_311 db `; --- FROSTYYY STANDARD LIBRARY ---`, 0
-    str_312 db `print_string:`, 0
-    str_313 db `    mov rsi, rax`, 0
-    str_314 db `    mov rdx, 0`, 0
-    str_315 db `.len_loop:`, 0
-    str_316 db `    cmp byte [rsi + rdx], 0`, 0
-    str_317 db `    je .len_done`, 0
-    str_318 db `    inc rdx`, 0
-    str_319 db `    jmp .len_loop`, 0
-    str_320 db `.len_done:`, 0
-    str_321 db `    mov rdi, 1`, 0
-    str_322 db `    mov rax, 1`, 0
-    str_323 db `    syscall`, 0
-    str_324 db `    push 10`, 0
-    str_325 db `    mov rsi, rsp`, 0
-    str_326 db `    mov rdx, 1`, 0
-    str_327 db `    mov rax, 1`, 0
-    str_328 db `    syscall`, 0
-    str_329 db `    pop rax`, 0
-    str_330 db `    ret`, 0
-    str_331 db `sub_string:`, 0
-    str_332 db `    push rdi`, 0
-    str_333 db `    push rsi`, 0
-    str_334 db `    push rdx`, 0
-    str_335 db `    mov rdi, rdx`, 0
-    str_336 db `    sub rdi, rsi`, 0
-    str_337 db `    inc rdi`, 0
-    str_338 db `    cmp rdi, 0`, 0
-    str_339 db `    jg .alloc`, 0
-    str_340 db `    mov rdi, 1`, 0
-    str_341 db `.alloc:`, 0
-    str_342 db `    call alloc_mem`, 0
-    str_343 db `    mov r8, rax`, 0
-    str_344 db `    pop rdx`, 0
-    str_345 db `    pop rsi`, 0
-    str_346 db `    pop r10`, 0
-    str_347 db `    mov rcx, 0`, 0
-    str_348 db `.sub_loop:`, 0
-    str_349 db `    mov r9, rsi`, 0
-    str_350 db `    add r9, rcx`, 0
-    str_351 db `    cmp r9, rdx`, 0
-    str_352 db `    jg .sub_done`, 0
-    str_353 db `    mov al, byte [r10 + r9]`, 0
-    str_354 db `    mov byte [r8 + rcx], al`, 0
-    str_355 db `    inc rcx`, 0
-    str_356 db `    jmp .sub_loop`, 0
-    str_357 db `.sub_done:`, 0
-    str_358 db `    mov byte [r8 + rcx], 0`, 0
-    str_359 db `    mov rax, r8`, 0
-    str_360 db `    ret`, 0
-    str_361 db `print_int:`, 0
-    str_362 db `    mov r8, rsp`, 0
-    str_363 db `    dec rsp`, 0
-    str_364 db `    mov byte [rsp], 10`, 0
-    str_365 db `    mov rbx, 10`, 0
-    str_366 db `    test rax, rax`, 0
-    str_367 db `    jnz .itoa_loop`, 0
-    str_368 db `    dec rsp`, 0
-    str_369 db `    mov byte [rsp], 48`, 0
-    str_370 db `    jmp .itoa_done`, 0
-    str_371 db `.itoa_loop:`, 0
-    str_372 db `    xor rdx, rdx`, 0
-    str_373 db `    div rbx`, 0
-    str_374 db `    add dl, 48`, 0
-    str_375 db `    dec rsp`, 0
-    str_376 db `    mov [rsp], dl`, 0
-    str_377 db `    test rax, rax`, 0
-    str_378 db `    jnz .itoa_loop`, 0
-    str_379 db `.itoa_done:`, 0
-    str_380 db `    mov rdi, 1`, 0
-    str_381 db `    mov rsi, rsp`, 0
-    str_382 db `    mov rdx, r8`, 0
-    str_383 db `    sub rdx, rsp`, 0
-    str_384 db `    mov rax, 1`, 0
-    str_385 db `    syscall`, 0
-    str_386 db `    mov rsp, r8`, 0
-    str_387 db `    ret`, 0
-    str_388 db `alloc_mem:`, 0
-    str_389 db `    mov rsi, rdi`, 0
-    str_390 db `    mov rax, 9`, 0
-    str_391 db `    mov rdi, 0`, 0
-    str_392 db `    mov rdx, 3`, 0
-    str_393 db `    mov r10, 34`, 0
-    str_394 db `    mov r8, -1`, 0
-    str_395 db `    mov r9, 0`, 0
-    str_396 db `    syscall`, 0
-    str_397 db `    cmp rax, 0`, 0
-    str_398 db `    jl .mmap_error`, 0
-    str_399 db `    ret`, 0
-    str_400 db `.mmap_error:`, 0
-    str_401 db `    mov rax, 60`, 0
-    str_402 db `    mov rdi, 1`, 0
-    str_403 db `    syscall`, 0
-    str_404 db `readFile:`, 0
-    str_405 db `    push rbp`, 0
-    str_406 db `    mov rbp, rsp`, 0
-    str_407 db `    push rdi`, 0
-    str_408 db `    mov rax, 2`, 0
-    str_409 db `    mov rdi, [rbp - 8]`, 0
-    str_410 db `    mov rsi, 0`, 0
-    str_411 db `    mov rdx, 0`, 0
-    str_412 db `    syscall`, 0
-    str_413 db `    cmp rax, 0`, 0
-    str_414 db `    jl .read_error`, 0
-    str_415 db `    mov r8, rax`, 0
-    str_416 db `    sub rsp, 144`, 0
-    str_417 db `    mov rax, 5`, 0
-    str_418 db `    mov rdi, r8`, 0
-    str_419 db `    mov rsi, rsp`, 0
-    str_420 db `    syscall`, 0
-    str_421 db `    mov r10, [rsp + 48]`, 0
-    str_422 db `    add r10, 1`, 0
-    str_423 db `    add rsp, 144`, 0
-    str_424 db `    mov rdi, r10`, 0
-    str_425 db `    push r8`, 0
-    str_426 db `    push r10`, 0
-    str_427 db `    call alloc_mem`, 0
-    str_428 db `    pop r10`, 0
-    str_429 db `    pop r8`, 0
-    str_430 db `    mov r9, rax`, 0
-    str_431 db `    mov rax, 0`, 0
-    str_432 db `    mov rdi, r8`, 0
-    str_433 db `    mov rsi, r9`, 0
-    str_434 db `    mov rdx, r10`, 0
-    str_435 db `    dec rdx`, 0
-    str_436 db `    syscall`, 0
-    str_437 db `    mov byte [r9 + rax], 0`, 0
-    str_438 db `    mov rax, 3`, 0
-    str_439 db `    mov rdi, r8`, 0
-    str_440 db `    syscall`, 0
-    str_441 db `    mov rax, r9`, 0
-    str_442 db `    mov rsp, rbp`, 0
-    str_443 db `    pop rbp`, 0
-    str_444 db `    ret`, 0
-    str_445 db `.read_error:`, 0
-    str_446 db `    mov rax, 0`, 0
-    str_447 db `    mov rsp, rbp`, 0
-    str_448 db `    pop rbp`, 0
-    str_449 db `    ret`, 0
-    str_450 db `writeFile:`, 0
-    str_451 db `    push rbp`, 0
-    str_452 db `    mov rbp, rsp`, 0
-    str_453 db `    push rdi`, 0
-    str_454 db `    push rsi`, 0
-    str_455 db `    mov rbx, rsi`, 0
-    str_456 db `    xor rdx, rdx`, 0
-    str_457 db `.strlen_loop:`, 0
-    str_458 db `    cmp byte [rbx + rdx], 0`, 0
-    str_459 db `    je .strlen_done`, 0
-    str_460 db `    inc rdx`, 0
-    str_461 db `    jmp .strlen_loop`, 0
-    str_462 db `.strlen_done:`, 0
-    str_463 db `    push rdx`, 0
-    str_464 db `    mov rax, 2`, 0
-    str_465 db `    mov rdi, [rbp - 8]`, 0
-    str_466 db `    mov rsi, 577`, 0
-    str_467 db `    mov rdx, 420`, 0
-    str_468 db `    syscall`, 0
-    str_469 db `    cmp rax, 0`, 0
-    str_470 db `    jl .write_error`, 0
-    str_471 db `    mov r8, rax`, 0
-    str_472 db `    mov rax, 1`, 0
-    str_473 db `    mov rdi, r8`, 0
-    str_474 db `    mov rsi, [rbp - 16]`, 0
-    str_475 db `    mov rdx, [rbp - 24]`, 0
-    str_476 db `    syscall`, 0
-    str_477 db `    mov rax, 3`, 0
-    str_478 db `    mov rdi, r8`, 0
-    str_479 db `    syscall`, 0
-    str_480 db `.write_error:`, 0
-    str_481 db `    mov rsp, rbp`, 0
-    str_482 db `    pop rbp`, 0
-    str_483 db `    ret`, 0
-    str_484 db `getArg:`, 0
-    str_485 db `    mov rax, [r12]`, 0
-    str_486 db `    cmp rdi, rax`, 0
-    str_487 db `    jge .get_arg_none`, 0
-    str_488 db `    mov rax, r12`, 0
-    str_489 db `    add rax, 8`, 0
-    str_490 db `    mov rcx, rdi`, 0
-    str_491 db `    shl rcx, 3`, 0
-    str_492 db `    add rax, rcx`, 0
-    str_493 db `    mov rax, [rax]`, 0
-    str_494 db `    ret`, 0
-    str_495 db `.get_arg_none:`, 0
-    str_496 db `    mov rax, 0`, 0
-    str_497 db `    ret`, 0
-    str_498 db `section .data`, 0
-    str_499 db ``, 0
-    str_500 db `global _start`, 0
-    str_501 db `section .text`, 0
-    str_502 db `_start:`, 0
-    str_503 db `    mov r12, rsp`, 0
-    str_504 db `    push rbp`, 0
-    str_505 db `    mov rbp, rsp`, 0
-    str_506 db `    sub rsp, 4096`, 0
-    str_507 db `    ; --- exit ---`, 0
-    str_508 db `    mov rsp, rbp`, 0
-    str_509 db `    pop rbp`, 0
-    str_510 db `    mov rax, 60`, 0
-    str_511 db `    mov rdi, 0`, 0
-    str_512 db `    syscall`, 0
-    str_513 db ``, 0
-    str_514 db `:`, 0
-    str_515 db `    push rbp`, 0
-    str_516 db `    mov rbp, rsp`, 0
-    str_517 db `    sub rsp, 4096`, 0
-    str_518 db `    mov qword [rbp - `, 0
-    str_519 db `], rdi`, 0
-    str_520 db `    mov qword [rbp - `, 0
-    str_521 db `], rsi`, 0
-    str_522 db `    mov qword [rbp - `, 0
-    str_523 db `], rdx`, 0
-    str_524 db `    mov qword [rbp - `, 0
-    str_525 db `], rcx`, 0
-    str_526 db `    mov qword [rbp - `, 0
-    str_527 db `], r8`, 0
-    str_528 db `    mov qword [rbp - `, 0
-    str_529 db `], r9`, 0
-    str_530 db `    mov rsp, rbp`, 0
-    str_531 db `    pop rbp`, 0
-    str_532 db `    ret`, 0
-    str_533 db ``, 0
-    str_534 db `:`, 0
-    str_535 db `    push rbp`, 0
-    str_536 db `    mov rbp, rsp`, 0
-    str_537 db `    push rdi`, 0
-    str_538 db `    push rsi`, 0
-    str_539 db `    push rdx`, 0
-    str_540 db `    push rcx`, 0
-    str_541 db `    push r8`, 0
-    str_542 db `    push r9`, 0
-    str_543 db `    mov rdi, `, 0
-    str_544 db `    call alloc_mem`, 0
-    str_545 db `    pop r9`, 0
-    str_546 db `    pop r8`, 0
-    str_547 db `    pop rcx`, 0
-    str_548 db `    pop rdx`, 0
-    str_549 db `    pop rsi`, 0
-    str_550 db `    pop rdi`, 0
-    str_551 db `    mov [rax + `, 0
-    str_552 db `], rdi`, 0
-    str_553 db `    mov [rax + `, 0
-    str_554 db `], rsi`, 0
-    str_555 db `    mov [rax + `, 0
-    str_556 db `], rdx`, 0
-    str_557 db `    mov [rax + `, 0
-    str_558 db `], rcx`, 0
-    str_559 db `    mov [rax + `, 0
-    str_560 db `], r8`, 0
-    str_561 db `    mov [rax + `, 0
-    str_562 db `], r9`, 0
-    str_563 db `    mov rsp, rbp`, 0
-    str_564 db `    pop rbp`, 0
-    str_565 db `    ret`, 0
-    str_566 db `FATAL ERROR: Could not open file!`, 0
-    str_567 db `--- Frostyyy Self-Hosted Compiler ---`, 0
-    str_568 db `FATAL ERROR: No input file provided!`, 0
-    str_569 db `/`, 0
-    str_570 db `/`, 0
-    str_571 db `Linking and Parsing AST...`, 0
-    str_572 db `Generating NASM Assembly...`, 0
-    str_573 db `.asm`, 0
-    str_574 db `Writing to `, 0
-    str_575 db `...`, 0
-    str_576 db `Compilation Complete!`, 0
-
 global _start
+section .data
+SYS_READ equ 0
+SYS_WRITE equ 1
+SYS_OPEN equ 2
+SYS_CLOSE equ 3
+SYS_FSTAT equ 5
+SYS_MMAP equ 9
+SYS_EXIT equ 60
+STDOUT equ 1
+O_RDONLY equ 0
+O_WRONLY equ 1
+O_CREAT equ 64
+O_TRUNC equ 512
+PROT_READ equ 1
+PROT_WRITE equ 2
+MAP_PRIVATE equ 2
+MAP_ANON equ 32
+FILE_MODE_644 equ 420
+    str_0 db 69, 79, 70, 0
+    str_1 db 73, 68, 69, 78, 84, 0
+    str_2 db 73, 78, 84, 0
+    str_3 db 70, 76, 79, 65, 84, 0
+    str_4 db 83, 84, 82, 73, 78, 71, 0
+    str_5 db 91, 0
+    str_6 db 93, 0
+    str_7 db 43, 0
+    str_8 db 45, 0
+    str_9 db 42, 0
+    str_10 db 47, 0
+    str_11 db 37, 0
+    str_12 db 61, 0
+    str_13 db 61, 61, 0
+    str_14 db 33, 61, 0
+    str_15 db 60, 0
+    str_16 db 62, 0
+    str_17 db 60, 61, 0
+    str_18 db 62, 61, 0
+    str_19 db 40, 0
+    str_20 db 41, 0
+    str_21 db 123, 0
+    str_22 db 125, 0
+    str_23 db 61, 62, 0
+    str_24 db 95, 0
+    str_25 db 44, 0
+    str_26 db 46, 0
+    str_27 db 58, 0
+    str_28 db 108, 101, 116, 0
+    str_29 db 102, 110, 0
+    str_30 db 112, 114, 105, 110, 116, 0
+    str_31 db 109, 97, 116, 99, 104, 0
+    str_32 db 105, 109, 112, 111, 114, 116, 0
+    str_33 db 105, 102, 0
+    str_34 db 101, 108, 115, 101, 0
+    str_35 db 119, 104, 105, 108, 101, 0
+    str_36 db 114, 101, 116, 117, 114, 110, 0
+    str_37 db 99, 111, 110, 115, 116, 0
+    str_38 db 115, 116, 114, 117, 99, 116, 0
+    str_39 db 99, 108, 97, 115, 115, 0
+    str_40 db 116, 114, 117, 101, 0
+    str_41 db 102, 97, 108, 115, 101, 0
+    str_42 db 115, 119, 105, 116, 99, 104, 0
+    str_43 db 99, 97, 115, 101, 0
+    str_44 db 100, 101, 102, 97, 117, 108, 116, 0
+    str_45 db 85, 78, 75, 78, 79, 87, 78, 95, 84, 79, 75, 69, 78, 0
+    str_46 db 108, 101, 116, 0
+    str_47 db 102, 110, 0
+    str_48 db 112, 114, 105, 110, 116, 0
+    str_49 db 109, 97, 116, 99, 104, 0
+    str_50 db 105, 109, 112, 111, 114, 116, 0
+    str_51 db 105, 102, 0
+    str_52 db 101, 108, 115, 101, 0
+    str_53 db 119, 104, 105, 108, 101, 0
+    str_54 db 114, 101, 116, 117, 114, 110, 0
+    str_55 db 95, 0
+    str_56 db 99, 111, 110, 115, 116, 0
+    str_57 db 115, 116, 114, 117, 99, 116, 0
+    str_58 db 99, 108, 97, 115, 115, 0
+    str_59 db 116, 114, 117, 101, 0
+    str_60 db 102, 97, 108, 115, 101, 0
+    str_61 db 115, 119, 105, 116, 99, 104, 0
+    str_62 db 99, 97, 115, 101, 0
+    str_63 db 100, 101, 102, 97, 117, 108, 116, 0
+    str_64 db 0
+    str_65 db 61, 61, 0
+    str_66 db 61, 62, 0
+    str_67 db 61, 0
+    str_68 db 33, 61, 0
+    str_69 db 33, 0
+    str_70 db 60, 61, 0
+    str_71 db 60, 60, 0
+    str_72 db 60, 0
+    str_73 db 62, 61, 0
+    str_74 db 62, 62, 0
+    str_75 db 62, 0
+    str_76 db 43, 43, 0
+    str_77 db 43, 61, 0
+    str_78 db 43, 0
+    str_79 db 45, 45, 0
+    str_80 db 45, 61, 0
+    str_81 db 45, 0
+    str_82 db 42, 61, 0
+    str_83 db 42, 0
+    str_84 db 38, 38, 0
+    str_85 db 38, 0
+    str_86 db 124, 124, 0
+    str_87 db 124, 0
+    str_88 db 47, 0
+    str_89 db 37, 0
+    str_90 db 94, 0
+    str_91 db 126, 0
+    str_92 db 46, 0
+    str_93 db 58, 0
+    str_94 db 91, 0
+    str_95 db 93, 0
+    str_96 db 40, 0
+    str_97 db 41, 0
+    str_98 db 44, 0
+    str_99 db 123, 0
+    str_100 db 125, 0
+    str_101 db 69, 79, 70, 0
+    str_102 db 73, 76, 76, 69, 71, 65, 76, 0
+    str_103 db 45, 45, 45, 32, 83, 89, 78, 84, 65, 88, 32, 69, 82, 82, 79, 82, 32, 45, 45, 45, 0
+    str_104 db 69, 120, 112, 101, 99, 116, 101, 100, 58, 32, 0
+    str_105 db 66, 117, 116, 32, 103, 111, 116, 58, 32, 0
+    str_106 db 0
+    str_107 db 91, 0
+    str_108 db 91, 0
+    str_109 db 0
+    str_110 db 83, 89, 78, 84, 65, 88, 32, 69, 82, 82, 79, 82, 58, 32, 85, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 116, 111, 107, 101, 110, 32, 97, 116, 32, 115, 116, 97, 114, 116, 32, 111, 102, 32, 101, 120, 112, 114, 101, 115, 115, 105, 111, 110, 33, 0
+    str_111 db 47, 0
+    str_112 db 46, 102, 121, 121, 121, 0
+    str_113 db 85, 78, 75, 78, 79, 87, 78, 32, 83, 84, 65, 84, 69, 77, 69, 78, 84, 32, 84, 82, 73, 71, 71, 69, 82, 69, 68, 33, 32, 84, 111, 107, 101, 110, 32, 84, 121, 112, 101, 58, 0
+    str_114 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 0
+    str_115 db 48, 0
+    str_116 db 49, 0
+    str_117 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 0
+    str_118 db 32, 32, 32, 32, 59, 32, 87, 65, 82, 78, 73, 78, 71, 58, 32, 70, 76, 79, 65, 84, 32, 77, 65, 84, 72, 32, 82, 69, 81, 85, 73, 82, 69, 83, 32, 46, 68, 65, 84, 65, 32, 83, 69, 67, 84, 73, 79, 78, 0
+    str_119 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 48, 0
+    str_120 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 0
+    str_121 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 0
+    str_122 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_123 db 93, 0
+    str_124 db 32, 32, 32, 32, 59, 32, 69, 82, 82, 79, 82, 58, 32, 85, 110, 100, 101, 99, 108, 97, 114, 101, 100, 32, 86, 97, 114, 105, 97, 98, 108, 101, 32, 39, 0
+    str_125 db 39, 33, 0
+    str_126 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_127 db 93, 0
+    str_128 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 99, 97, 108, 108, 32, 0
+    str_129 db 32, 45, 45, 45, 0
+    str_130 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_131 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_132 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_133 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_134 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 120, 0
+    str_135 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_136 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_137 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 99, 120, 0
+    str_138 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 120, 0
+    str_139 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_140 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_141 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 56, 0
+    str_142 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 99, 120, 0
+    str_143 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 120, 0
+    str_144 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_145 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_146 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 57, 0
+    str_147 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 56, 0
+    str_148 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 99, 120, 0
+    str_149 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 120, 0
+    str_150 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_151 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_152 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 0
+    str_153 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 65, 114, 114, 97, 121, 32, 76, 105, 116, 101, 114, 97, 108, 32, 45, 45, 45, 0
+    str_154 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 105, 0
+    str_155 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 0
+    str_156 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 97, 108, 108, 111, 99, 95, 109, 101, 109, 0
+    str_157 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_158 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_159 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 120, 44, 32, 114, 97, 120, 0
+    str_160 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 97, 120, 0
+    str_161 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_162 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_163 db 93, 44, 32, 114, 98, 120, 0
+    str_164 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 97, 120, 0
+    str_165 db 45, 0
+    str_166 db 32, 32, 32, 32, 110, 101, 103, 32, 114, 97, 120, 0
+    str_167 db 33, 0
+    str_168 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 48, 0
+    str_169 db 32, 32, 32, 32, 115, 101, 116, 101, 32, 97, 108, 0
+    str_170 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_171 db 126, 0
+    str_172 db 32, 32, 32, 32, 110, 111, 116, 32, 114, 97, 120, 0
+    str_173 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_174 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 120, 44, 32, 114, 97, 120, 0
+    str_175 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 97, 120, 0
+    str_176 db 91, 0
+    str_177 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 98, 121, 116, 101, 32, 91, 114, 97, 120, 32, 43, 32, 114, 98, 120, 93, 0
+    str_178 db 43, 0
+    str_179 db 32, 32, 32, 32, 97, 100, 100, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_180 db 45, 0
+    str_181 db 32, 32, 32, 32, 115, 117, 98, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_182 db 42, 0
+    str_183 db 32, 32, 32, 32, 105, 109, 117, 108, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_184 db 47, 0
+    str_185 db 32, 32, 32, 32, 99, 113, 111, 0
+    str_186 db 32, 32, 32, 32, 105, 100, 105, 118, 32, 114, 98, 120, 0
+    str_187 db 37, 0
+    str_188 db 32, 32, 32, 32, 99, 113, 111, 0
+    str_189 db 32, 32, 32, 32, 105, 100, 105, 118, 32, 114, 98, 120, 0
+    str_190 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 114, 100, 120, 0
+    str_191 db 61, 61, 0
+    str_192 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_193 db 32, 32, 32, 32, 115, 101, 116, 101, 32, 97, 108, 0
+    str_194 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_195 db 33, 61, 0
+    str_196 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_197 db 32, 32, 32, 32, 115, 101, 116, 110, 101, 32, 97, 108, 0
+    str_198 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_199 db 60, 0
+    str_200 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_201 db 32, 32, 32, 32, 115, 101, 116, 108, 32, 97, 108, 0
+    str_202 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_203 db 62, 0
+    str_204 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_205 db 32, 32, 32, 32, 115, 101, 116, 103, 32, 97, 108, 0
+    str_206 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_207 db 60, 61, 0
+    str_208 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_209 db 32, 32, 32, 32, 115, 101, 116, 108, 101, 32, 97, 108, 0
+    str_210 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_211 db 62, 61, 0
+    str_212 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_213 db 32, 32, 32, 32, 115, 101, 116, 103, 101, 32, 97, 108, 0
+    str_214 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_215 db 38, 38, 0
+    str_216 db 32, 32, 32, 32, 116, 101, 115, 116, 32, 114, 97, 120, 44, 32, 114, 97, 120, 0
+    str_217 db 32, 32, 32, 32, 115, 101, 116, 110, 122, 32, 99, 108, 0
+    str_218 db 32, 32, 32, 32, 116, 101, 115, 116, 32, 114, 98, 120, 44, 32, 114, 98, 120, 0
+    str_219 db 32, 32, 32, 32, 115, 101, 116, 110, 122, 32, 100, 108, 0
+    str_220 db 32, 32, 32, 32, 97, 110, 100, 32, 99, 108, 44, 32, 100, 108, 0
+    str_221 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 99, 108, 0
+    str_222 db 124, 124, 0
+    str_223 db 32, 32, 32, 32, 111, 114, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_224 db 32, 32, 32, 32, 115, 101, 116, 110, 122, 32, 97, 108, 0
+    str_225 db 32, 32, 32, 32, 109, 111, 118, 122, 120, 32, 114, 97, 120, 44, 32, 97, 108, 0
+    str_226 db 38, 0
+    str_227 db 32, 32, 32, 32, 97, 110, 100, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_228 db 124, 0
+    str_229 db 32, 32, 32, 32, 111, 114, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_230 db 94, 0
+    str_231 db 32, 32, 32, 32, 120, 111, 114, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_232 db 60, 60, 0
+    str_233 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 99, 120, 44, 32, 114, 98, 120, 0
+    str_234 db 32, 32, 32, 32, 115, 104, 108, 32, 114, 97, 120, 44, 32, 99, 108, 0
+    str_235 db 62, 62, 0
+    str_236 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 99, 120, 44, 32, 114, 98, 120, 0
+    str_237 db 32, 32, 32, 32, 115, 97, 114, 32, 114, 97, 120, 44, 32, 99, 108, 0
+    str_238 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 115, 116, 114, 117, 99, 116, 32, 100, 101, 102, 105, 110, 105, 116, 105, 111, 110, 58, 32, 0
+    str_239 db 32, 45, 45, 45, 0
+    str_240 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 108, 101, 116, 32, 0
+    str_241 db 32, 45, 45, 45, 0
+    str_242 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_243 db 93, 44, 32, 114, 97, 120, 0
+    str_244 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 99, 111, 110, 115, 116, 32, 0
+    str_245 db 32, 45, 45, 45, 0
+    str_246 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_247 db 93, 44, 32, 114, 97, 120, 0
+    str_248 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 114, 101, 97, 115, 115, 105, 103, 110, 32, 0
+    str_249 db 32, 45, 45, 45, 0
+    str_250 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_251 db 93, 44, 32, 114, 97, 120, 0
+    str_252 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 112, 114, 111, 112, 101, 114, 116, 121, 32, 97, 115, 115, 105, 103, 110, 32, 45, 45, 45, 0
+    str_253 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_254 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 99, 120, 0
+    str_255 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_256 db 93, 44, 32, 114, 99, 120, 0
+    str_257 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 105, 110, 100, 101, 120, 32, 97, 115, 115, 105, 103, 110, 32, 45, 45, 45, 0
+    str_258 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_259 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_260 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 120, 0
+    str_261 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 99, 120, 0
+    str_262 db 32, 32, 32, 32, 109, 111, 118, 32, 98, 121, 116, 101, 32, 91, 114, 97, 120, 32, 43, 32, 114, 98, 120, 93, 44, 32, 99, 108, 0
+    str_263 db 112, 114, 105, 110, 116, 95, 115, 116, 114, 0
+    str_264 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 112, 114, 105, 110, 116, 95, 115, 116, 114, 40, 41, 32, 45, 45, 45, 0
+    str_265 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 112, 114, 105, 110, 116, 95, 115, 116, 114, 105, 110, 103, 0
+    str_266 db 112, 114, 105, 110, 116, 95, 115, 116, 114, 0
+    str_267 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 115, 116, 97, 110, 100, 97, 108, 111, 110, 101, 32, 99, 97, 108, 108, 32, 45, 45, 45, 0
+    str_268 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 114, 101, 116, 117, 114, 110, 32, 45, 45, 45, 0
+    str_269 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_270 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_271 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_272 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 112, 114, 105, 110, 116, 40, 41, 32, 45, 45, 45, 0
+    str_273 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 112, 114, 105, 110, 116, 95, 115, 116, 114, 105, 110, 103, 0
+    str_274 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 112, 114, 105, 110, 116, 95, 105, 110, 116, 0
+    str_275 db 46, 119, 104, 105, 108, 101, 95, 115, 116, 97, 114, 116, 95, 0
+    str_276 db 46, 119, 104, 105, 108, 101, 95, 101, 110, 100, 95, 0
+    str_277 db 58, 0
+    str_278 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 48, 0
+    str_279 db 32, 32, 32, 32, 106, 101, 32, 0
+    str_280 db 32, 32, 32, 32, 106, 109, 112, 32, 0
+    str_281 db 58, 0
+    str_282 db 46, 105, 102, 95, 101, 110, 100, 95, 0
+    str_283 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 105, 102, 32, 45, 45, 45, 0
+    str_284 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 48, 0
+    str_285 db 32, 32, 32, 32, 106, 101, 32, 0
+    str_286 db 58, 0
+    str_287 db 46, 109, 97, 116, 99, 104, 95, 0
+    str_288 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 109, 97, 116, 99, 104, 32, 45, 45, 45, 0
+    str_289 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 97, 120, 0
+    str_290 db 95, 99, 97, 115, 101, 95, 0
+    str_291 db 58, 0
+    str_292 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 120, 0
+    str_293 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 98, 120, 0
+    str_294 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 114, 98, 120, 0
+    str_295 db 32, 32, 32, 32, 106, 110, 101, 32, 0
+    str_296 db 95, 99, 97, 115, 101, 95, 0
+    str_297 db 32, 32, 32, 32, 106, 109, 112, 32, 0
+    str_298 db 95, 101, 110, 100, 0
+    str_299 db 95, 99, 97, 115, 101, 95, 0
+    str_300 db 58, 0
+    str_301 db 32, 32, 32, 32, 59, 32, 100, 101, 102, 97, 117, 108, 116, 32, 95, 32, 99, 97, 115, 101, 0
+    str_302 db 95, 101, 110, 100, 58, 0
+    str_303 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 97, 120, 0
+    str_304 db 0
+    str_305 db 59, 32, 45, 45, 45, 32, 70, 82, 79, 83, 84, 89, 89, 89, 32, 83, 84, 65, 78, 68, 65, 82, 68, 32, 76, 73, 66, 82, 65, 82, 89, 32, 45, 45, 45, 0
+    str_306 db 112, 114, 105, 110, 116, 95, 115, 116, 114, 105, 110, 103, 58, 0
+    str_307 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 114, 97, 120, 0
+    str_308 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 48, 0
+    str_309 db 46, 108, 101, 110, 95, 108, 111, 111, 112, 58, 0
+    str_310 db 32, 32, 32, 32, 99, 109, 112, 32, 98, 121, 116, 101, 32, 91, 114, 115, 105, 32, 43, 32, 114, 100, 120, 93, 44, 32, 48, 0
+    str_311 db 32, 32, 32, 32, 106, 101, 32, 46, 108, 101, 110, 95, 100, 111, 110, 101, 0
+    str_312 db 32, 32, 32, 32, 105, 110, 99, 32, 114, 100, 120, 0
+    str_313 db 32, 32, 32, 32, 106, 109, 112, 32, 46, 108, 101, 110, 95, 108, 111, 111, 112, 0
+    str_314 db 46, 108, 101, 110, 95, 100, 111, 110, 101, 58, 0
+    str_315 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 83, 84, 68, 79, 85, 84, 0
+    str_316 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 87, 82, 73, 84, 69, 0
+    str_317 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_318 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 49, 48, 0
+    str_319 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 114, 115, 112, 0
+    str_320 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 49, 0
+    str_321 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 87, 82, 73, 84, 69, 0
+    str_322 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_323 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 97, 120, 0
+    str_324 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_325 db 115, 117, 98, 95, 115, 116, 114, 105, 110, 103, 58, 0
+    str_326 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 105, 0
+    str_327 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 115, 105, 0
+    str_328 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 120, 0
+    str_329 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 100, 120, 0
+    str_330 db 32, 32, 32, 32, 115, 117, 98, 32, 114, 100, 105, 44, 32, 114, 115, 105, 0
+    str_331 db 32, 32, 32, 32, 105, 110, 99, 32, 114, 100, 105, 0
+    str_332 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 100, 105, 44, 32, 48, 0
+    str_333 db 32, 32, 32, 32, 106, 103, 32, 46, 97, 108, 108, 111, 99, 0
+    str_334 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 49, 0
+    str_335 db 46, 97, 108, 108, 111, 99, 58, 0
+    str_336 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 97, 108, 108, 111, 99, 95, 109, 101, 109, 0
+    str_337 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 56, 44, 32, 114, 97, 120, 0
+    str_338 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 120, 0
+    str_339 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_340 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 49, 48, 0
+    str_341 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 99, 120, 44, 32, 48, 0
+    str_342 db 46, 115, 117, 98, 95, 108, 111, 111, 112, 58, 0
+    str_343 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 57, 44, 32, 114, 115, 105, 0
+    str_344 db 32, 32, 32, 32, 97, 100, 100, 32, 114, 57, 44, 32, 114, 99, 120, 0
+    str_345 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 57, 44, 32, 114, 100, 120, 0
+    str_346 db 32, 32, 32, 32, 106, 103, 32, 46, 115, 117, 98, 95, 100, 111, 110, 101, 0
+    str_347 db 32, 32, 32, 32, 109, 111, 118, 32, 97, 108, 44, 32, 98, 121, 116, 101, 32, 91, 114, 49, 48, 32, 43, 32, 114, 57, 93, 0
+    str_348 db 32, 32, 32, 32, 109, 111, 118, 32, 98, 121, 116, 101, 32, 91, 114, 56, 32, 43, 32, 114, 99, 120, 93, 44, 32, 97, 108, 0
+    str_349 db 32, 32, 32, 32, 105, 110, 99, 32, 114, 99, 120, 0
+    str_350 db 32, 32, 32, 32, 106, 109, 112, 32, 46, 115, 117, 98, 95, 108, 111, 111, 112, 0
+    str_351 db 46, 115, 117, 98, 95, 100, 111, 110, 101, 58, 0
+    str_352 db 32, 32, 32, 32, 109, 111, 118, 32, 98, 121, 116, 101, 32, 91, 114, 56, 32, 43, 32, 114, 99, 120, 93, 44, 32, 48, 0
+    str_353 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 114, 56, 0
+    str_354 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_355 db 112, 114, 105, 110, 116, 95, 105, 110, 116, 58, 0
+    str_356 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 56, 44, 32, 114, 115, 112, 0
+    str_357 db 32, 32, 32, 32, 100, 101, 99, 32, 114, 115, 112, 0
+    str_358 db 32, 32, 32, 32, 109, 111, 118, 32, 98, 121, 116, 101, 32, 91, 114, 115, 112, 93, 44, 32, 49, 48, 0
+    str_359 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 120, 44, 32, 49, 48, 0
+    str_360 db 32, 32, 32, 32, 116, 101, 115, 116, 32, 114, 97, 120, 44, 32, 114, 97, 120, 0
+    str_361 db 32, 32, 32, 32, 106, 110, 122, 32, 46, 105, 116, 111, 97, 95, 108, 111, 111, 112, 0
+    str_362 db 32, 32, 32, 32, 100, 101, 99, 32, 114, 115, 112, 0
+    str_363 db 32, 32, 32, 32, 109, 111, 118, 32, 98, 121, 116, 101, 32, 91, 114, 115, 112, 93, 44, 32, 52, 56, 0
+    str_364 db 32, 32, 32, 32, 106, 109, 112, 32, 46, 105, 116, 111, 97, 95, 100, 111, 110, 101, 0
+    str_365 db 46, 105, 116, 111, 97, 95, 108, 111, 111, 112, 58, 0
+    str_366 db 32, 32, 32, 32, 120, 111, 114, 32, 114, 100, 120, 44, 32, 114, 100, 120, 0
+    str_367 db 32, 32, 32, 32, 100, 105, 118, 32, 114, 98, 120, 0
+    str_368 db 32, 32, 32, 32, 97, 100, 100, 32, 100, 108, 44, 32, 52, 56, 0
+    str_369 db 32, 32, 32, 32, 100, 101, 99, 32, 114, 115, 112, 0
+    str_370 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 115, 112, 93, 44, 32, 100, 108, 0
+    str_371 db 32, 32, 32, 32, 116, 101, 115, 116, 32, 114, 97, 120, 44, 32, 114, 97, 120, 0
+    str_372 db 32, 32, 32, 32, 106, 110, 122, 32, 46, 105, 116, 111, 97, 95, 108, 111, 111, 112, 0
+    str_373 db 46, 105, 116, 111, 97, 95, 100, 111, 110, 101, 58, 0
+    str_374 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 83, 84, 68, 79, 85, 84, 0
+    str_375 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 114, 115, 112, 0
+    str_376 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 114, 56, 0
+    str_377 db 32, 32, 32, 32, 115, 117, 98, 32, 114, 100, 120, 44, 32, 114, 115, 112, 0
+    str_378 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 87, 82, 73, 84, 69, 0
+    str_379 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_380 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 56, 0
+    str_381 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_382 db 97, 108, 108, 111, 99, 95, 109, 101, 109, 58, 0
+    str_383 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 114, 100, 105, 0
+    str_384 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 77, 77, 65, 80, 0
+    str_385 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 48, 0
+    str_386 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 80, 82, 79, 84, 95, 82, 69, 65, 68, 32, 124, 32, 80, 82, 79, 84, 95, 87, 82, 73, 84, 69, 0
+    str_387 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 49, 48, 44, 32, 77, 65, 80, 95, 80, 82, 73, 86, 65, 84, 69, 32, 124, 32, 77, 65, 80, 95, 65, 78, 79, 78, 0
+    str_388 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 56, 44, 32, 45, 49, 0
+    str_389 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 57, 44, 32, 48, 0
+    str_390 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_391 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 48, 0
+    str_392 db 32, 32, 32, 32, 106, 108, 32, 46, 109, 109, 97, 112, 95, 101, 114, 114, 111, 114, 0
+    str_393 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_394 db 46, 109, 109, 97, 112, 95, 101, 114, 114, 111, 114, 58, 0
+    str_395 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 69, 88, 73, 84, 0
+    str_396 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 49, 0
+    str_397 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_398 db 114, 101, 97, 100, 70, 105, 108, 101, 58, 0
+    str_399 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 98, 112, 0
+    str_400 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 112, 44, 32, 114, 115, 112, 0
+    str_401 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 105, 0
+    str_402 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 79, 80, 69, 78, 0
+    str_403 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 91, 114, 98, 112, 32, 45, 32, 56, 93, 0
+    str_404 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 79, 95, 82, 68, 79, 78, 76, 89, 0
+    str_405 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 48, 0
+    str_406 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_407 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 48, 0
+    str_408 db 32, 32, 32, 32, 106, 108, 32, 46, 114, 101, 97, 100, 95, 101, 114, 114, 111, 114, 0
+    str_409 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 56, 44, 32, 114, 97, 120, 0
+    str_410 db 32, 32, 32, 32, 115, 117, 98, 32, 114, 115, 112, 44, 32, 49, 52, 52, 0
+    str_411 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 70, 83, 84, 65, 84, 0
+    str_412 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 56, 0
+    str_413 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 114, 115, 112, 0
+    str_414 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_415 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 49, 48, 44, 32, 91, 114, 115, 112, 32, 43, 32, 52, 56, 93, 0
+    str_416 db 32, 32, 32, 32, 97, 100, 100, 32, 114, 49, 48, 44, 32, 49, 0
+    str_417 db 32, 32, 32, 32, 97, 100, 100, 32, 114, 115, 112, 44, 32, 49, 52, 52, 0
+    str_418 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 49, 48, 0
+    str_419 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 56, 0
+    str_420 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 49, 48, 0
+    str_421 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 97, 108, 108, 111, 99, 95, 109, 101, 109, 0
+    str_422 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 49, 48, 0
+    str_423 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 56, 0
+    str_424 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 57, 44, 32, 114, 97, 120, 0
+    str_425 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 82, 69, 65, 68, 0
+    str_426 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 56, 0
+    str_427 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 114, 57, 0
+    str_428 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 114, 49, 48, 0
+    str_429 db 32, 32, 32, 32, 100, 101, 99, 32, 114, 100, 120, 0
+    str_430 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_431 db 32, 32, 32, 32, 109, 111, 118, 32, 98, 121, 116, 101, 32, 91, 114, 57, 32, 43, 32, 114, 97, 120, 93, 44, 32, 48, 0
+    str_432 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 67, 76, 79, 83, 69, 0
+    str_433 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 56, 0
+    str_434 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_435 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 114, 57, 0
+    str_436 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_437 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_438 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_439 db 46, 114, 101, 97, 100, 95, 101, 114, 114, 111, 114, 58, 0
+    str_440 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 48, 0
+    str_441 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_442 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_443 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_444 db 119, 114, 105, 116, 101, 70, 105, 108, 101, 58, 0
+    str_445 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 98, 112, 0
+    str_446 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 112, 44, 32, 114, 115, 112, 0
+    str_447 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 105, 0
+    str_448 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 115, 105, 0
+    str_449 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 120, 44, 32, 114, 115, 105, 0
+    str_450 db 32, 32, 32, 32, 120, 111, 114, 32, 114, 100, 120, 44, 32, 114, 100, 120, 0
+    str_451 db 46, 115, 116, 114, 108, 101, 110, 95, 108, 111, 111, 112, 58, 0
+    str_452 db 32, 32, 32, 32, 99, 109, 112, 32, 98, 121, 116, 101, 32, 91, 114, 98, 120, 32, 43, 32, 114, 100, 120, 93, 44, 32, 48, 0
+    str_453 db 32, 32, 32, 32, 106, 101, 32, 46, 115, 116, 114, 108, 101, 110, 95, 100, 111, 110, 101, 0
+    str_454 db 32, 32, 32, 32, 105, 110, 99, 32, 114, 100, 120, 0
+    str_455 db 32, 32, 32, 32, 106, 109, 112, 32, 46, 115, 116, 114, 108, 101, 110, 95, 108, 111, 111, 112, 0
+    str_456 db 46, 115, 116, 114, 108, 101, 110, 95, 100, 111, 110, 101, 58, 0
+    str_457 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 120, 0
+    str_458 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 79, 80, 69, 78, 0
+    str_459 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 91, 114, 98, 112, 32, 45, 32, 56, 93, 0
+    str_460 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 79, 95, 87, 82, 79, 78, 76, 89, 32, 124, 32, 79, 95, 67, 82, 69, 65, 84, 32, 124, 32, 79, 95, 84, 82, 85, 78, 67, 0
+    str_461 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 70, 73, 76, 69, 95, 77, 79, 68, 69, 95, 54, 52, 52, 0
+    str_462 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_463 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 97, 120, 44, 32, 48, 0
+    str_464 db 32, 32, 32, 32, 106, 108, 32, 46, 119, 114, 105, 116, 101, 95, 101, 114, 114, 111, 114, 0
+    str_465 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 56, 44, 32, 114, 97, 120, 0
+    str_466 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 87, 82, 73, 84, 69, 0
+    str_467 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 56, 0
+    str_468 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 105, 44, 32, 91, 114, 98, 112, 32, 45, 32, 49, 54, 93, 0
+    str_469 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 120, 44, 32, 91, 114, 98, 112, 32, 45, 32, 50, 52, 93, 0
+    str_470 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_471 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 67, 76, 79, 83, 69, 0
+    str_472 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 114, 56, 0
+    str_473 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_474 db 46, 119, 114, 105, 116, 101, 95, 101, 114, 114, 111, 114, 58, 0
+    str_475 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_476 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_477 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_478 db 103, 101, 116, 65, 114, 103, 58, 0
+    str_479 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 91, 114, 49, 50, 93, 0
+    str_480 db 32, 32, 32, 32, 99, 109, 112, 32, 114, 100, 105, 44, 32, 114, 97, 120, 0
+    str_481 db 32, 32, 32, 32, 106, 103, 101, 32, 46, 103, 101, 116, 95, 97, 114, 103, 95, 110, 111, 110, 101, 0
+    str_482 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 114, 49, 50, 0
+    str_483 db 32, 32, 32, 32, 97, 100, 100, 32, 114, 97, 120, 44, 32, 56, 0
+    str_484 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 99, 120, 44, 32, 114, 100, 105, 0
+    str_485 db 32, 32, 32, 32, 115, 104, 108, 32, 114, 99, 120, 44, 32, 51, 0
+    str_486 db 32, 32, 32, 32, 97, 100, 100, 32, 114, 97, 120, 44, 32, 114, 99, 120, 0
+    str_487 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 91, 114, 97, 120, 93, 0
+    str_488 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_489 db 46, 103, 101, 116, 95, 97, 114, 103, 95, 110, 111, 110, 101, 58, 0
+    str_490 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 48, 0
+    str_491 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_492 db 115, 101, 99, 116, 105, 111, 110, 32, 46, 100, 97, 116, 97, 0
+    str_493 db 83, 89, 83, 95, 82, 69, 65, 68, 32, 101, 113, 117, 32, 48, 0
+    str_494 db 83, 89, 83, 95, 87, 82, 73, 84, 69, 32, 101, 113, 117, 32, 49, 0
+    str_495 db 83, 89, 83, 95, 79, 80, 69, 78, 32, 101, 113, 117, 32, 50, 0
+    str_496 db 83, 89, 83, 95, 67, 76, 79, 83, 69, 32, 101, 113, 117, 32, 51, 0
+    str_497 db 83, 89, 83, 95, 70, 83, 84, 65, 84, 32, 101, 113, 117, 32, 53, 0
+    str_498 db 83, 89, 83, 95, 77, 77, 65, 80, 32, 101, 113, 117, 32, 57, 0
+    str_499 db 83, 89, 83, 95, 69, 88, 73, 84, 32, 101, 113, 117, 32, 54, 48, 0
+    str_500 db 83, 84, 68, 79, 85, 84, 32, 101, 113, 117, 32, 49, 0
+    str_501 db 79, 95, 82, 68, 79, 78, 76, 89, 32, 101, 113, 117, 32, 48, 0
+    str_502 db 79, 95, 87, 82, 79, 78, 76, 89, 32, 101, 113, 117, 32, 49, 0
+    str_503 db 79, 95, 67, 82, 69, 65, 84, 32, 101, 113, 117, 32, 54, 52, 0
+    str_504 db 79, 95, 84, 82, 85, 78, 67, 32, 101, 113, 117, 32, 53, 49, 50, 0
+    str_505 db 80, 82, 79, 84, 95, 82, 69, 65, 68, 32, 101, 113, 117, 32, 49, 0
+    str_506 db 80, 82, 79, 84, 95, 87, 82, 73, 84, 69, 32, 101, 113, 117, 32, 50, 0
+    str_507 db 77, 65, 80, 95, 80, 82, 73, 86, 65, 84, 69, 32, 101, 113, 117, 32, 50, 0
+    str_508 db 77, 65, 80, 95, 65, 78, 79, 78, 32, 101, 113, 117, 32, 51, 50, 0
+    str_509 db 70, 73, 76, 69, 95, 77, 79, 68, 69, 95, 54, 52, 52, 32, 101, 113, 117, 32, 52, 50, 48, 0
+    str_510 db 0
+    str_511 db 103, 108, 111, 98, 97, 108, 32, 95, 115, 116, 97, 114, 116, 0
+    str_512 db 115, 101, 99, 116, 105, 111, 110, 32, 46, 116, 101, 120, 116, 0
+    str_513 db 95, 115, 116, 97, 114, 116, 58, 0
+    str_514 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 49, 50, 44, 32, 114, 115, 112, 0
+    str_515 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 98, 112, 0
+    str_516 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 112, 44, 32, 114, 115, 112, 0
+    str_517 db 32, 32, 32, 32, 115, 117, 98, 32, 114, 115, 112, 44, 32, 52, 48, 57, 54, 0
+    str_518 db 32, 32, 32, 32, 59, 32, 45, 45, 45, 32, 101, 120, 105, 116, 32, 45, 45, 45, 0
+    str_519 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_520 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_521 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 97, 120, 44, 32, 83, 89, 83, 95, 69, 88, 73, 84, 0
+    str_522 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 48, 0
+    str_523 db 32, 32, 32, 32, 115, 121, 115, 99, 97, 108, 108, 0
+    str_524 db 0
+    str_525 db 58, 0
+    str_526 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 98, 112, 0
+    str_527 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 112, 44, 32, 114, 115, 112, 0
+    str_528 db 32, 32, 32, 32, 115, 117, 98, 32, 114, 115, 112, 44, 32, 52, 48, 57, 54, 0
+    str_529 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_530 db 93, 44, 32, 114, 100, 105, 0
+    str_531 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_532 db 93, 44, 32, 114, 115, 105, 0
+    str_533 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_534 db 93, 44, 32, 114, 100, 120, 0
+    str_535 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_536 db 93, 44, 32, 114, 99, 120, 0
+    str_537 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_538 db 93, 44, 32, 114, 56, 0
+    str_539 db 32, 32, 32, 32, 109, 111, 118, 32, 113, 119, 111, 114, 100, 32, 91, 114, 98, 112, 32, 45, 32, 0
+    str_540 db 93, 44, 32, 114, 57, 0
+    str_541 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_542 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_543 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_544 db 0
+    str_545 db 58, 0
+    str_546 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 98, 112, 0
+    str_547 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 98, 112, 44, 32, 114, 115, 112, 0
+    str_548 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 105, 0
+    str_549 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 115, 105, 0
+    str_550 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 100, 120, 0
+    str_551 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 99, 120, 0
+    str_552 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 56, 0
+    str_553 db 32, 32, 32, 32, 112, 117, 115, 104, 32, 114, 57, 0
+    str_554 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 100, 105, 44, 32, 0
+    str_555 db 32, 32, 32, 32, 99, 97, 108, 108, 32, 97, 108, 108, 111, 99, 95, 109, 101, 109, 0
+    str_556 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 57, 0
+    str_557 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 56, 0
+    str_558 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 99, 120, 0
+    str_559 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 120, 0
+    str_560 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 115, 105, 0
+    str_561 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 100, 105, 0
+    str_562 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_563 db 93, 44, 32, 114, 100, 105, 0
+    str_564 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_565 db 93, 44, 32, 114, 115, 105, 0
+    str_566 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_567 db 93, 44, 32, 114, 100, 120, 0
+    str_568 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_569 db 93, 44, 32, 114, 99, 120, 0
+    str_570 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_571 db 93, 44, 32, 114, 56, 0
+    str_572 db 32, 32, 32, 32, 109, 111, 118, 32, 91, 114, 97, 120, 32, 43, 32, 0
+    str_573 db 93, 44, 32, 114, 57, 0
+    str_574 db 32, 32, 32, 32, 109, 111, 118, 32, 114, 115, 112, 44, 32, 114, 98, 112, 0
+    str_575 db 32, 32, 32, 32, 112, 111, 112, 32, 114, 98, 112, 0
+    str_576 db 32, 32, 32, 32, 114, 101, 116, 0
+    str_577 db 48, 0
+    str_578 db 0
+    str_579 db 44, 32, 0
+    str_580 db 48, 0
+    str_581 db 67, 79, 77, 80, 73, 76, 69, 32, 69, 82, 82, 79, 82, 58, 32, 85, 110, 107, 110, 111, 119, 110, 32, 112, 114, 111, 112, 101, 114, 116, 121, 32, 97, 99, 99, 101, 115, 115, 101, 100, 33, 0
+    str_582 db 115, 116, 114, 95, 0
+    str_583 db 32, 32, 32, 32, 0
+    str_584 db 32, 100, 98, 32, 0
+    str_585 db 70, 65, 84, 65, 76, 32, 69, 82, 82, 79, 82, 58, 32, 67, 111, 117, 108, 100, 32, 110, 111, 116, 32, 111, 112, 101, 110, 32, 102, 105, 108, 101, 33, 0
+    str_586 db 45, 45, 45, 32, 70, 114, 111, 115, 116, 121, 121, 121, 32, 83, 101, 108, 102, 45, 72, 111, 115, 116, 101, 100, 32, 67, 111, 109, 112, 105, 108, 101, 114, 32, 45, 45, 45, 0
+    str_587 db 70, 65, 84, 65, 76, 32, 69, 82, 82, 79, 82, 58, 32, 78, 111, 32, 105, 110, 112, 117, 116, 32, 102, 105, 108, 101, 32, 112, 114, 111, 118, 105, 100, 101, 100, 33, 0
+    str_588 db 47, 0
+    str_589 db 47, 0
+    str_590 db 76, 105, 110, 107, 105, 110, 103, 32, 97, 110, 100, 32, 80, 97, 114, 115, 105, 110, 103, 32, 65, 83, 84, 46, 46, 46, 0
+    str_591 db 71, 101, 110, 101, 114, 97, 116, 105, 110, 103, 32, 78, 65, 83, 77, 32, 65, 115, 115, 101, 109, 98, 108, 121, 46, 46, 46, 0
+    str_592 db 46, 97, 115, 109, 0
+    str_593 db 87, 114, 105, 116, 105, 110, 103, 32, 116, 111, 32, 0
+    str_594 db 46, 46, 46, 0
+    str_595 db 67, 111, 109, 112, 105, 108, 97, 116, 105, 111, 110, 32, 67, 111, 109, 112, 108, 101, 116, 101, 33, 0
 
 section .text
 _start:
     mov r12, rsp
-    call main
-    ; Exit syscall
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    ; --- struct definition: Token ---
+    ; --- const TOK_EOF ---
+    mov rax, 0
+    mov qword [rbp - 8], rax
+    ; --- const TOK_ILLEGAL ---
+    mov rax, 1
+    mov qword [rbp - 16], rax
+    ; --- const TOK_IDENT ---
+    mov rax, 2
+    mov qword [rbp - 24], rax
+    ; --- const TOK_INT ---
+    mov rax, 3
+    mov qword [rbp - 32], rax
+    ; --- const TOK_FLOAT ---
+    mov rax, 4
+    mov qword [rbp - 40], rax
+    ; --- const TOK_STRING ---
+    mov rax, 5
+    mov qword [rbp - 48], rax
+    ; --- const TOK_ASSIGN ---
+    mov rax, 10
+    mov qword [rbp - 56], rax
+    ; --- const TOK_PLUS ---
+    mov rax, 11
+    mov qword [rbp - 64], rax
+    ; --- const TOK_MINUS ---
+    mov rax, 12
+    mov qword [rbp - 72], rax
+    ; --- const TOK_ASTERISK ---
+    mov rax, 13
+    mov qword [rbp - 80], rax
+    ; --- const TOK_SLASH ---
+    mov rax, 14
+    mov qword [rbp - 88], rax
+    ; --- const TOK_MOD ---
+    mov rax, 15
+    mov qword [rbp - 96], rax
+    ; --- const TOK_INC ---
+    mov rax, 16
+    mov qword [rbp - 104], rax
+    ; --- const TOK_DEC ---
+    mov rax, 17
+    mov qword [rbp - 112], rax
+    ; --- const TOK_AND ---
+    mov rax, 18
+    mov qword [rbp - 120], rax
+    ; --- const TOK_OR ---
+    mov rax, 19
+    mov qword [rbp - 128], rax
+    ; --- const TOK_BANG ---
+    mov rax, 20
+    mov qword [rbp - 136], rax
+    ; --- const TOK_EQ ---
+    mov rax, 21
+    mov qword [rbp - 144], rax
+    ; --- const TOK_NOT_EQ ---
+    mov rax, 22
+    mov qword [rbp - 152], rax
+    ; --- const TOK_LT ---
+    mov rax, 23
+    mov qword [rbp - 160], rax
+    ; --- const TOK_GT ---
+    mov rax, 24
+    mov qword [rbp - 168], rax
+    ; --- const TOK_LTE ---
+    mov rax, 25
+    mov qword [rbp - 176], rax
+    ; --- const TOK_GTE ---
+    mov rax, 26
+    mov qword [rbp - 184], rax
+    ; --- const TOK_BIT_AND ---
+    mov rax, 27
+    mov qword [rbp - 192], rax
+    ; --- const TOK_BIT_OR ---
+    mov rax, 28
+    mov qword [rbp - 200], rax
+    ; --- const TOK_BIT_XOR ---
+    mov rax, 29
+    mov qword [rbp - 208], rax
+    ; --- const TOK_BIT_NOT ---
+    mov rax, 30
+    mov qword [rbp - 216], rax
+    ; --- const TOK_LSHIFT ---
+    mov rax, 31
+    mov qword [rbp - 224], rax
+    ; --- const TOK_RSHIFT ---
+    mov rax, 32
+    mov qword [rbp - 232], rax
+    ; --- const TOK_PLUS_EQ ---
+    mov rax, 33
+    mov qword [rbp - 240], rax
+    ; --- const TOK_MINUS_EQ ---
+    mov rax, 34
+    mov qword [rbp - 248], rax
+    ; --- const TOK_MUL_EQ ---
+    mov rax, 35
+    mov qword [rbp - 256], rax
+    ; --- const TOK_LPAREN ---
+    mov rax, 36
+    mov qword [rbp - 264], rax
+    ; --- const TOK_RPAREN ---
+    mov rax, 37
+    mov qword [rbp - 272], rax
+    ; --- const TOK_LBRACE ---
+    mov rax, 38
+    mov qword [rbp - 280], rax
+    ; --- const TOK_RBRACE ---
+    mov rax, 39
+    mov qword [rbp - 288], rax
+    ; --- const TOK_LBRACKET ---
+    mov rax, 40
+    mov qword [rbp - 296], rax
+    ; --- const TOK_RBRACKET ---
+    mov rax, 41
+    mov qword [rbp - 304], rax
+    ; --- const TOK_COMMA ---
+    mov rax, 42
+    mov qword [rbp - 312], rax
+    ; --- const TOK_DOT ---
+    mov rax, 43
+    mov qword [rbp - 320], rax
+    ; --- const TOK_ARROW ---
+    mov rax, 44
+    mov qword [rbp - 328], rax
+    ; --- const TOK_UNDERSCORE ---
+    mov rax, 45
+    mov qword [rbp - 336], rax
+    ; --- const TOK_COLON ---
+    mov rax, 46
+    mov qword [rbp - 344], rax
+    ; --- const TOK_LET ---
+    mov rax, 50
+    mov qword [rbp - 352], rax
+    ; --- const TOK_FN ---
+    mov rax, 51
+    mov qword [rbp - 360], rax
+    ; --- const TOK_PRINT ---
+    mov rax, 52
+    mov qword [rbp - 368], rax
+    ; --- const TOK_MATCH ---
+    mov rax, 53
+    mov qword [rbp - 376], rax
+    ; --- const TOK_IMPORT ---
+    mov rax, 54
+    mov qword [rbp - 384], rax
+    ; --- const TOK_IF ---
+    mov rax, 55
+    mov qword [rbp - 392], rax
+    ; --- const TOK_ELSE ---
+    mov rax, 56
+    mov qword [rbp - 400], rax
+    ; --- const TOK_WHILE ---
+    mov rax, 57
+    mov qword [rbp - 408], rax
+    ; --- const TOK_RETURN ---
+    mov rax, 58
+    mov qword [rbp - 416], rax
+    ; --- const TOK_CONST ---
+    mov rax, 59
+    mov qword [rbp - 424], rax
+    ; --- const TOK_STRUCT ---
     mov rax, 60
+    mov qword [rbp - 432], rax
+    ; --- const TOK_CLASS ---
+    mov rax, 61
+    mov qword [rbp - 440], rax
+    ; --- const TOK_TRUE ---
+    mov rax, 62
+    mov qword [rbp - 448], rax
+    ; --- const TOK_FALSE ---
+    mov rax, 63
+    mov qword [rbp - 456], rax
+    ; --- const TOK_SWITCH ---
+    mov rax, 64
+    mov qword [rbp - 464], rax
+    ; --- const TOK_CASE ---
+    mov rax, 65
+    mov qword [rbp - 472], rax
+    ; --- const TOK_DEFAULT ---
+    mov rax, 66
+    mov qword [rbp - 480], rax
+    ; --- const PREC_LOWEST ---
+    mov rax, 0
+    mov qword [rbp - 488], rax
+    ; --- const PREC_ASSIGNMENT ---
+    mov rax, 1
+    mov qword [rbp - 496], rax
+    ; --- const PREC_LOGICAL_OR ---
+    mov rax, 2
+    mov qword [rbp - 504], rax
+    ; --- const PREC_LOGICAL_AND ---
+    mov rax, 3
+    mov qword [rbp - 512], rax
+    ; --- const PREC_EQUALITY ---
+    mov rax, 4
+    mov qword [rbp - 520], rax
+    ; --- const PREC_RELATIONAL ---
+    mov rax, 5
+    mov qword [rbp - 528], rax
+    ; --- const PREC_BIT_OR ---
+    mov rax, 6
+    mov qword [rbp - 536], rax
+    ; --- const PREC_BIT_XOR ---
+    mov rax, 7
+    mov qword [rbp - 544], rax
+    ; --- const PREC_BIT_AND ---
+    mov rax, 8
+    mov qword [rbp - 552], rax
+    ; --- const PREC_SHIFT ---
+    mov rax, 9
+    mov qword [rbp - 560], rax
+    ; --- const PREC_ADDITIVE ---
+    mov rax, 10
+    mov qword [rbp - 568], rax
+    ; --- const PREC_MULTIPLICATIVE ---
+    mov rax, 11
+    mov qword [rbp - 576], rax
+    ; --- const PREC_PREFIX ---
+    mov rax, 12
+    mov qword [rbp - 584], rax
+    ; --- const PREC_POSTFIX ---
+    mov rax, 13
+    mov qword [rbp - 592], rax
+    ; --- const CHAR_NEWLINE ---
+    mov rax, 10
+    mov qword [rbp - 600], rax
+    ; --- const CHAR_TAB ---
+    mov rax, 9
+    mov qword [rbp - 608], rax
+    ; --- const CHAR_SPACE ---
+    mov rax, 32
+    mov qword [rbp - 616], rax
+    ; --- const CHAR_CR ---
+    mov rax, 13
+    mov qword [rbp - 624], rax
+    ; --- const CHAR_SEMICOLON ---
+    mov rax, 59
+    mov qword [rbp - 632], rax
+    ; --- const CHAR_DQUOTE ---
+    mov rax, 34
+    mov qword [rbp - 640], rax
+    ; --- const CHAR_BACKSLASH ---
+    mov rax, 92
+    mov qword [rbp - 648], rax
+    ; --- const CHAR_SLASH ---
+    mov rax, 47
+    mov qword [rbp - 656], rax
+    ; --- const CHAR_DOT ---
+    mov rax, 46
+    mov qword [rbp - 664], rax
+    ; --- const CHAR_ZERO ---
+    mov rax, 48
+    mov qword [rbp - 672], rax
+    ; --- const CHAR_UNDERSCORE ---
+    mov rax, 95
+    mov qword [rbp - 680], rax
+    ; --- struct definition: Lexer ---
+    ; --- const NODE_NONE ---
+    mov rax, 0
+    mov qword [rbp - 688], rax
+    ; --- const NODE_PROGRAM ---
+    mov rax, 1
+    mov qword [rbp - 696], rax
+    ; --- const NODE_LET ---
+    mov rax, 2
+    mov qword [rbp - 704], rax
+    ; --- const NODE_IDENT ---
+    mov rax, 3
+    mov qword [rbp - 712], rax
+    ; --- const NODE_INT ---
+    mov rax, 4
+    mov qword [rbp - 720], rax
+    ; --- const NODE_INFIX ---
+    mov rax, 5
+    mov qword [rbp - 728], rax
+    ; --- const NODE_PREFIX ---
+    mov rax, 6
+    mov qword [rbp - 736], rax
+    ; --- const NODE_POSTFIX ---
+    mov rax, 7
+    mov qword [rbp - 744], rax
+    ; --- const NODE_PRINT ---
+    mov rax, 8
+    mov qword [rbp - 752], rax
+    ; --- const NODE_MATCH ---
+    mov rax, 9
+    mov qword [rbp - 760], rax
+    ; --- const NODE_MATCH_CASE ---
+    mov rax, 10
+    mov qword [rbp - 768], rax
+    ; --- const NODE_IMPORT ---
+    mov rax, 11
+    mov qword [rbp - 776], rax
+    ; --- const NODE_STRING ---
+    mov rax, 12
+    mov qword [rbp - 784], rax
+    ; --- const NODE_IF ---
+    mov rax, 13
+    mov qword [rbp - 792], rax
+    ; --- const NODE_WHILE ---
+    mov rax, 14
+    mov qword [rbp - 800], rax
+    ; --- const NODE_REASSIGN ---
+    mov rax, 15
+    mov qword [rbp - 808], rax
+    ; --- const NODE_ARRAY ---
+    mov rax, 16
+    mov qword [rbp - 816], rax
+    ; --- const NODE_FUNCTION ---
+    mov rax, 17
+    mov qword [rbp - 824], rax
+    ; --- const NODE_RETURN ---
+    mov rax, 18
+    mov qword [rbp - 832], rax
+    ; --- const NODE_CALL ---
+    mov rax, 19
+    mov qword [rbp - 840], rax
+    ; --- const NODE_CONST ---
+    mov rax, 20
+    mov qword [rbp - 848], rax
+    ; --- const NODE_STRUCT ---
+    mov rax, 21
+    mov qword [rbp - 856], rax
+    ; --- const NODE_FLOAT ---
+    mov rax, 22
+    mov qword [rbp - 864], rax
+    ; --- const NODE_BOOL ---
+    mov rax, 23
+    mov qword [rbp - 872], rax
+    ; --- const NODE_PROPERTY_ACCESS ---
+    mov rax, 24
+    mov qword [rbp - 880], rax
+    ; --- const NODE_PROPERTY_ASSIGN ---
+    mov rax, 25
+    mov qword [rbp - 888], rax
+    ; --- const NODE_INDEX_ASSIGN ---
+    mov rax, 26
+    mov qword [rbp - 896], rax
+    ; --- const NODE_CALL_STMT ---
+    mov rax, 27
+    mov qword [rbp - 904], rax
+    ; --- struct definition: ASTProgram ---
+    ; --- struct definition: ASTLetStatement ---
+    ; --- struct definition: ASTConstStatement ---
+    ; --- struct definition: ASTStructDecl ---
+    ; --- struct definition: ASTStructField ---
+    ; --- struct definition: ASTPropertyAssign ---
+    ; --- struct definition: ASTIndexAssign ---
+    ; --- struct definition: ASTReassignStatement ---
+    ; --- struct definition: ASTCallStatement ---
+    ; --- struct definition: ASTPrintStatement ---
+    ; --- struct definition: ASTMatchStatement ---
+    ; --- struct definition: ASTMatchCase ---
+    ; --- struct definition: ASTImportStatement ---
+    ; --- struct definition: ASTIfStatement ---
+    ; --- struct definition: ASTWhileStatement ---
+    ; --- struct definition: ASTFunctionDecl ---
+    ; --- struct definition: ASTReturnStatement ---
+    ; --- struct definition: ASTIdentifier ---
+    ; --- struct definition: ASTInteger ---
+    ; --- struct definition: ASTFloat ---
+    ; --- struct definition: ASTBoolean ---
+    ; --- struct definition: ASTString ---
+    ; --- struct definition: ASTPropertyAccess ---
+    ; --- struct definition: ASTInfixExpression ---
+    ; --- struct definition: ASTPrefixExpression ---
+    ; --- struct definition: ASTPostfixExpression ---
+    ; --- struct definition: ASTArrayLiteral ---
+    ; --- struct definition: ASTArrayElement ---
+    ; --- struct definition: ASTCallExpression ---
+    ; --- struct definition: ASTParameter ---
+    ; --- struct definition: ASTArgument ---
+    ; --- struct definition: Parser ---
+    ; --- struct definition: EnvNode ---
+    ; --- struct definition: PropertyNode ---
+    ; --- struct definition: ConstNode ---
+    ; --- struct definition: CodeGenState ---
+    ; --- standalone call ---
+    ; --- call main ---
+    call main
+    ; --- exit ---
+    mov rsp, rbp
+    pop rbp
+    mov rax, SYS_EXIT
     mov rdi, 0
     syscall
+
+Token:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 16
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov rsp, rbp
+    pop rbp
+    ret
 
 token_string:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param type
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -606,15 +1045,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_0
+    je .if_end_1
+    ; --- return ---
     mov rax, str_0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_0:
-
-    ; if condition
+.if_end_1:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 2
@@ -624,15 +1062,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_1
+    je .if_end_2
+    ; --- return ---
     mov rax, str_1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_1:
-
-    ; if condition
+.if_end_2:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 3
@@ -642,15 +1079,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_2
+    je .if_end_3
+    ; --- return ---
     mov rax, str_2
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_2:
-
-    ; if condition
+.if_end_3:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 4
@@ -660,15 +1096,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_3
+    je .if_end_4
+    ; --- return ---
     mov rax, str_3
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_3:
-
-    ; if condition
+.if_end_4:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 5
@@ -678,15 +1113,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_4
+    je .if_end_5
+    ; --- return ---
     mov rax, str_4
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_4:
-
-    ; if condition
+.if_end_5:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 40
@@ -696,15 +1130,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_5
+    je .if_end_6
+    ; --- return ---
     mov rax, str_5
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_5:
-
-    ; if condition
+.if_end_6:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 41
@@ -714,15 +1147,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_6
+    je .if_end_7
+    ; --- return ---
     mov rax, str_6
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_6:
-
-    ; if condition
+.if_end_7:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 11
@@ -732,15 +1164,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_7
+    je .if_end_8
+    ; --- return ---
     mov rax, str_7
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_7:
-
-    ; if condition
+.if_end_8:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 12
@@ -750,15 +1181,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_8
+    je .if_end_9
+    ; --- return ---
     mov rax, str_8
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_8:
-
-    ; if condition
+.if_end_9:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 13
@@ -768,15 +1198,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_9
+    je .if_end_10
+    ; --- return ---
     mov rax, str_9
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_9:
-
-    ; if condition
+.if_end_10:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 14
@@ -786,15 +1215,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_10
+    je .if_end_11
+    ; --- return ---
     mov rax, str_10
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_10:
-
-    ; if condition
+.if_end_11:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 15
@@ -804,15 +1232,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_11
+    je .if_end_12
+    ; --- return ---
     mov rax, str_11
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_11:
-
-    ; if condition
+.if_end_12:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 10
@@ -822,15 +1249,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_12
+    je .if_end_13
+    ; --- return ---
     mov rax, str_12
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_12:
-
-    ; if condition
+.if_end_13:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 21
@@ -840,15 +1266,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_13
+    je .if_end_14
+    ; --- return ---
     mov rax, str_13
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_13:
-
-    ; if condition
+.if_end_14:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 22
@@ -858,15 +1283,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_14
+    je .if_end_15
+    ; --- return ---
     mov rax, str_14
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_14:
-
-    ; if condition
+.if_end_15:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 23
@@ -876,15 +1300,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_15
+    je .if_end_16
+    ; --- return ---
     mov rax, str_15
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_15:
-
-    ; if condition
+.if_end_16:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 24
@@ -894,15 +1317,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_16
+    je .if_end_17
+    ; --- return ---
     mov rax, str_16
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_16:
-
-    ; if condition
+.if_end_17:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 25
@@ -912,15 +1334,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_17
+    je .if_end_18
+    ; --- return ---
     mov rax, str_17
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_17:
-
-    ; if condition
+.if_end_18:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 26
@@ -930,15 +1351,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_18
+    je .if_end_19
+    ; --- return ---
     mov rax, str_18
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_18:
-
-    ; if condition
+.if_end_19:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 36
@@ -948,15 +1368,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_19
+    je .if_end_20
+    ; --- return ---
     mov rax, str_19
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_19:
-
-    ; if condition
+.if_end_20:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 37
@@ -966,15 +1385,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_20
+    je .if_end_21
+    ; --- return ---
     mov rax, str_20
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_20:
-
-    ; if condition
+.if_end_21:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 38
@@ -984,15 +1402,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_21
+    je .if_end_22
+    ; --- return ---
     mov rax, str_21
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_21:
-
-    ; if condition
+.if_end_22:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 39
@@ -1002,15 +1419,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_22
+    je .if_end_23
+    ; --- return ---
     mov rax, str_22
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_22:
-
-    ; if condition
+.if_end_23:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 44
@@ -1020,15 +1436,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_23
+    je .if_end_24
+    ; --- return ---
     mov rax, str_23
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_23:
-
-    ; if condition
+.if_end_24:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 45
@@ -1038,15 +1453,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_24
+    je .if_end_25
+    ; --- return ---
     mov rax, str_24
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_24:
-
-    ; if condition
+.if_end_25:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 42
@@ -1056,15 +1470,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_25
+    je .if_end_26
+    ; --- return ---
     mov rax, str_25
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_25:
-
-    ; if condition
+.if_end_26:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 43
@@ -1074,15 +1487,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_26
+    je .if_end_27
+    ; --- return ---
     mov rax, str_26
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_26:
-
-    ; if condition
+.if_end_27:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 46
@@ -1092,15 +1504,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_27
+    je .if_end_28
+    ; --- return ---
     mov rax, str_27
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_27:
-
-    ; if condition
+.if_end_28:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 50
@@ -1110,15 +1521,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_28
+    je .if_end_29
+    ; --- return ---
     mov rax, str_28
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_28:
-
-    ; if condition
+.if_end_29:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 51
@@ -1128,15 +1538,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_29
+    je .if_end_30
+    ; --- return ---
     mov rax, str_29
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_29:
-
-    ; if condition
+.if_end_30:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 52
@@ -1146,15 +1555,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_30
+    je .if_end_31
+    ; --- return ---
     mov rax, str_30
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_30:
-
-    ; if condition
+.if_end_31:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 53
@@ -1164,15 +1572,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_31
+    je .if_end_32
+    ; --- return ---
     mov rax, str_31
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_31:
-
-    ; if condition
+.if_end_32:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 54
@@ -1182,15 +1589,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_32
+    je .if_end_33
+    ; --- return ---
     mov rax, str_32
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_32:
-
-    ; if condition
+.if_end_33:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 55
@@ -1200,15 +1606,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_33
+    je .if_end_34
+    ; --- return ---
     mov rax, str_33
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_33:
-
-    ; if condition
+.if_end_34:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 56
@@ -1218,15 +1623,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_34
+    je .if_end_35
+    ; --- return ---
     mov rax, str_34
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_34:
-
-    ; if condition
+.if_end_35:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 57
@@ -1236,15 +1640,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_35
+    je .if_end_36
+    ; --- return ---
     mov rax, str_35
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_35:
-
-    ; if condition
+.if_end_36:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 58
@@ -1254,15 +1657,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_36
+    je .if_end_37
+    ; --- return ---
     mov rax, str_36
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_36:
-
-    ; if condition
+.if_end_37:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 59
@@ -1272,15 +1674,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_37
+    je .if_end_38
+    ; --- return ---
     mov rax, str_37
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_37:
-
-    ; if condition
+.if_end_38:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 60
@@ -1290,15 +1691,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_38
+    je .if_end_39
+    ; --- return ---
     mov rax, str_38
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_38:
-
-    ; if condition
+.if_end_39:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 61
@@ -1308,15 +1708,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_39
+    je .if_end_40
+    ; --- return ---
     mov rax, str_39
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_39:
-
-    ; if condition
+.if_end_40:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 62
@@ -1326,15 +1725,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_40
+    je .if_end_41
+    ; --- return ---
     mov rax, str_40
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_40:
-
-    ; if condition
+.if_end_41:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 63
@@ -1344,15 +1742,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_41
+    je .if_end_42
+    ; --- return ---
     mov rax, str_41
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_41:
-
-    ; if condition
+.if_end_42:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 64
@@ -1362,15 +1759,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_42
+    je .if_end_43
+    ; --- return ---
     mov rax, str_42
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_42:
-
-    ; if condition
+.if_end_43:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 65
@@ -1380,15 +1776,14 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_43
+    je .if_end_44
+    ; --- return ---
     mov rax, str_43
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_43:
-
-    ; if condition
+.if_end_44:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 66
@@ -1398,19 +1793,18 @@ token_string:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_44
+    je .if_end_45
+    ; --- return ---
     mov rax, str_44
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_44:
-
+.if_end_45:
+    ; --- return ---
     mov rax, str_45
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -1419,11 +1813,8 @@ token_precedence:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param type
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 36
@@ -1433,15 +1824,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_45
+    je .if_end_46
+    ; --- return ---
     mov rax, 13
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_45:
-
-    ; if condition
+.if_end_46:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 40
@@ -1451,15 +1841,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_46
+    je .if_end_47
+    ; --- return ---
     mov rax, 13
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_46:
-
-    ; if condition
+.if_end_47:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 43
@@ -1469,15 +1858,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_47
+    je .if_end_48
+    ; --- return ---
     mov rax, 13
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_47:
-
-    ; if condition
+.if_end_48:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 16
@@ -1487,15 +1875,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_48
+    je .if_end_49
+    ; --- return ---
     mov rax, 13
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_48:
-
-    ; if condition
+.if_end_49:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 17
@@ -1505,15 +1892,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_49
+    je .if_end_50
+    ; --- return ---
     mov rax, 13
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_49:
-
-    ; if condition
+.if_end_50:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 13
@@ -1523,15 +1909,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_50
+    je .if_end_51
+    ; --- return ---
     mov rax, 11
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_50:
-
-    ; if condition
+.if_end_51:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 14
@@ -1541,15 +1926,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_51
+    je .if_end_52
+    ; --- return ---
     mov rax, 11
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_51:
-
-    ; if condition
+.if_end_52:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 15
@@ -1559,15 +1943,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_52
+    je .if_end_53
+    ; --- return ---
     mov rax, 11
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_52:
-
-    ; if condition
+.if_end_53:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 11
@@ -1577,15 +1960,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_53
+    je .if_end_54
+    ; --- return ---
     mov rax, 10
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_53:
-
-    ; if condition
+.if_end_54:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 12
@@ -1595,15 +1977,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_54
+    je .if_end_55
+    ; --- return ---
     mov rax, 10
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_54:
-
-    ; if condition
+.if_end_55:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 31
@@ -1613,15 +1994,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_55
+    je .if_end_56
+    ; --- return ---
     mov rax, 9
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_55:
-
-    ; if condition
+.if_end_56:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 32
@@ -1631,15 +2011,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_56
+    je .if_end_57
+    ; --- return ---
     mov rax, 9
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_56:
-
-    ; if condition
+.if_end_57:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 27
@@ -1649,15 +2028,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_57
+    je .if_end_58
+    ; --- return ---
     mov rax, 8
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_57:
-
-    ; if condition
+.if_end_58:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 29
@@ -1667,15 +2045,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_58
+    je .if_end_59
+    ; --- return ---
     mov rax, 7
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_58:
-
-    ; if condition
+.if_end_59:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 28
@@ -1685,15 +2062,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_59
+    je .if_end_60
+    ; --- return ---
     mov rax, 6
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_59:
-
-    ; if condition
+.if_end_60:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 23
@@ -1703,15 +2079,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_60
+    je .if_end_61
+    ; --- return ---
     mov rax, 5
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_60:
-
-    ; if condition
+.if_end_61:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 24
@@ -1721,15 +2096,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_61
+    je .if_end_62
+    ; --- return ---
     mov rax, 5
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_61:
-
-    ; if condition
+.if_end_62:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 25
@@ -1739,15 +2113,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_62
+    je .if_end_63
+    ; --- return ---
     mov rax, 5
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_62:
-
-    ; if condition
+.if_end_63:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 26
@@ -1757,15 +2130,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_63
+    je .if_end_64
+    ; --- return ---
     mov rax, 5
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_63:
-
-    ; if condition
+.if_end_64:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 21
@@ -1775,15 +2147,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_64
+    je .if_end_65
+    ; --- return ---
     mov rax, 4
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_64:
-
-    ; if condition
+.if_end_65:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 22
@@ -1793,15 +2164,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_65
+    je .if_end_66
+    ; --- return ---
     mov rax, 4
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_65:
-
-    ; if condition
+.if_end_66:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 18
@@ -1811,15 +2181,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_66
+    je .if_end_67
+    ; --- return ---
     mov rax, 3
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_66:
-
-    ; if condition
+.if_end_67:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 19
@@ -1829,15 +2198,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_67
+    je .if_end_68
+    ; --- return ---
     mov rax, 2
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_67:
-
-    ; if condition
+.if_end_68:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 10
@@ -1847,15 +2215,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_68
+    je .if_end_69
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_68:
-
-    ; if condition
+.if_end_69:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 33
@@ -1865,15 +2232,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_69
+    je .if_end_70
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_69:
-
-    ; if condition
+.if_end_70:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 34
@@ -1883,15 +2249,14 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_70
+    je .if_end_71
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_70:
-
-    ; if condition
+.if_end_71:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 35
@@ -1901,19 +2266,18 @@ token_precedence:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_71
+    je .if_end_72
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_71:
-
+.if_end_72:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -1922,11 +2286,9 @@ lookup_ident:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param ident
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_46
@@ -1942,15 +2304,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_72
+    je .if_end_73
+    ; --- return ---
     mov rax, 50
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_72:
-
-    ; if condition
+.if_end_73:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_47
@@ -1966,15 +2328,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_73
+    je .if_end_74
+    ; --- return ---
     mov rax, 51
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_73:
-
-    ; if condition
+.if_end_74:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_48
@@ -1990,15 +2352,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_74
+    je .if_end_75
+    ; --- return ---
     mov rax, 52
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_74:
-
-    ; if condition
+.if_end_75:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_49
@@ -2014,15 +2376,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_75
+    je .if_end_76
+    ; --- return ---
     mov rax, 53
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_75:
-
-    ; if condition
+.if_end_76:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_50
@@ -2038,15 +2400,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_76
+    je .if_end_77
+    ; --- return ---
     mov rax, 54
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_76:
-
-    ; if condition
+.if_end_77:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_51
@@ -2062,15 +2424,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_77
+    je .if_end_78
+    ; --- return ---
     mov rax, 55
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_77:
-
-    ; if condition
+.if_end_78:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_52
@@ -2086,15 +2448,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_78
+    je .if_end_79
+    ; --- return ---
     mov rax, 56
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_78:
-
-    ; if condition
+.if_end_79:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_53
@@ -2110,15 +2472,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_79
+    je .if_end_80
+    ; --- return ---
     mov rax, 57
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_79:
-
-    ; if condition
+.if_end_80:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_54
@@ -2134,15 +2496,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_80
+    je .if_end_81
+    ; --- return ---
     mov rax, 58
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_80:
-
-    ; if condition
+.if_end_81:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_55
@@ -2158,15 +2520,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_81
+    je .if_end_82
+    ; --- return ---
     mov rax, 45
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_81:
-
-    ; if condition
+.if_end_82:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_56
@@ -2182,15 +2544,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_82
+    je .if_end_83
+    ; --- return ---
     mov rax, 59
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_82:
-
-    ; if condition
+.if_end_83:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_57
@@ -2206,15 +2568,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_83
+    je .if_end_84
+    ; --- return ---
     mov rax, 60
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_83:
-
-    ; if condition
+.if_end_84:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_58
@@ -2230,15 +2592,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_84
+    je .if_end_85
+    ; --- return ---
     mov rax, 61
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_84:
-
-    ; if condition
+.if_end_85:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_59
@@ -2254,15 +2616,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_85
+    je .if_end_86
+    ; --- return ---
     mov rax, 62
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_85:
-
-    ; if condition
+.if_end_86:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_60
@@ -2278,15 +2640,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_86
+    je .if_end_87
+    ; --- return ---
     mov rax, 63
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_86:
-
-    ; if condition
+.if_end_87:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_61
@@ -2302,15 +2664,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_87
+    je .if_end_88
+    ; --- return ---
     mov rax, 64
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_87:
-
-    ; if condition
+.if_end_88:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_62
@@ -2326,15 +2688,15 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_88
+    je .if_end_89
+    ; --- return ---
     mov rax, 65
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_88:
-
-    ; if condition
+.if_end_89:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_63
@@ -2350,19 +2712,18 @@ lookup_ident:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_89
+    je .if_end_90
+    ; --- return ---
     mov rax, 66
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_89:
-
+.if_end_90:
+    ; --- return ---
     mov rax, 2
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2371,11 +2732,8 @@ is_operator:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param type
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 10
@@ -2385,8 +2743,8 @@ is_operator:
     setge al
     movzx rax, al
     cmp rax, 0
-    je .if_end_90
-    ; if condition
+    je .if_end_91
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 50
@@ -2396,21 +2754,19 @@ is_operator:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .if_end_91
+    je .if_end_92
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
+.if_end_92:
 .if_end_91:
-
-.if_end_90:
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2419,11 +2775,8 @@ is_keyword:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param type
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 50
@@ -2433,19 +2786,18 @@ is_keyword:
     setge al
     movzx rax, al
     cmp rax, 0
-    je .if_end_92
+    je .if_end_93
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_92:
-
+.if_end_93:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2454,11 +2806,8 @@ string_length:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param str
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -2473,15 +2822,14 @@ string_length:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_93
+    je .if_end_94
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_93:
-
-    ; if condition
+.if_end_94:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -2491,24 +2839,20 @@ string_length:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_94
+    je .if_end_95
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_94:
-
-    ; let len
+.if_end_95:
+    ; --- let len ---
     mov rax, 0
     mov qword [rbp - 16], rax
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 24], rax
-
-.while_start_95:
-    ; while condition
+.while_start_96:
     mov rax, [rbp - 24]
     push rax
     mov rax, 1
@@ -2518,8 +2862,8 @@ string_length:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_95
-    ; if condition
+    je .while_end_96
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 16]
@@ -2534,14 +2878,12 @@ string_length:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_96
-    ; loop =
+    je .if_end_97
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-.if_end_96:
-
-    ; if condition
+.if_end_97:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 16]
@@ -2556,8 +2898,8 @@ string_length:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_97
-    ; len =
+    je .if_end_98
+    ; --- reassign len ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 1
@@ -2565,17 +2907,14 @@ string_length:
     pop rax
     add rax, rbx
     mov qword [rbp - 16], rax
-
-.if_end_97:
-
-    jmp .while_start_95
-.while_end_95:
-
+.if_end_98:
+    jmp .while_start_96
+.while_end_96:
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2584,27 +2923,23 @@ string_equals:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param s1
     mov qword [rbp - 8], rdi
-    ; init param s2
     mov qword [rbp - 16], rsi
-
-    ; let l1
+    ; --- let l1 ---
+    ; --- call string_length ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 24], rax
-
-    ; let l2
+    ; --- let l2 ---
+    ; --- call string_length ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 32]
@@ -2614,24 +2949,20 @@ string_equals:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_98
+    je .if_end_99
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_98:
-
-    ; let i
+.if_end_99:
+    ; --- let i ---
     mov rax, 0
     mov qword [rbp - 40], rax
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 48], rax
-
-.while_start_99:
-    ; while condition
+.while_start_100:
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -2641,8 +2972,8 @@ string_equals:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_99
-    ; if condition
+    je .while_end_100
+    ; --- if ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 24]
@@ -2652,14 +2983,12 @@ string_equals:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_100
-    ; loop =
+    je .if_end_101
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
-.if_end_100:
-
-    ; if condition
+.if_end_101:
+    ; --- if ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 24]
@@ -2669,8 +2998,8 @@ string_equals:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_101
-    ; if condition
+    je .if_end_102
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 40]
@@ -2690,15 +3019,14 @@ string_equals:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_102
+    je .if_end_103
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_102:
-
-    ; i =
+.if_end_103:
+    ; --- reassign i ---
     mov rax, [rbp - 40]
     push rax
     mov rax, 1
@@ -2706,17 +3034,14 @@ string_equals:
     pop rax
     add rax, rbx
     mov qword [rbp - 40], rax
-
-.if_end_101:
-
-    jmp .while_start_99
-.while_end_99:
-
+.if_end_102:
+    jmp .while_start_100
+.while_end_100:
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2725,27 +3050,24 @@ str_concat:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param s1
     mov qword [rbp - 8], rdi
-    ; init param s2
     mov qword [rbp - 16], rsi
-
-    ; let l1
+    ; --- let l1 ---
+    ; --- call string_length ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 24], rax
-
-    ; let l2
+    ; --- let l2 ---
+    ; --- call string_length ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 32], rax
-
-    ; let buf
+    ; --- let buf ---
+    ; --- call alloc_mem ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 32]
@@ -2761,13 +3083,10 @@ str_concat:
     pop rdi
     call alloc_mem
     mov qword [rbp - 40], rax
-
-    ; let i
+    ; --- let i ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
-.while_start_103:
-    ; while condition
+.while_start_104:
     mov rax, [rbp - 48]
     push rax
     mov rax, [rbp - 24]
@@ -2777,8 +3096,8 @@ str_concat:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .while_end_103
-    ; index assignment
+    je .while_end_104
+    ; --- index assign ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 48]
@@ -2792,8 +3111,7 @@ str_concat:
     pop rbx
     pop rcx
     mov byte [rax + rbx], cl
-
-    ; i =
+    ; --- reassign i ---
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -2801,16 +3119,12 @@ str_concat:
     pop rax
     add rax, rbx
     mov qword [rbp - 48], rax
-
-    jmp .while_start_103
-.while_end_103:
-
-    ; let j
+    jmp .while_start_104
+.while_end_104:
+    ; --- let j ---
     mov rax, 0
     mov qword [rbp - 56], rax
-
-.while_start_104:
-    ; while condition
+.while_start_105:
     mov rax, [rbp - 56]
     push rax
     mov rax, [rbp - 32]
@@ -2820,8 +3134,8 @@ str_concat:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .while_end_104
-    ; index assignment
+    je .while_end_105
+    ; --- index assign ---
     mov rax, [rbp - 16]
     push rax
     mov rax, [rbp - 56]
@@ -2835,8 +3149,7 @@ str_concat:
     pop rbx
     pop rcx
     mov byte [rax + rbx], cl
-
-    ; i =
+    ; --- reassign i ---
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -2844,8 +3157,7 @@ str_concat:
     pop rax
     add rax, rbx
     mov qword [rbp - 48], rax
-
-    ; j =
+    ; --- reassign j ---
     mov rax, [rbp - 56]
     push rax
     mov rax, 1
@@ -2853,11 +3165,9 @@ str_concat:
     pop rax
     add rax, rbx
     mov qword [rbp - 56], rax
-
-    jmp .while_start_104
-.while_end_104:
-
-    ; index assignment
+    jmp .while_start_105
+.while_end_105:
+    ; --- index assign ---
     mov rax, 0
     push rax
     mov rax, [rbp - 48]
@@ -2866,12 +3176,11 @@ str_concat:
     pop rbx
     pop rcx
     mov byte [rax + rbx], cl
-
+    ; --- return ---
     mov rax, [rbp - 40]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2880,18 +3189,15 @@ get_dir_from_path:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param path
     mov qword [rbp - 8], rdi
-
-    ; let len
+    ; --- let len ---
+    ; --- call string_length ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 16], rax
-
-    ; let last_slash
+    ; --- let last_slash ---
     mov rax, 0
     push rax
     mov rax, 1
@@ -2899,13 +3205,10 @@ get_dir_from_path:
     pop rax
     sub rax, rbx
     mov qword [rbp - 24], rax
-
-    ; let i
+    ; --- let i ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-.while_start_105:
-    ; while condition
+.while_start_106:
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 16]
@@ -2915,8 +3218,8 @@ get_dir_from_path:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .while_end_105
-    ; if condition
+    je .while_end_106
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 32]
@@ -2931,14 +3234,12 @@ get_dir_from_path:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_106
-    ; last_slash =
+    je .if_end_107
+    ; --- reassign last_slash ---
     mov rax, [rbp - 32]
     mov qword [rbp - 24], rax
-
-.if_end_106:
-
-    ; i =
+.if_end_107:
+    ; --- reassign i ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 1
@@ -2946,11 +3247,9 @@ get_dir_from_path:
     pop rax
     add rax, rbx
     mov qword [rbp - 32], rax
-
-    jmp .while_start_105
-.while_end_105:
-
-    ; if condition
+    jmp .while_start_106
+.while_end_106:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -2960,19 +3259,25 @@ get_dir_from_path:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .if_end_107
+    je .if_end_108
+    ; --- return ---
     mov rax, str_64
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_107:
-
+.if_end_108:
+    ; --- return ---
+    ; --- call sub_string ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
     push rax
     mov rax, [rbp - 24]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    sub rax, rbx
     push rax
     pop rdx
     pop rsi
@@ -2981,7 +3286,6 @@ get_dir_from_path:
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -2990,18 +3294,15 @@ strip_extension:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param path
     mov qword [rbp - 8], rdi
-
-    ; let len
+    ; --- let len ---
+    ; --- call string_length ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 16], rax
-
-    ; let last_dot
+    ; --- let last_dot ---
     mov rax, 0
     push rax
     mov rax, 1
@@ -3009,13 +3310,10 @@ strip_extension:
     pop rax
     sub rax, rbx
     mov qword [rbp - 24], rax
-
-    ; let i
+    ; --- let i ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-.while_start_108:
-    ; while condition
+.while_start_109:
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 16]
@@ -3025,8 +3323,8 @@ strip_extension:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .while_end_108
-    ; if condition
+    je .while_end_109
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 32]
@@ -3041,14 +3339,12 @@ strip_extension:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_109
-    ; last_dot =
+    je .if_end_110
+    ; --- reassign last_dot ---
     mov rax, [rbp - 32]
     mov qword [rbp - 24], rax
-
-.if_end_109:
-
-    ; i =
+.if_end_110:
+    ; --- reassign i ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 1
@@ -3056,11 +3352,9 @@ strip_extension:
     pop rax
     add rax, rbx
     mov qword [rbp - 32], rax
-
-    jmp .while_start_108
-.while_end_108:
-
-    ; if condition
+    jmp .while_start_109
+.while_end_109:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -3070,15 +3364,14 @@ strip_extension:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .if_end_110
+    je .if_end_111
+    ; --- return ---
     mov rax, [rbp - 8]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_110:
-
-    ; if condition
+.if_end_111:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -3088,14 +3381,15 @@ strip_extension:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_111
+    je .if_end_112
+    ; --- return ---
     mov rax, [rbp - 8]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_111:
-
+.if_end_112:
+    ; --- return ---
+    ; --- call sub_string ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -3114,7 +3408,33 @@ strip_extension:
     mov rsp, rbp
     pop rbp
     ret
+    mov rsp, rbp
+    pop rbp
+    ret
 
+Lexer:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 48
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov [rax + 32], r8
+    mov [rax + 40], r9
     mov rsp, rbp
     pop rbp
     ret
@@ -3123,51 +3443,40 @@ new_lexer:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param input
     mov qword [rbp - 8], rdi
-
-    ; let l
-    mov rdi, 48
-    call alloc_mem
-    push rax
+    ; --- let l ---
+    ; --- call Lexer ---
     mov rax, [rbp - 8]
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
+    push rax
     mov rax, 1
-    pop rbx
-    mov qword [rbx + 32], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 40], rax
-    push rbx
-    pop rax
+    push rax
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call Lexer
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -3176,23 +3485,19 @@ read_char:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param l
     mov qword [rbp - 8], rdi
-
-    ; let inputStr
+    ; --- let inputStr ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     mov qword [rbp - 16], rax
-
-    ; let inputLen
+    ; --- let inputLen ---
+    ; --- call string_length ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 24], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -3203,8 +3508,8 @@ read_char:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_112
-    ; property assignment
+    je .if_end_113
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 32]
     push rax
@@ -3216,17 +3521,14 @@ read_char:
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 32], rcx
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, 0
     push rax
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 40], rcx
-
-.if_end_112:
-
-    ; if condition
+.if_end_113:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -3237,8 +3539,8 @@ read_char:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_113
-    ; property assignment
+    je .if_end_114
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 40]
     push rax
@@ -3250,10 +3552,8 @@ read_char:
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 40], rcx
-
-.if_end_113:
-
-    ; if condition
+.if_end_114:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     push rax
@@ -3264,17 +3564,15 @@ read_char:
     setge al
     movzx rax, al
     cmp rax, 0
-    je .if_end_114
-    ; property assignment
+    je .if_end_115
+    ; --- property assign ---
     mov rax, 0
     push rax
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 24], rcx
-
-.if_end_114:
-
-    ; if condition
+.if_end_115:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     push rax
@@ -3285,8 +3583,8 @@ read_char:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .if_end_115
-    ; property assignment
+    je .if_end_116
+    ; --- property assign ---
     mov rax, [rbp - 16]
     push rax
     mov rax, [rbp - 8]
@@ -3298,18 +3596,15 @@ read_char:
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 24], rcx
-
-.if_end_115:
-
-    ; property assignment
+.if_end_116:
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     push rax
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     push rax
@@ -3321,7 +3616,6 @@ read_char:
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 16], rcx
-
     mov rsp, rbp
     pop rbp
     ret
@@ -3330,23 +3624,19 @@ peek_char:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param l
     mov qword [rbp - 8], rdi
-
-    ; let inputStr
+    ; --- let inputStr ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     mov qword [rbp - 16], rax
-
-    ; let inputLen
+    ; --- let inputLen ---
+    ; --- call string_length ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call string_length
     mov qword [rbp - 24], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     push rax
@@ -3357,14 +3647,14 @@ peek_char:
     setge al
     movzx rax, al
     cmp rax, 0
-    je .if_end_116
+    je .if_end_117
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_116:
-
+.if_end_117:
+    ; --- return ---
     mov rax, [rbp - 16]
     push rax
     mov rax, [rbp - 8]
@@ -3375,7 +3665,6 @@ peek_char:
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -3384,16 +3673,11 @@ skip_whitespace:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param l
     mov qword [rbp - 8], rdi
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 16], rax
-
-.while_start_117:
-    ; while condition
+.while_start_118:
     mov rax, [rbp - 16]
     push rax
     mov rax, 1
@@ -3403,17 +3687,15 @@ skip_whitespace:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_117
-    ; let c
+    je .while_end_118
+    ; --- let c ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     mov qword [rbp - 24], rax
-
-    ; let matched
+    ; --- let matched ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 32
@@ -3423,14 +3705,12 @@ skip_whitespace:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_118
-    ; matched =
+    je .if_end_119
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_118:
-
-    ; if condition
+.if_end_119:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 9
@@ -3440,14 +3720,12 @@ skip_whitespace:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_119
-    ; matched =
+    je .if_end_120
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_119:
-
-    ; if condition
+.if_end_120:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 10
@@ -3457,14 +3735,12 @@ skip_whitespace:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_120
-    ; matched =
+    je .if_end_121
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_120:
-
-    ; if condition
+.if_end_121:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 13
@@ -3474,14 +3750,12 @@ skip_whitespace:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_121
-    ; matched =
+    je .if_end_122
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_121:
-
-    ; if condition
+.if_end_122:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 59
@@ -3491,35 +3765,15 @@ skip_whitespace:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_122
-    ; matched =
+    je .if_end_123
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_122:
-
-    ; if condition
+.if_end_123:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_123
-    mov rax, [rbp - 8]
-    push rax
-    pop rdi
-    call read_char
-
-.if_end_123:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 0
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -3527,15 +3781,30 @@ skip_whitespace:
     movzx rax, al
     cmp rax, 0
     je .if_end_124
-    ; loop =
+    ; --- standalone call ---
+    ; --- call read_char ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call read_char
+.if_end_124:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_125
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 16], rax
-
-.if_end_124:
-
-    jmp .while_start_117
-.while_end_117:
-
+.if_end_125:
+    jmp .while_start_118
+.while_end_118:
     mov rsp, rbp
     pop rbp
     ret
@@ -3544,11 +3813,8 @@ is_letter:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param ch
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 97
@@ -3569,21 +3835,20 @@ is_letter:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
-    je .if_end_125
+    je .if_end_126
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_125:
-
-    ; if condition
+.if_end_126:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 65
@@ -3604,21 +3869,20 @@ is_letter:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
-    je .if_end_126
+    je .if_end_127
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_126:
-
-    ; if condition
+.if_end_127:
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 95
@@ -3628,19 +3892,18 @@ is_letter:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_127
+    je .if_end_128
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_127:
-
+.if_end_128:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -3649,11 +3912,8 @@ is_digit:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param ch
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 48
@@ -3674,25 +3934,24 @@ is_digit:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
-    je .if_end_128
+    je .if_end_129
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_128:
-
+.if_end_129:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -3701,21 +3960,15 @@ read_identifier:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param l
     mov qword [rbp - 8], rdi
-
-    ; let start
+    ; --- let start ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 16], rax
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 24], rax
-
-.while_start_129:
-    ; while condition
+.while_start_130:
     mov rax, [rbp - 24]
     push rax
     mov rax, 1
@@ -3725,12 +3978,12 @@ read_identifier:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_129
-    ; let matched
+    je .while_end_130
+    ; --- let matched ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call is_letter ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -3744,19 +3997,18 @@ read_identifier:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_130
+    je .if_end_131
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; matched =
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_130:
-
-    ; if condition
+.if_end_131:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -3766,8 +4018,9 @@ read_identifier:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_131
-    ; if condition
+    je .if_end_132
+    ; --- if ---
+    ; --- call is_digit ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -3781,21 +4034,19 @@ read_identifier:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_132
+    je .if_end_133
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; matched =
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
+.if_end_133:
 .if_end_132:
-
-.if_end_131:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -3805,16 +4056,15 @@ read_identifier:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_133
-    ; loop =
+    je .if_end_134
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-.if_end_133:
-
-    jmp .while_start_129
-.while_end_129:
-
+.if_end_134:
+    jmp .while_start_130
+.while_end_130:
+    ; --- return ---
+    ; --- call sub_string ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     push rax
@@ -3835,7 +4085,6 @@ read_identifier:
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -3844,44 +4093,25 @@ next_token:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param l
     mov qword [rbp - 8], rdi
-
+    ; --- standalone call ---
+    ; --- call skip_whitespace ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call skip_whitespace
-
-    ; let ch
+    ; --- let ch ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     mov qword [rbp - 16], rax
-
-    ; let tok
+    ; --- let tok ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-    ; let is_multi
+    ; --- let is_multi ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
-    push rax
-    mov rax, 61
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_134
-    ; if condition
-    mov rax, [rbp - 8]
-    push rax
-    pop rdi
-    call peek_char
     push rax
     mov rax, 61
     mov rbx, rax
@@ -3891,33 +4121,43 @@ next_token:
     movzx rax, al
     cmp rax, 0
     je .if_end_135
+    ; --- if ---
+    ; --- call peek_char ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call peek_char
+    push rax
+    mov rax, 61
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_136
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 21
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_65
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_135:
-
-    ; if condition
+.if_end_136:
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -3930,34 +4170,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_136
+    je .if_end_137
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 44
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_66
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_136:
-
-    ; if condition
+.if_end_137:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -3967,37 +4201,31 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_137
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_138
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 10
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_67
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_137:
-
+.if_end_138:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_134:
-
-    ; if condition
+.if_end_135:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 33
@@ -4007,51 +4235,15 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_138
-    ; if condition
+    je .if_end_139
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call peek_char
     push rax
     mov rax, 61
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_139
-    mov rax, [rbp - 8]
-    push rax
-    pop rdi
-    call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
-    mov rax, 22
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, str_68
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
-    mov qword [rbp - 24], rax
-
-    ; is_multi =
-    mov rax, 1
-    mov qword [rbp - 32], rax
-
-.if_end_139:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 0
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -4059,39 +4251,30 @@ next_token:
     movzx rax, al
     cmp rax, 0
     je .if_end_140
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
-    mov rax, 20
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, str_69
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
-    mov qword [rbp - 24], rax
-
-.if_end_140:
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_138:
-
-    ; if condition
-    mov rax, [rbp - 16]
+    ; --- reassign tok ---
+    ; --- call Token ---
+    mov rax, 22
     push rax
-    mov rax, 60
+    mov rax, str_68
+    push rax
+    pop rsi
+    pop rdi
+    call Token
+    mov qword [rbp - 24], rax
+    ; --- reassign is_multi ---
+    mov rax, 1
+    mov qword [rbp - 32], rax
+.if_end_140:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 0
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -4099,7 +4282,42 @@ next_token:
     movzx rax, al
     cmp rax, 0
     je .if_end_141
-    ; if condition
+    ; --- reassign tok ---
+    ; --- call Token ---
+    mov rax, 20
+    push rax
+    mov rax, str_69
+    push rax
+    pop rsi
+    pop rdi
+    call Token
+    mov qword [rbp - 24], rax
+.if_end_141:
+    ; --- standalone call ---
+    ; --- call read_char ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call read_char
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_139:
+    ; --- if ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, 60
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_142
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4112,34 +4330,29 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_142
+    je .if_end_143
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 25
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_70
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_142:
-
-    ; if condition
+.if_end_143:
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4152,34 +4365,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_143
+    je .if_end_144
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 31
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_71
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_143:
-
-    ; if condition
+.if_end_144:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4189,37 +4396,31 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_144
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_145
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 23
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_72
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_144:
-
+.if_end_145:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_141:
-
-    ; if condition
+.if_end_142:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 62
@@ -4229,8 +4430,9 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_145
-    ; if condition
+    je .if_end_146
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4243,34 +4445,29 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_146
+    je .if_end_147
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 26
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_73
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_146:
-
-    ; if condition
+.if_end_147:
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4283,34 +4480,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_147
+    je .if_end_148
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 32
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_74
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_147:
-
-    ; if condition
+.if_end_148:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4320,52 +4511,32 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_148
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_149
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 24
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_75
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_148:
-
+.if_end_149:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_145:
-
-    ; if condition
+.if_end_146:
+    ; --- if ---
     mov rax, [rbp - 16]
-    push rax
-    mov rax, 43
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_149
-    ; if condition
-    mov rax, [rbp - 8]
-    push rax
-    pop rdi
-    call peek_char
     push rax
     mov rax, 43
     mov rbx, rax
@@ -4375,33 +4546,43 @@ next_token:
     movzx rax, al
     cmp rax, 0
     je .if_end_150
+    ; --- if ---
+    ; --- call peek_char ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call peek_char
+    push rax
+    mov rax, 43
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_151
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 16
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_76
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_150:
-
-    ; if condition
+.if_end_151:
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4414,34 +4595,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_151
+    je .if_end_152
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 33
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_77
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_151:
-
-    ; if condition
+.if_end_152:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4451,52 +4626,32 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_152
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_153
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 11
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_78
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_152:
-
+.if_end_153:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_149:
-
-    ; if condition
+.if_end_150:
+    ; --- if ---
     mov rax, [rbp - 16]
-    push rax
-    mov rax, 45
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_153
-    ; if condition
-    mov rax, [rbp - 8]
-    push rax
-    pop rdi
-    call peek_char
     push rax
     mov rax, 45
     mov rbx, rax
@@ -4506,33 +4661,43 @@ next_token:
     movzx rax, al
     cmp rax, 0
     je .if_end_154
+    ; --- if ---
+    ; --- call peek_char ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call peek_char
+    push rax
+    mov rax, 45
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_155
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 17
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_79
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_154:
-
-    ; if condition
+.if_end_155:
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4545,34 +4710,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_155
+    je .if_end_156
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 34
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_80
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_155:
-
-    ; if condition
+.if_end_156:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4582,37 +4741,31 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_156
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_157
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 12
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_81
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_156:
-
+.if_end_157:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_153:
-
-    ; if condition
+.if_end_154:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 42
@@ -4622,8 +4775,9 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_157
-    ; if condition
+    je .if_end_158
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4636,34 +4790,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_158
+    je .if_end_159
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 35
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_82
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_158:
-
-    ; if condition
+.if_end_159:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4673,52 +4821,32 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_159
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_160
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 13
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_83
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_159:
-
+.if_end_160:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_157:
-
-    ; if condition
+.if_end_158:
+    ; --- if ---
     mov rax, [rbp - 16]
-    push rax
-    mov rax, 38
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_160
-    ; if condition
-    mov rax, [rbp - 8]
-    push rax
-    pop rdi
-    call peek_char
     push rax
     mov rax, 38
     mov rbx, rax
@@ -4728,33 +4856,42 @@ next_token:
     movzx rax, al
     cmp rax, 0
     je .if_end_161
+    ; --- if ---
+    ; --- call peek_char ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call peek_char
+    push rax
+    mov rax, 38
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_162
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 18
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_84
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_161:
-
-    ; if condition
+.if_end_162:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4764,37 +4901,31 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_162
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_163
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 27
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_85
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_162:
-
+.if_end_163:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_160:
-
-    ; if condition
+.if_end_161:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 124
@@ -4804,8 +4935,9 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_163
-    ; if condition
+    je .if_end_164
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -4818,34 +4950,28 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_164
+    je .if_end_165
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 19
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_86
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-    ; is_multi =
+    ; --- reassign is_multi ---
     mov rax, 1
     mov qword [rbp - 32], rax
-
-.if_end_164:
-
-    ; if condition
+.if_end_165:
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -4855,37 +4981,31 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_165
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_166
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 28
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_87
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_165:
-
+.if_end_166:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_163:
-
-    ; if condition
+.if_end_164:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 34
@@ -4895,23 +5015,21 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_166
+    je .if_end_167
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; let start
+    ; --- let start ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 40], rax
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 48], rax
-
-.while_start_167:
-    ; while condition
+.while_start_168:
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -4921,12 +5039,11 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_167
-    ; let is_escaped
+    je .while_end_168
+    ; --- let is_escaped ---
     mov rax, 0
     mov qword [rbp - 56], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -4937,19 +5054,18 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_168
+    je .if_end_169
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; is_escaped =
+    ; --- reassign is_escaped ---
     mov rax, 1
     mov qword [rbp - 56], rax
-
-.if_end_168:
-
-    ; if condition
+.if_end_169:
+    ; --- if ---
     mov rax, [rbp - 56]
     push rax
     mov rax, 0
@@ -4959,8 +5075,8 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_169
-    ; if condition
+    je .if_end_170
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -4971,14 +5087,12 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_170
-    ; loop =
+    je .if_end_171
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
-.if_end_170:
-
-    ; if condition
+.if_end_171:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -4989,16 +5103,13 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_171
-    ; loop =
+    je .if_end_172
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
-.if_end_171:
-
-.if_end_169:
-
-    ; if condition
+.if_end_172:
+.if_end_170:
+    ; --- if ---
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -5008,18 +5119,18 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_172
+    je .if_end_173
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-.if_end_172:
-
-    jmp .while_start_167
-.while_end_167:
-
-    ; let str_val
+.if_end_173:
+    jmp .while_start_168
+.while_end_168:
+    ; --- let str_val ---
+    ; --- call sub_string ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     push rax
@@ -5038,31 +5149,26 @@ next_token:
     pop rdi
     call sub_string
     mov qword [rbp - 64], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call Token ---
     mov rax, 5
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 64]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_166:
-
-    ; if condition
+.if_end_167:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 47
@@ -5072,8 +5178,9 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_173
-    ; if condition
+    je .if_end_174
+    ; --- if ---
+    ; --- call peek_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -5086,13 +5193,11 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_174
-    ; let c_loop
+    je .if_end_175
+    ; --- let c_loop ---
     mov rax, 1
     mov qword [rbp - 72], rax
-
-.while_start_175:
-    ; while condition
+.while_start_176:
     mov rax, [rbp - 72]
     push rax
     mov rax, 1
@@ -5102,13 +5207,14 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_175
+    je .while_end_176
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -5119,14 +5225,12 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_176
-    ; c_loop =
+    je .if_end_177
+    ; --- reassign c_loop ---
     mov rax, 0
     mov qword [rbp - 72], rax
-
-.if_end_176:
-
-    ; if condition
+.if_end_177:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -5137,16 +5241,15 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_177
-    ; c_loop =
+    je .if_end_178
+    ; --- reassign c_loop ---
     mov rax, 0
     mov qword [rbp - 72], rax
-
-.if_end_177:
-
-    jmp .while_start_175
-.while_end_175:
-
+.if_end_178:
+    jmp .while_start_176
+.while_end_176:
+    ; --- return ---
+    ; --- call next_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -5154,37 +5257,30 @@ next_token:
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_174:
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+.if_end_175:
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 14
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_88
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_173:
-
-    ; if condition
+.if_end_174:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 37
@@ -5194,35 +5290,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_178
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_179
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 15
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_89
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_178:
-
-    ; if condition
+.if_end_179:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 94
@@ -5232,35 +5323,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_179
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_180
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 29
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_90
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_179:
-
-    ; if condition
+.if_end_180:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 126
@@ -5270,35 +5356,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_180
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_181
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 30
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_91
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_180:
-
-    ; if condition
+.if_end_181:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 46
@@ -5308,35 +5389,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_181
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_182
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 43
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_92
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_181:
-
-    ; if condition
+.if_end_182:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 58
@@ -5346,35 +5422,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_182
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_183
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 46
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_93
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_182:
-
-    ; if condition
+.if_end_183:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 91
@@ -5384,35 +5455,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_183
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_184
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 40
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_94
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_183:
-
-    ; if condition
+.if_end_184:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 93
@@ -5422,35 +5488,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_184
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_185
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 41
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_95
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_184:
-
-    ; if condition
+.if_end_185:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 40
@@ -5460,35 +5521,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_185
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_186
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 36
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_96
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_185:
-
-    ; if condition
+.if_end_186:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 41
@@ -5498,35 +5554,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_186
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_187
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 37
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_97
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_186:
-
-    ; if condition
+.if_end_187:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 44
@@ -5536,35 +5587,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_187
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_188
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 42
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_98
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_187:
-
-    ; if condition
+.if_end_188:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 123
@@ -5574,35 +5620,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_188
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_189
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 38
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_99
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_188:
-
-    ; if condition
+.if_end_189:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 125
@@ -5612,35 +5653,30 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_189
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_190
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 39
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_100
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_189:
-
-    ; if condition
+.if_end_190:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 0
@@ -5650,30 +5686,25 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_190
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_191
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_101
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_190:
-
-    ; if condition
+.if_end_191:
+    ; --- if ---
+    ; --- call is_letter ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
@@ -5686,44 +5717,39 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_191
-    ; let literal
+    je .if_end_192
+    ; --- let literal ---
+    ; --- call read_identifier ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_identifier
     mov qword [rbp - 80], rax
-
-    ; let type
+    ; --- let type ---
+    ; --- call lookup_ident ---
     mov rax, [rbp - 80]
     push rax
     pop rdi
     call lookup_ident
     mov qword [rbp - 88], rax
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, [rbp - 88]
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 80]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_191:
-
-    ; if condition
+.if_end_192:
+    ; --- if ---
+    ; --- call is_digit ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
@@ -5736,18 +5762,16 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_192
-    ; let start
+    je .if_end_193
+    ; --- let start ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 96], rax
-
-    ; let is_float
+    ; --- let is_float ---
     mov rax, 0
     mov qword [rbp - 104], rax
-
-.while_start_193:
-    ; while condition
+.while_start_194:
+    ; --- call is_digit ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -5772,15 +5796,12 @@ next_token:
     movzx rax, al
     mov rbx, rax
     pop rax
-    test rax, rax
-    setne al
-    test rbx, rbx
-    setne bl
-    or al, bl
+    or rax, rbx
+    setnz al
     movzx rax, al
     cmp rax, 0
-    je .while_end_193
-    ; if condition
+    je .while_end_194
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 24]
     push rax
@@ -5791,22 +5812,21 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_194
-    ; is_float =
+    je .if_end_195
+    ; --- reassign is_float ---
     mov rax, 1
     mov qword [rbp - 104], rax
-
-.if_end_194:
-
+.if_end_195:
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
-    jmp .while_start_193
-.while_end_193:
-
-    ; let literal
+    jmp .while_start_194
+.while_end_194:
+    ; --- let literal ---
+    ; --- call sub_string ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     push rax
@@ -5825,8 +5845,7 @@ next_token:
     pop rdi
     call sub_string
     mov qword [rbp - 112], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 104]
     push rax
     mov rax, 1
@@ -5836,25 +5855,19 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_195
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_196
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 4
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 112]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_195:
-
-    ; if condition
+.if_end_196:
+    ; --- if ---
     mov rax, [rbp - 104]
     push rax
     mov rax, 0
@@ -5864,56 +5877,825 @@ next_token:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_196
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    je .if_end_197
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 3
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 112]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
-.if_end_196:
-
+.if_end_197:
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_192:
-
-    ; tok =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+.if_end_193:
+    ; --- reassign tok ---
+    ; --- call Token ---
     mov rax, 1
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_102
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call Token
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call read_char ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call read_char
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
+    mov rsp, rbp
+    pop rbp
+    ret
 
+ASTProgram:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 16
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTLetStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTConstStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTStructDecl:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTStructField:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTPropertyAssign:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 40
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov [rax + 32], r8
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTIndexAssign:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTReassignStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTCallStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTPrintStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTMatchStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 40
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov [rax + 32], r8
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTMatchCase:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTImportStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTIfStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 40
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov [rax + 32], r8
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTWhileStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTFunctionDecl:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 40
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov [rax + 32], r8
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTReturnStatement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTIdentifier:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 16
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTInteger:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 16
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTFloat:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 16
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTBoolean:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 16
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTString:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTPropertyAccess:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTInfixExpression:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTPrefixExpression:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTPostfixExpression:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTArrayLiteral:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTArrayElement:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTCallExpression:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTParameter:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ASTArgument:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+Parser:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
     mov rsp, rbp
     pop rbp
     ret
@@ -5922,10 +6704,9 @@ peek_precedence:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
+    ; --- return ---
+    ; --- call token_precedence ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -5935,7 +6716,6 @@ peek_precedence:
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -5944,10 +6724,9 @@ cur_precedence:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
+    ; --- return ---
+    ; --- call token_precedence ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -5957,7 +6736,6 @@ cur_precedence:
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -5966,18 +6744,15 @@ is_infix_operator:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param type
     mov qword [rbp - 8], rdi
-
-    ; let p
+    ; --- let p ---
+    ; --- call token_precedence ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call token_precedence
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 1
@@ -5987,8 +6762,8 @@ is_infix_operator:
     setg al
     movzx rax, al
     cmp rax, 0
-    je .if_end_197
-    ; if condition
+    je .if_end_198
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 11
@@ -5998,17 +6773,15 @@ is_infix_operator:
     setle al
     movzx rax, al
     cmp rax, 0
-    je .if_end_198
+    je .if_end_199
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
+.if_end_199:
 .if_end_198:
-
-.if_end_197:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 40
@@ -6018,19 +6791,18 @@ is_infix_operator:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_199
+    je .if_end_200
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_199:
-
+.if_end_200:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6039,11 +6811,8 @@ is_postfix_operator:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param type
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 16
@@ -6063,26 +6832,22 @@ is_postfix_operator:
     movzx rax, al
     mov rbx, rax
     pop rax
-    test rax, rax
-    setne al
-    test rbx, rbx
-    setne bl
-    or al, bl
+    or rax, rbx
+    setnz al
     movzx rax, al
     cmp rax, 0
-    je .if_end_200
+    je .if_end_201
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_200:
-
+.if_end_201:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6091,44 +6856,37 @@ new_parser:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param lexer
     mov qword [rbp - 8], rdi
-
-    ; let p
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- let p ---
+    ; --- call Parser ---
     mov rax, [rbp - 8]
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call Parser
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6137,19 +6895,16 @@ next_parser_token:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     push rax
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call next_token ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     push rax
@@ -6159,7 +6914,6 @@ next_parser_token:
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 16], rcx
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6168,18 +6922,13 @@ expect_peek:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-    ; init param expectedType
     mov qword [rbp - 16], rsi
-
-    ; let peekTok
+    ; --- let peekTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov qword [rbp - 24], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -6190,26 +6939,27 @@ expect_peek:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_201
+    je .if_end_202
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_201:
-
-    ; io.print
+.if_end_202:
+    ; --- print() ---
     mov rax, str_103
     call print_string
-
-    ; io.print
+    ; --- print() ---
+    ; --- call str_concat ---
     mov rax, str_104
     push rax
+    ; --- call token_string ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
@@ -6218,11 +6968,12 @@ expect_peek:
     pop rsi
     pop rdi
     call str_concat
-    call print_string
-
-    ; io.print
+    call print_int
+    ; --- print() ---
+    ; --- call str_concat ---
     mov rax, str_105
     push rax
+    ; --- call token_string ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -6232,13 +6983,12 @@ expect_peek:
     pop rsi
     pop rdi
     call str_concat
-    call print_string
-
+    call print_int
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6247,11 +6997,9 @@ parse_block:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 38
@@ -6267,29 +7015,26 @@ parse_block:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_202
+    je .if_end_203
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_202:
-
+.if_end_203:
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let head
+    ; --- let head ---
     mov rax, 0
     mov qword [rbp - 16], rax
-
-    ; let current_node
+    ; --- let current_node ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-.while_start_203:
-    ; while condition
+.while_start_204:
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -6314,21 +7059,21 @@ parse_block:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
-    je .while_end_203
-    ; let stmt
+    je .while_end_204
+    ; --- let stmt ---
+    ; --- call parse_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call parse_statement
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -6338,8 +7083,8 @@ parse_block:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_204
-    ; if condition
+    je .if_end_205
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 0
@@ -6349,18 +7094,15 @@ parse_block:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_205
-    ; head =
+    je .if_end_206
+    ; --- reassign head ---
     mov rax, [rbp - 32]
     mov qword [rbp - 16], rax
-
-    ; current_node =
+    ; --- reassign current_node ---
     mov rax, [rbp - 32]
     mov qword [rbp - 24], rax
-
-.if_end_205:
-
-    ; if condition
+.if_end_206:
+    ; --- if ---
     mov rax, [rbp - 16]
     push rax
     mov rax, 0
@@ -6370,8 +7112,8 @@ parse_block:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_206
-    ; if condition
+    je .if_end_207
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 32]
@@ -6381,37 +7123,32 @@ parse_block:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_207
-    ; property assignment
+    je .if_end_208
+    ; --- property assign ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_node =
+    ; --- reassign current_node ---
     mov rax, [rbp - 32]
     mov qword [rbp - 24], rax
-
+.if_end_208:
 .if_end_207:
-
-.if_end_206:
-
-.if_end_204:
-
+.if_end_205:
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    jmp .while_start_203
-.while_end_203:
-
+    jmp .while_start_204
+.while_end_204:
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6420,38 +7157,28 @@ parse_function_decl:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 40
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTFunctionDecl ---
     mov rax, 17
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 32], rax
-    push rbx
-    pop rax
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTFunctionDecl
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 2
@@ -6467,15 +7194,14 @@ parse_function_decl:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_208
+    je .if_end_209
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_208:
-
-    ; property assignment
+.if_end_209:
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
@@ -6483,8 +7209,8 @@ parse_function_decl:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 36
@@ -6500,29 +7226,26 @@ parse_function_decl:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_209
+    je .if_end_210
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_209:
-
+.if_end_210:
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let params_head
+    ; --- let params_head ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-    ; let current_param
+    ; --- let current_param ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-.while_start_210:
-    ; while condition
+.while_start_211:
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -6547,35 +7270,29 @@ parse_function_decl:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
-    je .while_end_210
-    ; let p_node
-    mov rdi, 24
-    call alloc_mem
+    je .while_end_211
+    ; --- let p_node ---
+    ; --- call ASTParameter ---
+    mov rax, 0
     push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTParameter
     mov qword [rbp - 40], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -6585,18 +7302,15 @@ parse_function_decl:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_211
-    ; params_head =
+    je .if_end_212
+    ; --- reassign params_head ---
     mov rax, [rbp - 40]
     mov qword [rbp - 24], rax
-
-    ; current_param =
+    ; --- reassign current_param ---
     mov rax, [rbp - 40]
     mov qword [rbp - 32], rax
-
-.if_end_211:
-
-    ; if condition
+.if_end_212:
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -6606,8 +7320,8 @@ parse_function_decl:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_212
-    ; if condition
+    je .if_end_213
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 40]
@@ -6617,23 +7331,19 @@ parse_function_decl:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_213
-    ; property assignment
+    je .if_end_214
+    ; --- property assign ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 32]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_param =
+    ; --- reassign current_param ---
     mov rax, [rbp - 40]
     mov qword [rbp - 32], rax
-
+.if_end_214:
 .if_end_213:
-
-.if_end_212:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -6645,15 +7355,15 @@ parse_function_decl:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_214
+    je .if_end_215
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-.if_end_214:
-
-    ; if condition
+.if_end_215:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -6665,25 +7375,24 @@ parse_function_decl:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_215
+    je .if_end_216
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-.if_end_215:
-
-    jmp .while_start_210
-.while_end_210:
-
-    ; property assignment
+.if_end_216:
+    jmp .while_start_211
+.while_end_211:
+    ; --- property assign ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_block ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -6692,12 +7401,11 @@ parse_function_decl:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 32], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6706,35 +7414,28 @@ parse_return_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTReturnStatement ---
     mov rax, 18
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTReturnStatement
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -6746,12 +7447,11 @@ parse_return_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -6760,32 +7460,22 @@ parse_call_expression:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-    ; init param left_node
     mov qword [rbp - 16], rsi
-
-    ; let stmt
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTCallExpression ---
     mov rax, 19
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, str_106
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTCallExpression
     mov qword [rbp - 24], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -6796,18 +7486,16 @@ parse_call_expression:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_216
-    ; property assignment
+    je .if_end_217
+    ; --- property assign ---
     mov rax, [rbp - 16]
     mov rax, [rax + 8]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 8], rcx
-
-.if_end_216:
-
-    ; if condition
+.if_end_217:
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -6818,50 +7506,22 @@ parse_call_expression:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_217
-    ; property assignment
+    je .if_end_218
+    ; --- property assign ---
     mov rax, [rbp - 16]
     mov rax, [rax + 16]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, str_107
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_218
-    ; property assignment
-    mov rax, str_108
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 8], rcx
-
 .if_end_218:
-
-.if_end_217:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -6874,37 +7534,34 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_219
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_219:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let args_head
+    ; --- let args_head ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; let current_arg
+    ; --- let current_arg ---
     mov rax, 0
     mov qword [rbp - 40], rax
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 48], rax
-
 .while_start_220:
-    ; while condition
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -6915,7 +7572,8 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .while_end_220
-    ; let expr
+    ; --- let expr ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -6924,27 +7582,20 @@ parse_call_expression:
     pop rdi
     call parse_expression
     mov qword [rbp - 56], rax
-
-    ; let arg_node
-    mov rdi, 24
-    call alloc_mem
+    ; --- let arg_node ---
+    ; --- call ASTArgument ---
+    mov rax, 0
     push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 56]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTArgument
     mov qword [rbp - 64], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -6955,17 +7606,14 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_221
-    ; args_head =
+    ; --- reassign args_head ---
     mov rax, [rbp - 64]
     mov qword [rbp - 32], rax
-
-    ; current_arg =
+    ; --- reassign current_arg ---
     mov rax, [rbp - 64]
     mov qword [rbp - 40], rax
-
 .if_end_221:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -6976,7 +7624,7 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_222
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 64]
@@ -6987,26 +7635,21 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_223
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 64]
     push rax
     mov rax, [rbp - 40]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_arg =
+    ; --- reassign current_arg ---
     mov rax, [rbp - 64]
     mov qword [rbp - 40], rax
-
 .if_end_223:
-
 .if_end_222:
-
-    ; let hit_comma
+    ; --- let hit_comma ---
     mov rax, 0
     mov qword [rbp - 72], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -7019,23 +7662,23 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_224
-    ; hit_comma =
+    ; --- reassign hit_comma ---
     mov rax, 1
     mov qword [rbp - 72], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
 .if_end_224:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 72]
     push rax
     mov rax, 0
@@ -7046,16 +7689,14 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_225
-    ; loop =
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
 .if_end_225:
-
     jmp .while_start_220
 .while_end_220:
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 37
@@ -7072,25 +7713,23 @@ parse_call_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_226
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_226:
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -7099,42 +7738,30 @@ parse_array_literal:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTArrayLiteral ---
     mov rax, 16
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTArrayLiteral
     mov qword [rbp - 16], rax
-
-    ; let head
+    ; --- let head ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-    ; let current_node
+    ; --- let current_node ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; let length
+    ; --- let length ---
     mov rax, 0
     mov qword [rbp - 40], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -7147,36 +7774,34 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_227
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, 0
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_227:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 48], rax
-
 .while_start_228:
-    ; while condition
     mov rax, [rbp - 48]
     push rax
     mov rax, 1
@@ -7187,7 +7812,8 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .while_end_228
-    ; let expr
+    ; --- let expr ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -7196,27 +7822,20 @@ parse_array_literal:
     pop rdi
     call parse_expression
     mov qword [rbp - 56], rax
-
-    ; let elem
-    mov rdi, 24
-    call alloc_mem
+    ; --- let elem ---
+    ; --- call ASTArrayElement ---
+    mov rax, 0
     push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 56]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTArrayElement
     mov qword [rbp - 64], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -7227,17 +7846,14 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_229
-    ; head =
+    ; --- reassign head ---
     mov rax, [rbp - 64]
     mov qword [rbp - 24], rax
-
-    ; current_node =
+    ; --- reassign current_node ---
     mov rax, [rbp - 64]
     mov qword [rbp - 32], rax
-
 .if_end_229:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -7248,7 +7864,7 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_230
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 64]
@@ -7259,22 +7875,18 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_231
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 64]
     push rax
     mov rax, [rbp - 32]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_node =
+    ; --- reassign current_node ---
     mov rax, [rbp - 64]
     mov qword [rbp - 32], rax
-
 .if_end_231:
-
 .if_end_230:
-
-    ; length =
+    ; --- reassign length ---
     mov rax, [rbp - 40]
     push rax
     mov rax, 1
@@ -7282,12 +7894,10 @@ parse_array_literal:
     pop rax
     add rax, rbx
     mov qword [rbp - 40], rax
-
-    ; let hit_comma
+    ; --- let hit_comma ---
     mov rax, 0
     mov qword [rbp - 72], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -7300,23 +7910,23 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_232
-    ; hit_comma =
+    ; --- reassign hit_comma ---
     mov rax, 1
     mov qword [rbp - 72], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
 .if_end_232:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 72]
     push rax
     mov rax, 0
@@ -7327,16 +7937,14 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_233
-    ; loop =
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
 .if_end_233:
-
     jmp .while_start_228
 .while_end_228:
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 41
@@ -7353,32 +7961,29 @@ parse_array_literal:
     movzx rax, al
     cmp rax, 0
     je .if_end_234
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_234:
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -7387,16 +7992,15 @@ parse_grouped_expression:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let exp
+    ; --- let exp ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -7405,8 +8009,8 @@ parse_grouped_expression:
     pop rdi
     call parse_expression
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 37
@@ -7423,18 +8027,17 @@ parse_grouped_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_235
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_235:
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -7443,26 +8046,23 @@ parse_prefix_expression:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let curTok
+    ; --- let curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 16], rax
-
-    ; let operator_literal
+    ; --- let operator_literal ---
     mov rax, [rbp - 16]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let right_node
+    ; --- let right_node ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 12
@@ -7471,27 +8071,21 @@ parse_prefix_expression:
     pop rdi
     call parse_expression
     mov qword [rbp - 32], rax
-
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTPrefixExpression ---
     mov rax, 6
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTPrefixExpression
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -7500,42 +8094,31 @@ parse_postfix_expression:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-    ; init param left_node
     mov qword [rbp - 16], rsi
-
-    ; let curTok
+    ; --- let curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-    ; let operator_literal
+    ; --- let operator_literal ---
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     mov qword [rbp - 32], rax
-
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTPostfixExpression ---
     mov rax, 7
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 16]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTPostfixExpression
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -7544,42 +8127,37 @@ parse_infix_expression:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-    ; init param left_node
     mov qword [rbp - 16], rsi
-
-    ; let curTok
+    ; --- let curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-    ; let operator_literal
+    ; --- let operator_literal ---
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     mov qword [rbp - 32], rax
-
-    ; let precedence
+    ; --- let precedence ---
+    ; --- call cur_precedence ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call cur_precedence
     mov qword [rbp - 40], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let right_node
+    ; --- let right_node ---
     mov rax, 0
     mov qword [rbp - 48], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 32]
     push rax
-    mov rax, str_109
+    mov rax, str_107
     push rax
     pop rsi
     pop rdi
@@ -7593,7 +8171,8 @@ parse_infix_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_236
-    ; right_node =
+    ; --- reassign right_node ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -7602,8 +8181,8 @@ parse_infix_expression:
     pop rdi
     call parse_expression
     mov qword [rbp - 48], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 41
@@ -7620,19 +8199,18 @@ parse_infix_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_237
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_237:
-
 .if_end_236:
-
-    ; if condition
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 32]
     push rax
-    mov rax, str_110
+    mov rax, str_108
     push rax
     pop rsi
     pop rdi
@@ -7646,7 +8224,8 @@ parse_infix_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_238
-    ; right_node =
+    ; --- reassign right_node ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 40]
@@ -7655,33 +8234,25 @@ parse_infix_expression:
     pop rdi
     call parse_expression
     mov qword [rbp - 48], rax
-
 .if_end_238:
-
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTInfixExpression ---
     mov rax, 5
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 16]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, [rbp - 48]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTInfixExpression
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -7690,22 +8261,16 @@ parse_expression:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-    ; init param precedence
     mov qword [rbp - 16], rsi
-
-    ; let curTok
+    ; --- let curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-    ; let left_node
+    ; --- let left_node ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7717,25 +8282,19 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_239
-    ; left_node =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTIdentifier ---
     mov rax, 3
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTIdentifier
     mov qword [rbp - 32], rax
-
 .if_end_239:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7747,25 +8306,19 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_240
-    ; left_node =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTInteger ---
     mov rax, 4
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTInteger
     mov qword [rbp - 32], rax
-
 .if_end_240:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7777,25 +8330,19 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_241
-    ; left_node =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTFloat ---
     mov rax, 22
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTFloat
     mov qword [rbp - 32], rax
-
 .if_end_241:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7807,24 +8354,18 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_242
-    ; left_node =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTBoolean ---
     mov rax, 23
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 1
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTBoolean
     mov qword [rbp - 32], rax
-
 .if_end_242:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7836,24 +8377,18 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_243
-    ; left_node =
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTBoolean ---
     mov rax, 23
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTBoolean
     mov qword [rbp - 32], rax
-
 .if_end_243:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7865,29 +8400,22 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_244
-    ; left_node =
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTString ---
     mov rax, 12
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    mov rax, str_111
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    mov rax, str_109
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTString
     mov qword [rbp - 32], rax
-
 .if_end_244:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7899,16 +8427,15 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_245
-    ; left_node =
+    ; --- reassign left_node ---
+    ; --- call parse_array_literal ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call parse_array_literal
     mov qword [rbp - 32], rax
-
 .if_end_245:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7920,16 +8447,15 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_246
-    ; left_node =
+    ; --- reassign left_node ---
+    ; --- call parse_grouped_expression ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call parse_grouped_expression
     mov qword [rbp - 32], rax
-
 .if_end_246:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -7951,11 +8477,8 @@ parse_expression:
     movzx rax, al
     mov rbx, rax
     pop rax
-    test rax, rax
-    setne al
-    test rbx, rbx
-    setne bl
-    or al, bl
+    or rax, rbx
+    setnz al
     movzx rax, al
     push rax
     mov rax, [rbp - 24]
@@ -7969,11 +8492,8 @@ parse_expression:
     movzx rax, al
     mov rbx, rax
     pop rax
-    test rax, rax
-    setne al
-    test rbx, rbx
-    setne bl
-    or al, bl
+    or rax, rbx
+    setnz al
     movzx rax, al
     push rax
     mov rax, [rbp - 24]
@@ -7987,24 +8507,20 @@ parse_expression:
     movzx rax, al
     mov rbx, rax
     pop rax
-    test rax, rax
-    setne al
-    test rbx, rbx
-    setne bl
-    or al, bl
+    or rax, rbx
+    setnz al
     movzx rax, al
     cmp rax, 0
     je .if_end_247
-    ; left_node =
+    ; --- reassign left_node ---
+    ; --- call parse_prefix_expression ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call parse_prefix_expression
     mov qword [rbp - 32], rax
-
 .if_end_247:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -8015,23 +8531,19 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_248
-    ; io.print
-    mov rax, str_112
+    ; --- print() ---
+    mov rax, str_110
     call print_string
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_248:
-
-    ; let loop
+    ; --- let loop ---
     mov rax, 1
     mov qword [rbp - 40], rax
-
 .while_start_249:
-    ; while condition
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -8045,6 +8557,7 @@ parse_expression:
     push rax
     mov rax, [rbp - 16]
     push rax
+    ; --- call peek_precedence ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -8057,11 +8570,11 @@ parse_expression:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     push rax
     mov rax, [rbp - 40]
     push rax
@@ -8074,24 +8587,22 @@ parse_expression:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
     je .while_end_249
-    ; let peekType
+    ; --- let peekType ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
     mov qword [rbp - 48], rax
-
-    ; let matched
+    ; --- let matched ---
     mov rax, 0
     mov qword [rbp - 56], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 48]
     push rax
     mov rax, 43
@@ -8102,44 +8613,38 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_250
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; left_node =
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- reassign left_node ---
+    ; --- call ASTPropertyAccess ---
     mov rax, 24
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTPropertyAccess
     mov qword [rbp - 32], rax
-
-    ; matched =
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 56], rax
-
 .if_end_250:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 56]
     push rax
     mov rax, 0
@@ -8150,7 +8655,7 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_251
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 48]
     push rax
     mov rax, 36
@@ -8161,7 +8666,8 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_252
-    ; left_node =
+    ; --- reassign left_node ---
+    ; --- call parse_call_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 32]
@@ -8170,16 +8676,12 @@ parse_expression:
     pop rdi
     call parse_call_expression
     mov qword [rbp - 32], rax
-
-    ; matched =
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 56], rax
-
 .if_end_252:
-
 .if_end_251:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 56]
     push rax
     mov rax, 0
@@ -8190,7 +8692,8 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_253
-    ; if condition
+    ; --- if ---
+    ; --- call is_infix_operator ---
     mov rax, [rbp - 48]
     push rax
     pop rdi
@@ -8204,12 +8707,14 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_254
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; left_node =
+    ; --- reassign left_node ---
+    ; --- call parse_infix_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 32]
@@ -8218,16 +8723,12 @@ parse_expression:
     pop rdi
     call parse_infix_expression
     mov qword [rbp - 32], rax
-
-    ; matched =
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 56], rax
-
 .if_end_254:
-
 .if_end_253:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 56]
     push rax
     mov rax, 0
@@ -8238,7 +8739,8 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_255
-    ; if condition
+    ; --- if ---
+    ; --- call is_postfix_operator ---
     mov rax, [rbp - 48]
     push rax
     pop rdi
@@ -8252,12 +8754,14 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_256
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; left_node =
+    ; --- reassign left_node ---
+    ; --- call parse_postfix_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 32]
@@ -8266,16 +8770,12 @@ parse_expression:
     pop rdi
     call parse_postfix_expression
     mov qword [rbp - 32], rax
-
-    ; matched =
+    ; --- reassign matched ---
     mov rax, 1
     mov qword [rbp - 56], rax
-
 .if_end_256:
-
 .if_end_255:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 56]
     push rax
     mov rax, 0
@@ -8286,20 +8786,17 @@ parse_expression:
     movzx rax, al
     cmp rax, 0
     je .if_end_257
-    ; loop =
+    ; --- reassign loop ---
     mov rax, 0
     mov qword [rbp - 40], rax
-
 .if_end_257:
-
     jmp .while_start_249
 .while_end_249:
-
+    ; --- return ---
     mov rax, [rbp - 32]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -8308,34 +8805,25 @@ parse_let_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTLetStatement ---
     mov rax, 2
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTLetStatement
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 2
@@ -8352,34 +8840,29 @@ parse_let_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_258
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_258:
-
-    ; property assignment
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- property assign ---
+    ; --- call ASTIdentifier ---
     mov rax, 3
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTIdentifier
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 10
@@ -8396,19 +8879,20 @@ parse_let_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_259
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_259:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -8420,12 +8904,11 @@ parse_let_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -8434,34 +8917,25 @@ parse_const_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTConstStatement ---
     mov rax, 20
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTConstStatement
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 2
@@ -8478,34 +8952,29 @@ parse_const_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_260
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_260:
-
-    ; property assignment
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- property assign ---
+    ; --- call ASTIdentifier ---
     mov rax, 3
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTIdentifier
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 10
@@ -8522,19 +8991,20 @@ parse_const_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_261
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_261:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -8546,12 +9016,11 @@ parse_const_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -8560,34 +9029,25 @@ parse_struct_decl:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTStructDecl ---
     mov rax, 21
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTStructDecl
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 2
@@ -8604,14 +9064,13 @@ parse_struct_decl:
     movzx rax, al
     cmp rax, 0
     je .if_end_262
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_262:
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
@@ -8619,8 +9078,8 @@ parse_struct_decl:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 38
@@ -8637,28 +9096,25 @@ parse_struct_decl:
     movzx rax, al
     cmp rax, 0
     je .if_end_263
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_263:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let fields_head
+    ; --- let fields_head ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-    ; let current_field
+    ; --- let current_field ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
 .while_start_264:
-    ; while condition
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -8683,14 +9139,14 @@ parse_struct_decl:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
     je .while_end_264
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -8703,28 +9159,22 @@ parse_struct_decl:
     movzx rax, al
     cmp rax, 0
     je .if_end_265
-    ; let f_node
-    mov rdi, 24
-    call alloc_mem
+    ; --- let f_node ---
+    ; --- call ASTStructField ---
+    mov rax, 0
     push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTStructField
     mov qword [rbp - 40], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -8735,17 +9185,14 @@ parse_struct_decl:
     movzx rax, al
     cmp rax, 0
     je .if_end_266
-    ; fields_head =
+    ; --- reassign fields_head ---
     mov rax, [rbp - 40]
     mov qword [rbp - 24], rax
-
-    ; current_field =
+    ; --- reassign current_field ---
     mov rax, [rbp - 40]
     mov qword [rbp - 32], rax
-
 .if_end_266:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -8756,7 +9203,7 @@ parse_struct_decl:
     movzx rax, al
     cmp rax, 0
     je .if_end_267
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 40]
@@ -8767,43 +9214,37 @@ parse_struct_decl:
     movzx rax, al
     cmp rax, 0
     je .if_end_268
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 32]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_field =
+    ; --- reassign current_field ---
     mov rax, [rbp - 40]
     mov qword [rbp - 32], rax
-
 .if_end_268:
-
 .if_end_267:
-
 .if_end_265:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
     jmp .while_start_264
 .while_end_264:
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -8812,30 +9253,22 @@ parse_print_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTPrintStatement ---
     mov rax, 8
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTPrintStatement
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 36
@@ -8852,19 +9285,20 @@ parse_print_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_269
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_269:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -8876,8 +9310,8 @@ parse_print_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 37
@@ -8894,18 +9328,17 @@ parse_print_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_270
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_270:
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -8914,43 +9347,34 @@ parse_if_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 40
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTIfStatement ---
     mov rax, 13
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 32], rax
-    push rbx
-    pop rax
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTIfStatement
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -8962,8 +9386,8 @@ parse_if_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_block ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -8972,8 +9396,7 @@ parse_if_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -8986,17 +9409,20 @@ parse_if_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_271
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_block ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9005,14 +9431,12 @@ parse_if_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 32], rcx
-
 .if_end_271:
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -9021,39 +9445,31 @@ parse_while_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTWhileStatement ---
     mov rax, 14
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTWhileStatement
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -9065,8 +9481,8 @@ parse_while_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_block ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9075,12 +9491,11 @@ parse_while_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -9089,43 +9504,34 @@ parse_match_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 40
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTMatchStatement ---
     mov rax, 9
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 32], rax
-    push rbx
-    pop rax
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTMatchStatement
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -9137,8 +9543,8 @@ parse_match_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 38
@@ -9155,28 +9561,25 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_272
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_272:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let cases_head
+    ; --- let cases_head ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-    ; let current_case
+    ; --- let current_case ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
 .while_start_273:
-    ; while condition
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -9201,18 +9604,17 @@ parse_match_statement:
     mov rbx, rax
     pop rax
     test rax, rax
-    setne al
+    setnz cl
     test rbx, rbx
-    setne bl
-    and al, bl
-    movzx rax, al
+    setnz dl
+    and cl, dl
+    movzx rax, cl
     cmp rax, 0
     je .while_end_273
-    ; let is_default
+    ; --- let is_default ---
     mov rax, 0
     mov qword [rbp - 40], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -9225,13 +9627,11 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_274
-    ; is_default =
+    ; --- reassign is_default ---
     mov rax, 1
     mov qword [rbp - 40], rax
-
 .if_end_274:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 40]
     push rax
     mov rax, 1
@@ -9242,7 +9642,8 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_275
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 44
@@ -9259,19 +9660,20 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_276
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_276:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_block ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9280,10 +9682,8 @@ parse_match_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 32], rcx
-
 .if_end_275:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 40]
     push rax
     mov rax, 0
@@ -9294,30 +9694,24 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_277
-    ; let match_case
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- let match_case ---
+    ; --- call ASTMatchCase ---
     mov rax, 10
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTMatchCase
     mov qword [rbp - 48], rax
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -9329,8 +9723,8 @@ parse_match_statement:
     mov rax, [rbp - 48]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
+    ; --- call expect_peek ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 44
@@ -9347,19 +9741,20 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_278
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_278:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call parse_block ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9368,8 +9763,7 @@ parse_match_statement:
     mov rax, [rbp - 48]
     pop rcx
     mov qword [rax + 24], rcx
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -9380,17 +9774,14 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_279
-    ; cases_head =
+    ; --- reassign cases_head ---
     mov rax, [rbp - 48]
     mov qword [rbp - 24], rax
-
-    ; current_case =
+    ; --- reassign current_case ---
     mov rax, [rbp - 48]
     mov qword [rbp - 32], rax
-
 .if_end_279:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -9401,7 +9792,7 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_280
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 48]
@@ -9412,24 +9803,19 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_281
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 48]
     push rax
     mov rax, [rbp - 32]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_case =
+    ; --- reassign current_case ---
     mov rax, [rbp - 48]
     mov qword [rbp - 32], rax
-
 .if_end_281:
-
 .if_end_280:
-
 .if_end_277:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -9442,14 +9828,14 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_282
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
 .if_end_282:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -9462,28 +9848,26 @@ parse_match_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_283
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
 .if_end_283:
-
     jmp .while_start_273
 .while_end_273:
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -9492,39 +9876,30 @@ parse_import_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let stmt
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- let stmt ---
+    ; --- call ASTImportStatement ---
     mov rax, 11
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTImportStatement
     mov qword [rbp - 16], rax
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -9537,7 +9912,7 @@ parse_import_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_284
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
@@ -9545,22 +9920,19 @@ parse_import_statement:
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, 0
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_284:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 0]
@@ -9573,14 +9945,12 @@ parse_import_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_285
-    ; let path
+    ; --- let path ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
 .while_start_286:
-    ; while condition
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -9593,27 +9963,30 @@ parse_import_statement:
     movzx rax, al
     cmp rax, 0
     je .while_end_286
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; path =
+    ; --- reassign path ---
+    ; --- call str_concat ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_113
+    mov rax, str_111
     push rax
     pop rsi
     pop rdi
     call str_concat
     mov qword [rbp - 24], rax
-
-    ; path =
+    ; --- reassign path ---
+    ; --- call str_concat ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 8]
@@ -9624,46 +9997,41 @@ parse_import_statement:
     pop rdi
     call str_concat
     mov qword [rbp - 24], rax
-
     jmp .while_start_286
 .while_end_286:
-
-    ; path =
+    ; --- reassign path ---
+    ; --- call str_concat ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_114
+    mov rax, str_112
     push rax
     pop rsi
     pop rdi
     call str_concat
     mov qword [rbp - 24], rax
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, 1
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 24], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_285:
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -9672,16 +10040,12 @@ parse_statement:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let curTok
+    ; --- let curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 16], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9693,6 +10057,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_287
+    ; --- return ---
+    ; --- call parse_import_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9700,10 +10066,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_287:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9715,6 +10079,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_288
+    ; --- return ---
+    ; --- call parse_let_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9722,10 +10088,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_288:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9737,6 +10101,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_289
+    ; --- return ---
+    ; --- call parse_const_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9744,10 +10110,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_289:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9759,6 +10123,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_290
+    ; --- return ---
+    ; --- call parse_struct_decl ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9766,10 +10132,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_290:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9781,6 +10145,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_291
+    ; --- return ---
+    ; --- call parse_print_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9788,10 +10154,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_291:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9803,6 +10167,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_292
+    ; --- return ---
+    ; --- call parse_match_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9810,10 +10176,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_292:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9825,6 +10189,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_293
+    ; --- return ---
+    ; --- call parse_if_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9832,10 +10198,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_293:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9847,6 +10211,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_294
+    ; --- return ---
+    ; --- call parse_while_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9854,10 +10220,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_294:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9869,6 +10233,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_295
+    ; --- return ---
+    ; --- call parse_function_decl ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9876,10 +10242,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_295:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9891,6 +10255,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_296
+    ; --- return ---
+    ; --- call parse_return_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
@@ -9898,10 +10264,8 @@ parse_statement:
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_296:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
@@ -9913,7 +10277,8 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_297
-    ; let expr
+    ; --- let expr ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -9922,8 +10287,7 @@ parse_statement:
     pop rdi
     call parse_expression
     mov qword [rbp - 24], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 16]
     mov rax, [rax + 0]
@@ -9936,17 +10300,20 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_298
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; let val
+    ; --- let val ---
+    ; --- call parse_expression ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -9955,8 +10322,7 @@ parse_statement:
     pop rdi
     call parse_expression
     mov qword [rbp - 32], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -9968,33 +10334,26 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_299
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTReassignStatement ---
     mov rax, 15
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTReassignStatement
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_299:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -10006,39 +10365,31 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_300
-    mov rdi, 40
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTPropertyAssign ---
     mov rax, 25
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 32], rax
-    push rbx
-    pop rax
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTPropertyAssign
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_300:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -10050,35 +10401,27 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_301
-    mov rdi, 32
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTIndexAssign ---
     mov rax, 26
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTIndexAssign
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_301:
-
 .if_end_298:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -10090,52 +10433,44 @@ parse_statement:
     movzx rax, al
     cmp rax, 0
     je .if_end_302
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    ; --- return ---
+    ; --- call ASTCallStatement ---
     mov rax, 27
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ASTCallStatement
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_302:
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
 .if_end_297:
-
-    ; io.print
-    mov rax, str_115
+    ; --- print() ---
+    mov rax, str_113
     call print_string
-
-    ; io.print
+    ; --- print() ---
+    ; --- call token_string ---
     mov rax, [rbp - 16]
     mov rax, [rax + 0]
     push rax
     pop rdi
     call token_string
-    call print_string
-
+    call print_int
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -10144,40 +10479,28 @@ parse_program:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param p
     mov qword [rbp - 8], rdi
-
-    ; let program
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- let program ---
+    ; --- call ASTProgram ---
     mov rax, 1
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTProgram
     mov qword [rbp - 16], rax
-
-    ; let head
+    ; --- let head ---
     mov rax, 0
     mov qword [rbp - 24], rax
-
-    ; let current_node
+    ; --- let current_node ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; let curTok
+    ; --- let curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 40], rax
-
 .while_start_303:
-    ; while condition
     mov rax, [rbp - 40]
     mov rax, [rax + 0]
     push rax
@@ -10189,14 +10512,14 @@ parse_program:
     movzx rax, al
     cmp rax, 0
     je .while_end_303
-    ; let stmt
+    ; --- let stmt ---
+    ; --- call parse_statement ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call parse_statement
     mov qword [rbp - 48], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 48]
     push rax
     mov rax, 0
@@ -10207,7 +10530,7 @@ parse_program:
     movzx rax, al
     cmp rax, 0
     je .if_end_304
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -10218,17 +10541,14 @@ parse_program:
     movzx rax, al
     cmp rax, 0
     je .if_end_305
-    ; head =
+    ; --- reassign head ---
     mov rax, [rbp - 48]
     mov qword [rbp - 24], rax
-
-    ; current_node =
+    ; --- reassign current_node ---
     mov rax, [rbp - 48]
     mov qword [rbp - 32], rax
-
 .if_end_305:
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -10239,7 +10559,7 @@ parse_program:
     movzx rax, al
     cmp rax, 0
     je .if_end_306
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 48]
@@ -10250,140 +10570,59 @@ parse_program:
     movzx rax, al
     cmp rax, 0
     je .if_end_307
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 48]
     push rax
     mov rax, [rbp - 32]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; current_node =
+    ; --- reassign current_node ---
     mov rax, [rbp - 48]
     mov qword [rbp - 32], rax
-
 .if_end_307:
-
 .if_end_306:
-
 .if_end_304:
-
+    ; --- standalone call ---
+    ; --- call next_parser_token ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call next_parser_token
-
-    ; curTok =
+    ; --- reassign curTok ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 40], rax
-
     jmp .while_start_303
 .while_end_303:
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 16]
     pop rcx
     mov qword [rax + 8], rcx
-
+    ; --- return ---
     mov rax, [rbp - 16]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
 
-get_newline:
+evaluate_to_rax:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-
-    ; let buf
-    mov rax, 2
-    mov rdi, rax
-    call alloc_mem
-    mov qword [rbp - 8], rax
-
-    ; index assignment
-    mov rax, 10
-    push rax
-    mov rax, 0
-    push rax
-    mov rax, [rbp - 8]
-    pop rbx
-    pop rcx
-    mov byte [rax + rbx], cl
-
-    ; index assignment
-    mov rax, 0
-    push rax
-    mov rax, 1
-    push rax
-    mov rax, [rbp - 8]
-    pop rbx
-    pop rcx
-    mov byte [rax + rbx], cl
-
-    mov rax, [rbp - 8]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-emit:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param buffer
     mov qword [rbp - 8], rdi
-    ; init param str
     mov qword [rbp - 16], rsi
-
-    ; let temp
-    mov rax, [rbp - 16]
-    push rax
-    call get_newline
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov qword [rbp - 24], rax
-
+    mov qword [rbp - 24], rdx
+    mov qword [rbp - 32], rcx
+    mov qword [rbp - 40], r8
+    ; --- if ---
     mov rax, [rbp - 8]
+    mov rax, [rax + 0]
     push rax
-    mov rax, [rbp - 24]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov rsp, rbp
-    pop rbp
-    ret
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-int_to_string:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param num
-    mov qword [rbp - 8], rdi
-
-    ; if condition
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, 0
+    mov rax, 4
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -10391,199 +10630,89 @@ int_to_string:
     movzx rax, al
     cmp rax, 0
     je .if_end_308
-    ; let z
-    mov rax, 2
-    mov rdi, rax
-    call alloc_mem
-    mov qword [rbp - 16], rax
-
-    ; index assignment
-    mov rax, 48
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, 0
+    ; --- call str_concat ---
+    mov rax, str_114
     push rax
-    mov rax, [rbp - 16]
-    pop rbx
-    pop rcx
-    mov byte [rax + rbx], cl
-
-    ; index assignment
-    mov rax, 0
-    push rax
-    mov rax, 1
-    push rax
-    mov rax, [rbp - 16]
-    pop rbx
-    pop rcx
-    mov byte [rax + rbx], cl
-
-    mov rax, [rbp - 16]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_308:
-
-    ; let temp
     mov rax, [rbp - 8]
-    mov qword [rbp - 24], rax
-
-    ; let len
-    mov rax, 0
-    mov qword [rbp - 32], rax
-
-.while_start_309:
-    ; while condition
-    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
     push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setg al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_309
-    ; len =
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov qword [rbp - 32], rax
-
-    ; temp =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, 10
-    mov rbx, rax
-    pop rax
-    cqo
-    idiv rbx
-    mov qword [rbp - 24], rax
-
-    jmp .while_start_309
-.while_end_309:
-
-    ; let buf
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov rdi, rax
-    call alloc_mem
-    mov qword [rbp - 40], rax
-
-    ; index assignment
-    mov rax, 0
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    pop rbx
-    pop rcx
-    mov byte [rax + rbx], cl
-
-    ; temp =
-    mov rax, [rbp - 8]
-    mov qword [rbp - 24], rax
-
-    ; let i
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    sub rax, rbx
-    mov qword [rbp - 48], rax
-
-.while_start_310:
-    ; while condition
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setg al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_310
-    ; index assignment
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, 10
-    mov rbx, rax
-    pop rax
-    cqo
-    idiv rbx
-    mov rax, rdx
-    push rax
-    mov rax, 48
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    push rax
-    mov rax, [rbp - 48]
-    push rax
-    mov rax, [rbp - 40]
-    pop rbx
-    pop rcx
-    mov byte [rax + rbx], cl
-
-    ; temp =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, 10
-    mov rbx, rax
-    pop rax
-    cqo
-    idiv rbx
-    mov qword [rbp - 24], rax
-
-    ; i =
-    mov rax, [rbp - 48]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    sub rax, rbx
-    mov qword [rbp - 48], rax
-
-    jmp .while_start_310
-.while_end_310:
-
-    mov rax, [rbp - 40]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-string_to_bytes_asm:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param str
-    mov qword [rbp - 8], rdi
-
-    ; let len
-    mov rax, [rbp - 8]
-    push rax
+    pop rsi
     pop rdi
-    call string_length
-    mov qword [rbp - 16], rax
-
-    ; if condition
-    mov rax, [rbp - 16]
+    call str_concat
     push rax
-    mov rax, 0
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_308:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 23
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_309
+    ; --- let val ---
+    mov rax, str_115
+    mov qword [rbp - 48], rax
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_310
+    ; --- reassign val ---
+    mov rax, str_116
+    mov qword [rbp - 48], rax
+.if_end_310:
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_117
+    push rax
+    mov rax, [rbp - 48]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_309:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 22
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -10591,137 +10720,92 @@ string_to_bytes_asm:
     movzx rax, al
     cmp rax, 0
     je .if_end_311
-    mov rax, str_116
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_311:
-
-    ; let buf
-    mov rax, str_117
-    mov qword [rbp - 24], rax
-
-    ; let i
-    mov rax, 0
-    mov qword [rbp - 32], rax
-
-.while_start_312:
-    ; while condition
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 16]
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setl al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_312
-    ; let val
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, [rbp - 32]
-    mov rbx, rax
-    pop rax
-    movzx rax, byte [rax + rbx]
-    mov qword [rbp - 40], rax
-
-    ; let char_val
-    mov rax, [rbp - 40]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    mov rax, 256
-    mov rbx, rax
-    pop rax
-    cqo
-    idiv rbx
-    push rax
-    mov rax, 256
-    mov rbx, rax
-    pop rax
-    imul rax, rbx
-    mov rbx, rax
-    pop rax
-    sub rax, rbx
-    mov qword [rbp - 48], rax
-
-    ; let char_str
-    mov rax, [rbp - 48]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 56], rax
-
-    ; buf =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 56]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov qword [rbp - 24], rax
-
-    ; buf =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_118
     push rax
     pop rsi
     pop rdi
-    call str_concat
+    call emit
     mov qword [rbp - 24], rax
-
-    ; i =
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov qword [rbp - 32], rax
-
-    jmp .while_start_312
-.while_end_312:
-
-    ; buf =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_119
     push rax
     pop rsi
     pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_311:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 12
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_312
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_120
+    push rax
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    push rax
+    pop rsi
+    pop rdi
     call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
     mov qword [rbp - 24], rax
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-get_property_offset:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param prop_name
-    mov qword [rbp - 8], rdi
-    ; init param global_props
-    mov qword [rbp - 16], rsi
-
-    ; let curr
-    mov rax, [rbp - 16]
-    mov qword [rbp - 24], rax
-
-.while_start_313:
-    ; while condition
-    mov rax, [rbp - 24]
+.if_end_312:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 3
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_313
+    ; --- let var_name ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    mov qword [rbp - 56], rax
+    ; --- let curr_c ---
+    mov rax, [rbp - 40]
+    mov qword [rbp - 64], rax
+    ; --- let is_const ---
+    mov rax, 0
+    mov qword [rbp - 72], rax
+.while_start_314:
+    mov rax, [rbp - 64]
     push rax
     mov rax, 0
     mov rbx, rax
@@ -10730,12 +10814,13 @@ get_property_offset:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_313
-    ; if condition
-    mov rax, [rbp - 24]
+    je .while_end_314
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 64]
     mov rax, [rax + 0]
     push rax
-    mov rax, [rbp - 8]
+    mov rax, [rbp - 56]
     push rax
     pop rsi
     pop rdi
@@ -10748,174 +10833,54 @@ get_property_offset:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_314
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_314:
-
-    ; curr =
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    mov qword [rbp - 24], rax
-
-    jmp .while_start_313
-.while_end_313:
-
-    ; io.print
-    mov rax, str_120
-    call print_string
-
-    ; io.print
-    mov rax, [rbp - 8]
-    call print_int
-
-    mov rax, 0
-    mov rsp, rbp
-    pop rbp
-    ret
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-extract_strings_expr:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param expr
-    mov qword [rbp - 8], rdi
-    ; init param state
-    mov qword [rbp - 16], rsi
-
-    ; if condition
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
     je .if_end_315
-    mov rax, 0
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_315:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, 12
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_316
-    ; let s_id
-    mov rax, [rbp - 16]
-    mov rax, [rax + 40]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 24], rax
-
-    ; let label
+    ; --- call str_concat ---
     mov rax, str_121
     push rax
-    mov rax, [rbp - 24]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov qword [rbp - 32], rax
-
-    ; property assignment
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 8]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 16]
-    mov rax, [rax + 40]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    push rax
-    mov rax, [rbp - 16]
-    pop rcx
-    mov qword [rax + 40], rcx
-
-    ; let bytes_str
-    mov rax, [rbp - 8]
+    mov rax, [rbp - 64]
     mov rax, [rax + 8]
     push rax
-    pop rdi
-    call string_to_bytes_asm
-    mov qword [rbp - 40], rax
-
-    ; let def
-    mov rax, str_122
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, str_123
-    push rax
-    mov rax, [rbp - 40]
-    push rax
     pop rsi
     pop rdi
     call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov qword [rbp - 48], rax
-
-    ; property assignment
-    mov rax, [rbp - 16]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, [rbp - 48]
     push rax
     pop rsi
     pop rdi
     call emit
-    push rax
-    mov rax, [rbp - 16]
-    pop rcx
-    mov qword [rax + 32], rcx
-
+    mov qword [rbp - 24], rax
+    ; --- reassign is_const ---
+    mov rax, 1
+    mov qword [rbp - 72], rax
+    ; --- reassign curr_c ---
     mov rax, 0
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_316:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+    mov qword [rbp - 64], rax
+.if_end_315:
+    ; --- if ---
+    mov rax, [rbp - 64]
     push rax
-    mov rax, 5
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_316
+    ; --- reassign curr_c ---
+    mov rax, [rbp - 64]
+    mov rax, [rax + 16]
+    mov qword [rbp - 64], rax
+.if_end_316:
+    jmp .while_start_314
+.while_end_314:
+    ; --- if ---
+    mov rax, [rbp - 72]
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -10923,46 +10888,20 @@ extract_strings_expr:
     movzx rax, al
     cmp rax, 0
     je .if_end_317
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-    mov rax, [rbp - 8]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
 .if_end_317:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 19
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_318
-    ; let curr_arg
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    mov qword [rbp - 56], rax
-
-.while_start_319:
-    ; while condition
-    mov rax, [rbp - 56]
+    ; --- let curr ---
+    mov rax, [rbp - 16]
+    mov qword [rbp - 80], rax
+    ; --- let found_offset ---
+    mov rax, 0
+    mov qword [rbp - 88], rax
+.while_start_318:
+    mov rax, [rbp - 80]
     push rax
     mov rax, 0
     mov rbx, rax
@@ -10971,79 +10910,99 @@ extract_strings_expr:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_319
-    mov rax, [rbp - 56]
-    mov rax, [rax + 16]
+    je .while_end_318
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 80]
+    mov rax, [rax + 8]
     push rax
-    mov rax, [rbp - 16]
+    mov rax, [rbp - 56]
     push rax
     pop rsi
     pop rdi
-    call extract_strings_expr
-
-    ; curr_arg =
-    mov rax, [rbp - 56]
-    mov rax, [rax + 8]
-    mov qword [rbp - 56], rax
-
-    jmp .while_start_319
-.while_end_319:
-
-.if_end_318:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+    call string_equals
     push rax
-    mov rax, 16
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
     sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_319
+    ; --- reassign found_offset ---
+    mov rax, [rbp - 80]
+    mov rax, [rax + 16]
+    mov qword [rbp - 88], rax
+    ; --- reassign curr ---
+    mov rax, 0
+    mov qword [rbp - 80], rax
+.if_end_319:
+    ; --- if ---
+    mov rax, [rbp - 80]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
     movzx rax, al
     cmp rax, 0
     je .if_end_320
-    ; let curr_elem
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    mov qword [rbp - 64], rax
-
-.while_start_321:
-    ; while condition
-    mov rax, [rbp - 64]
+    ; --- reassign curr ---
+    mov rax, [rbp - 80]
+    mov rax, [rax + 24]
+    mov qword [rbp - 80], rax
+.if_end_320:
+    jmp .while_start_318
+.while_end_318:
+    ; --- if ---
+    mov rax, [rbp - 88]
     push rax
     mov rax, 0
     mov rbx, rax
     pop rax
     cmp rax, rbx
-    setne al
+    setg al
     movzx rax, al
     cmp rax, 0
-    je .while_end_321
-    mov rax, [rbp - 64]
-    mov rax, [rax + 16]
+    je .if_end_321
+    ; --- let off_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 88]
     push rax
-    mov rax, [rbp - 16]
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 96], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_122
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 96]
+    push rax
+    mov rax, str_123
     push rax
     pop rsi
     pop rdi
-    call extract_strings_expr
-
-    ; curr_elem =
-    mov rax, [rbp - 64]
-    mov rax, [rax + 8]
-    mov qword [rbp - 64], rax
-
-    jmp .while_start_321
-.while_end_321:
-
-.if_end_320:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+    call str_concat
     push rax
-    mov rax, 6
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_321:
+    ; --- if ---
+    mov rax, [rbp - 88]
+    push rax
+    mov rax, 0
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -11051,18 +11010,38 @@ extract_strings_expr:
     movzx rax, al
     cmp rax, 0
     je .if_end_322
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, [rbp - 16]
+    ; --- call str_concat ---
+    mov rax, str_124
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 56]
+    push rax
+    mov rax, str_125
     push rax
     pop rsi
     pop rdi
-    call extract_strings_expr
-
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
 .if_end_322:
-
-    ; if condition
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_313:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     push rax
@@ -11074,43 +11053,120 @@ extract_strings_expr:
     movzx rax, al
     cmp rax, 0
     je .if_end_323
+    ; --- reassign asm ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     push rax
     mov rax, [rbp - 16]
     push rax
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
     pop rsi
     pop rdi
-    call extract_strings_expr
-
-.if_end_323:
-
-    mov rax, 0
-    mov rsp, rbp
-    pop rbp
-    ret
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-extract_strings:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param stmt
-    mov qword [rbp - 8], rdi
-    ; init param state
-    mov qword [rbp - 16], rsi
-
-    ; let curr
-    mov rax, [rbp - 8]
+    call evaluate_to_rax
     mov qword [rbp - 24], rax
-
-.while_start_324:
-    ; while condition
+    ; --- let offset ---
+    ; --- call get_property_offset ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    pop rsi
+    pop rdi
+    call get_property_offset
+    mov qword [rbp - 104], rax
+    ; --- let off_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 104]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 112], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_126
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 112]
+    push rax
+    mov rax, str_127
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_323:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 19
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_324
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_128
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, str_129
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- let curr_arg ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    mov qword [rbp - 120], rax
+    ; --- let arg_count ---
+    mov rax, 0
+    mov qword [rbp - 128], rax
+.while_start_325:
+    mov rax, [rbp - 120]
     push rax
     mov rax, 0
     mov rbx, rax
@@ -11119,10 +11175,75 @@ extract_strings:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_324
-    ; if condition
+    je .while_end_325
+    ; --- reassign asm ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 120]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
     mov rax, [rbp - 24]
-    mov rax, [rax + 0]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_130
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign arg_count ---
+    mov rax, [rbp - 128]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    mov qword [rbp - 128], rax
+    ; --- reassign curr_arg ---
+    mov rax, [rbp - 120]
+    mov rax, [rax + 8]
+    mov qword [rbp - 120], rax
+    jmp .while_start_325
+.while_end_325:
+    ; --- if ---
+    mov rax, [rbp - 128]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_326
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_131
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_326:
+    ; --- if ---
+    mov rax, [rbp - 128]
     push rax
     mov rax, 2
     mov rbx, rax
@@ -11131,69 +11252,32 @@ extract_strings:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_325
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_325:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 20
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_326
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_326:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 15
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
     je .if_end_327
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
-    mov rax, [rax + 24]
     push rax
-    mov rax, [rbp - 16]
+    mov rax, str_132
     push rax
     pop rsi
     pop rdi
-    call extract_strings_expr
-
-.if_end_327:
-
-    ; if condition
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
-    mov rax, [rax + 0]
     push rax
-    mov rax, 25
+    mov rax, str_133
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_327:
+    ; --- if ---
+    mov rax, [rbp - 128]
+    push rax
+    mov rax, 3
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -11201,357 +11285,39 @@ extract_strings:
     movzx rax, al
     cmp rax, 0
     je .if_end_328
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
-    mov rax, [rax + 16]
     push rax
-    mov rax, [rbp - 16]
+    mov rax, str_134
     push rax
     pop rsi
     pop rdi
-    call extract_strings_expr
-
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_328:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 26
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_329
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_329:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 27
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_330
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_330:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 18
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_331
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_331:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 8
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_332
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-.if_end_332:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 14
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_333
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings
-
-.if_end_333:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 13
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_334
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_335
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings
-
-.if_end_335:
-
-.if_end_334:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 17
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_336
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings
-
-.if_end_336:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 9
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_337
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-    ; let c_node
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    mov qword [rbp - 32], rax
-
-.while_start_338:
-    ; while condition
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_338
-    mov rax, [rbp - 32]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings_expr
-
-    mov rax, [rbp - 32]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings
-
-    ; c_node =
-    mov rax, [rbp - 32]
-    mov rax, [rax + 8]
-    mov qword [rbp - 32], rax
-
-    jmp .while_start_338
-.while_end_338:
-
-    ; if condition
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_339
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    pop rsi
-    pop rdi
-    call extract_strings
-
-.if_end_339:
-
-.if_end_337:
-
-    ; curr =
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
+    call emit
     mov qword [rbp - 24], rax
-
-    jmp .while_start_324
-.while_end_324:
-
-    mov rsp, rbp
-    pop rbp
-    ret
-
-evaluate_to_rax:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 4096
-
-    ; init param node
-    mov qword [rbp - 8], rdi
-    ; init param env_head
-    mov qword [rbp - 16], rsi
-    ; init param asm
-    mov qword [rbp - 24], rdx
-    ; init param global_props
-    mov qword [rbp - 32], rcx
-    ; init param global_consts
-    mov qword [rbp - 40], r8
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_135
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_136
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_328:
+    ; --- if ---
+    mov rax, [rbp - 128]
     push rax
     mov rax, 4
     mov rbx, rax
@@ -11560,11 +11326,188 @@ evaluate_to_rax:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_340
-    ; asm =
+    je .if_end_329
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_124
+    mov rax, str_137
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_138
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_139
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_140
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_329:
+    ; --- if ---
+    mov rax, [rbp - 128]
+    push rax
+    mov rax, 5
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_330
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_141
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_142
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_143
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_144
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_145
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_330:
+    ; --- if ---
+    mov rax, [rbp - 128]
+    push rax
+    mov rax, 6
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_331
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_146
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_147
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_148
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_149
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_150
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_151
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_331:
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_152
     push rax
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
@@ -11577,19 +11520,546 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_340:
-
-    ; if condition
+.if_end_324:
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 0]
     push rax
-    mov rax, 23
+    mov rax, 16
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_332
+    ; --- let size ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, 8
+    mov rbx, rax
+    pop rax
+    imul rax, rbx
+    mov qword [rbp - 136], rax
+    ; --- let size_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 136]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 144], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_153
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_154
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_155
+    push rax
+    mov rax, [rbp - 144]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_156
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_157
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_158
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- let curr_elem ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    mov qword [rbp - 152], rax
+    ; --- let offset ---
+    mov rax, 0
+    mov qword [rbp - 160], rax
+.while_start_333:
+    mov rax, [rbp - 152]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_333
+    ; --- reassign asm ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 152]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_159
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_160
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_161
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- let off_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 160]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 168], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_162
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 168]
+    push rax
+    mov rax, str_163
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign offset ---
+    mov rax, [rbp - 160]
+    push rax
+    mov rax, 8
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    mov qword [rbp - 160], rax
+    ; --- reassign curr_elem ---
+    mov rax, [rbp - 152]
+    mov rax, [rax + 8]
+    mov qword [rbp - 152], rax
+    jmp .while_start_333
+.while_end_333:
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_164
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_332:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 6
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_334
+    ; --- reassign asm ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    mov qword [rbp - 24], rax
+    ; --- let op ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    mov qword [rbp - 176], rax
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 176]
+    push rax
+    mov rax, str_165
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_335
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_166
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_335:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 176]
+    push rax
+    mov rax, str_167
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_336
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_168
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_169
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_170
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_336:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 176]
+    push rax
+    mov rax, str_171
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_337
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_172
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_337:
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_334:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 5
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_338
+    ; --- reassign asm ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_173
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_174
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_175
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_176
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_339
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_177
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_339:
+    ; --- let op ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    mov qword [rbp - 184], rax
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_178
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_340
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_179
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_340:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_180
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -11597,13 +12067,26 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_341
-    ; let val
-    mov rax, str_125
-    mov qword [rbp - 48], rax
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_181
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_341:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_182
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
     push rax
     mov rax, 1
     mov rbx, rax
@@ -11613,40 +12096,28 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_342
-    ; val =
-    mov rax, str_126
-    mov qword [rbp - 48], rax
-
-.if_end_342:
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_127
-    push rax
-    mov rax, [rbp - 48]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
+    mov rax, str_183
     push rax
     pop rsi
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_341:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+.if_end_342:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
     push rax
-    mov rax, 22
+    mov rax, str_184
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -11654,38 +12125,38 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_343
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_128
+    mov rax, str_185
     push rax
     pop rsi
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_129
+    mov rax, str_186
     push rax
     pop rsi
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
 .if_end_343:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
     push rax
-    mov rax, 12
+    mov rax, str_187
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -11693,35 +12164,48 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_344
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_130
-    push rax
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
+    mov rax, str_188
     push rax
     pop rsi
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_344:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
     push rax
-    mov rax, 3
+    mov rax, str_189
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_190
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_344:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_191
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
@@ -11729,36 +12213,91 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_345
-    ; let var_name
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    mov qword [rbp - 56], rax
-
-    ; let curr_c
-    mov rax, [rbp - 40]
-    mov qword [rbp - 64], rax
-
-    ; let is_const
-    mov rax, 0
-    mov qword [rbp - 72], rax
-
-.while_start_346:
-    ; while condition
-    mov rax, [rbp - 64]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, 0
+    mov rax, str_192
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_193
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_194
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_345:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_195
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
-    setne al
+    sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_346
-    ; if condition
-    mov rax, [rbp - 64]
-    mov rax, [rax + 0]
+    je .if_end_346
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, [rbp - 56]
+    mov rax, str_196
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_197
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_198
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_346:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_199
     push rax
     pop rsi
     pop rdi
@@ -11772,56 +12311,95 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_347
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
-    mov rax, str_131
-    push rax
-    mov rax, [rbp - 64]
-    mov rax, [rax + 8]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
+    mov rax, str_200
     push rax
     pop rsi
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; is_const =
-    mov rax, 1
-    mov qword [rbp - 72], rax
-
-    ; curr_c =
-    mov rax, 0
-    mov qword [rbp - 64], rax
-
-.if_end_347:
-
-    ; if condition
-    mov rax, [rbp - 64]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, 0
+    mov rax, str_201
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_202
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_347:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_203
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
-    setne al
+    sete al
     movzx rax, al
     cmp rax, 0
     je .if_end_348
-    ; curr_c =
-    mov rax, [rbp - 64]
-    mov rax, [rax + 16]
-    mov qword [rbp - 64], rax
-
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_204
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_205
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_206
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
 .if_end_348:
-
-    jmp .while_start_346
-.while_end_346:
-
-    ; if condition
-    mov rax, [rbp - 72]
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_207
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
     push rax
     mov rax, 1
     mov rbx, rax
@@ -11831,38 +12409,91 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_349
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_349:
-
-    ; let curr
-    mov rax, [rbp - 16]
-    mov qword [rbp - 80], rax
-
-    ; let found_offset
-    mov rax, 0
-    mov qword [rbp - 88], rax
-
-.while_start_350:
-    ; while condition
-    mov rax, [rbp - 80]
     push rax
-    mov rax, 0
+    mov rax, str_208
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_209
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_210
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_349:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_211
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
-    setne al
+    sete al
     movzx rax, al
     cmp rax, 0
-    je .while_end_350
-    ; if condition
-    mov rax, [rbp - 80]
-    mov rax, [rax + 8]
+    je .if_end_350
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
-    mov rax, [rbp - 56]
+    mov rax, str_212
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_213
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_214
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_350:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_215
     push rax
     pop rsi
     pop rdi
@@ -11876,1478 +12507,8 @@ evaluate_to_rax:
     movzx rax, al
     cmp rax, 0
     je .if_end_351
-    ; found_offset =
-    mov rax, [rbp - 80]
-    mov rax, [rax + 16]
-    mov qword [rbp - 88], rax
-
-    ; curr =
-    mov rax, 0
-    mov qword [rbp - 80], rax
-
-.if_end_351:
-
-    ; if condition
-    mov rax, [rbp - 80]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_352
-    ; curr =
-    mov rax, [rbp - 80]
-    mov rax, [rax + 24]
-    mov qword [rbp - 80], rax
-
-.if_end_352:
-
-    jmp .while_start_350
-.while_end_350:
-
-    ; if condition
-    mov rax, [rbp - 88]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setg al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_353
-    ; let off_str
-    mov rax, [rbp - 88]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 96], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_132
-    push rax
-    mov rax, [rbp - 96]
-    push rax
-    mov rax, str_133
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_353:
-
-    ; if condition
-    mov rax, [rbp - 88]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_354
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_134
-    push rax
-    mov rax, [rbp - 56]
-    push rax
-    mov rax, str_135
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_354:
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_345:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 24
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_355
-    ; asm =
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    mov qword [rbp - 24], rax
-
-    ; let offset
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    pop rsi
-    pop rdi
-    call get_property_offset
-    mov qword [rbp - 104], rax
-
-    ; let off_str
-    mov rax, [rbp - 104]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 112], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_136
-    push rax
-    mov rax, [rbp - 112]
-    push rax
-    mov rax, str_137
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_355:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 19
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_356
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_138
-    push rax
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, str_139
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; let curr_arg
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    mov qword [rbp - 120], rax
-
-    ; let arg_count
-    mov rax, 0
-    mov qword [rbp - 128], rax
-
-.while_start_357:
-    ; while condition
-    mov rax, [rbp - 120]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_357
-    ; asm =
-    mov rax, [rbp - 120]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_140
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; arg_count =
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov qword [rbp - 128], rax
-
-    ; curr_arg =
-    mov rax, [rbp - 120]
-    mov rax, [rax + 8]
-    mov qword [rbp - 120], rax
-
-    jmp .while_start_357
-.while_end_357:
-
-    ; if condition
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_358
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_141
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_358:
-
-    ; if condition
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 2
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_359
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_142
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_143
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_359:
-
-    ; if condition
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 3
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_360
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_144
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_145
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_146
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_360:
-
-    ; if condition
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 4
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_361
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_147
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_148
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_149
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_150
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_361:
-
-    ; if condition
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 5
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_362
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_151
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_152
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_153
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_154
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_155
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_362:
-
-    ; if condition
-    mov rax, [rbp - 128]
-    push rax
-    mov rax, 6
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_363
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_156
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_157
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_158
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_159
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_160
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_161
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_363:
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_162
-    push rax
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_356:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 16
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_364
-    ; let size
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, 8
-    mov rbx, rax
-    pop rax
-    imul rax, rbx
-    mov qword [rbp - 136], rax
-
-    ; let size_str
-    mov rax, [rbp - 136]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 144], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_163
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_164
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_165
-    push rax
-    mov rax, [rbp - 144]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_166
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_167
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_168
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; let curr_elem
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    mov qword [rbp - 152], rax
-
-    ; let offset
-    mov rax, 0
-    mov qword [rbp - 160], rax
-
-.while_start_365:
-    ; while condition
-    mov rax, [rbp - 152]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_365
-    ; asm =
-    mov rax, [rbp - 152]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_169
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_170
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_171
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; let off_str
-    mov rax, [rbp - 160]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 168], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_172
-    push rax
-    mov rax, [rbp - 168]
-    push rax
-    mov rax, str_173
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; offset =
-    mov rax, [rbp - 160]
-    push rax
-    mov rax, 8
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov qword [rbp - 160], rax
-
-    ; curr_elem =
-    mov rax, [rbp - 152]
-    mov rax, [rax + 8]
-    mov qword [rbp - 152], rax
-
-    jmp .while_start_365
-.while_end_365:
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_174
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_364:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 6
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_366
-    ; asm =
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    mov qword [rbp - 24], rax
-
-    ; let op
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    mov qword [rbp - 176], rax
-
-    ; if condition
-    mov rax, [rbp - 176]
-    push rax
-    mov rax, str_175
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_367
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_176
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_367:
-
-    ; if condition
-    mov rax, [rbp - 176]
-    push rax
-    mov rax, str_177
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_368
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_178
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_179
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_180
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_368:
-
-    ; if condition
-    mov rax, [rbp - 176]
-    push rax
-    mov rax, str_181
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_369
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_182
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_369:
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_366:
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 5
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_370
-    ; asm =
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_183
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, [rbp - 32]
-    push rax
-    mov rax, [rbp - 40]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_184
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_185
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; if condition
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_186
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_371
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_187
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    mov rax, [rbp - 24]
-    mov rsp, rbp
-    pop rbp
-    ret
-
-.if_end_371:
-
-    ; let op
-    mov rax, [rbp - 8]
-    mov rax, [rax + 16]
-    mov qword [rbp - 184], rax
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_188
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_372
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_189
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_372:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_190
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_373
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_191
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_373:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_192
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_374
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_193
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_374:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_194
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_375
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_195
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_196
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_375:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_197
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_376
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_198
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_199
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_200
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_376:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_201
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_377
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_202
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_203
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_204
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_377:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_205
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_378
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_206
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_207
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_208
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_378:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_209
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_379
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_210
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_211
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_212
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_379:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_213
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_380
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_214
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_215
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_216
@@ -13356,27 +12517,18 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-.if_end_380:
-
-    ; if condition
-    mov rax, [rbp - 184]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
     mov rax, str_217
     push rax
     pop rsi
     pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_381
-    ; asm =
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_218
@@ -13385,8 +12537,8 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_219
@@ -13395,8 +12547,8 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_220
@@ -13405,13 +12557,22 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-.if_end_381:
-
-    ; if condition
-    mov rax, [rbp - 184]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
     mov rax, str_221
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_351:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_222
     push rax
     pop rsi
     pop rdi
@@ -13424,18 +12585,9 @@ evaluate_to_rax:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_382
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_222
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
+    je .if_end_352
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_223
@@ -13444,8 +12596,8 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_224
@@ -13454,13 +12606,22 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-.if_end_382:
-
-    ; if condition
-    mov rax, [rbp - 184]
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     push rax
     mov rax, str_225
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+.if_end_352:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, str_226
     push rax
     pop rsi
     pop rdi
@@ -13473,18 +12634,9 @@ evaluate_to_rax:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_383
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_226
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
+    je .if_end_353
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_227
@@ -13493,18 +12645,27 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
+.if_end_353:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
     push rax
     mov rax, str_228
     push rax
     pop rsi
     pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_354
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_229
@@ -13513,18 +12674,27 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
+.if_end_354:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 184]
     push rax
     mov rax, str_230
     push rax
     pop rsi
     pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_355
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_231
@@ -13533,10 +12703,9 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-.if_end_383:
-
-    ; if condition
+.if_end_355:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 184]
     push rax
     mov rax, str_232
@@ -13552,8 +12721,9 @@ evaluate_to_rax:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_384
-    ; asm =
+    je .if_end_356
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_233
@@ -13562,8 +12732,8 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_234
@@ -13572,23 +12742,12 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_235
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_384:
-
-    ; if condition
+.if_end_356:
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 184]
     push rax
-    mov rax, str_236
+    mov rax, str_235
     push rax
     pop rsi
     pop rdi
@@ -13601,8 +12760,19 @@ evaluate_to_rax:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_385
-    ; asm =
+    je .if_end_357
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_236
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 24], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     push rax
     mov rax, str_237
@@ -13611,157 +12781,18 @@ evaluate_to_rax:
     pop rdi
     call emit
     mov qword [rbp - 24], rax
-
-.if_end_385:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_238
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_386
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_239
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_386:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_240
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_387
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_241
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_387:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_242
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_388
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_243
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_244
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_388:
-
-    ; if condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, str_245
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_389
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_246
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-    ; asm =
-    mov rax, [rbp - 24]
-    push rax
-    mov rax, str_247
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 24], rax
-
-.if_end_389:
-
+.if_end_357:
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_370:
-
+.if_end_338:
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -13770,20 +12801,13 @@ generate_block:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param head_stmt
     mov qword [rbp - 8], rdi
-    ; init param env_head
     mov qword [rbp - 16], rsi
-    ; init param state
     mov qword [rbp - 24], rdx
-
-    ; let current_stmt
+    ; --- let current_stmt ---
     mov rax, [rbp - 8]
     mov qword [rbp - 32], rax
-
-.while_start_390:
-    ; while condition
+.while_start_358:
     mov rax, [rbp - 32]
     push rax
     mov rax, 0
@@ -13793,8 +12817,8 @@ generate_block:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_390
-    ; if condition
+    je .while_end_358
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
@@ -13805,8 +12829,8 @@ generate_block:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_391
-    ; if condition
+    je .if_end_359
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
@@ -13817,15 +12841,340 @@ generate_block:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_392
-    ; property assignment
+    je .if_end_360
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_248
+    ; --- call str_concat ---
+    mov rax, str_238
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
+    push rax
+    mov rax, str_239
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+.if_end_360:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 2
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_361
+    ; --- let ident ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    mov qword [rbp - 40], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_240
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 40]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, str_241
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, 8
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 8], rcx
+    ; --- let off_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 48], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_242
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 48]
+    push rax
+    mov rax, str_243
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- reassign env_head ---
+    ; --- call EnvNode ---
+    mov rax, 0
+    push rax
+    mov rax, [rbp - 40]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call EnvNode
+    mov qword [rbp - 16], rax
+.if_end_361:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 20
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_362
+    ; --- let ident ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    mov qword [rbp - 56], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_244
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 56]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, str_245
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, 8
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 8], rcx
+    ; --- let off_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 64], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_246
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 64]
+    push rax
+    mov rax, str_247
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- reassign env_head ---
+    ; --- call EnvNode ---
+    mov rax, 0
+    push rax
+    mov rax, [rbp - 56]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call EnvNode
+    mov qword [rbp - 16], rax
+.if_end_362:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 15
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_363
+    ; --- let ident ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    mov qword [rbp - 72], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_248
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 8]
     push rax
     mov rax, str_249
     push rax
@@ -13844,34 +13193,126 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_392:
-
-    ; if condition
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
-    mov rax, [rax + 0]
+    mov rax, [rax + 24]
     push rax
-    mov rax, 2
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- let var_name ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 8]
+    mov qword [rbp - 80], rax
+    ; --- let curr ---
+    mov rax, [rbp - 16]
+    mov qword [rbp - 88], rax
+    ; --- let found_offset ---
+    mov rax, 0
+    mov qword [rbp - 96], rax
+.while_start_364:
+    mov rax, [rbp - 88]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_364
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 88]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 80]
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
     mov rbx, rax
     pop rax
     cmp rax, rbx
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_393
-    ; let ident
-    mov rax, [rbp - 32]
+    je .if_end_365
+    ; --- reassign found_offset ---
+    mov rax, [rbp - 88]
     mov rax, [rax + 16]
-    mov qword [rbp - 40], rax
-
-    ; property assignment
+    mov qword [rbp - 96], rax
+    ; --- reassign curr ---
+    mov rax, 0
+    mov qword [rbp - 88], rax
+.if_end_365:
+    ; --- if ---
+    mov rax, [rbp - 88]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_366
+    ; --- reassign curr ---
+    mov rax, [rbp - 88]
+    mov rax, [rax + 24]
+    mov qword [rbp - 88], rax
+.if_end_366:
+    jmp .while_start_364
+.while_end_364:
+    ; --- if ---
+    mov rax, [rbp - 96]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setg al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_367
+    ; --- let off_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 96]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 104], rax
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
+    ; --- call str_concat ---
     mov rax, str_250
     push rax
-    mov rax, [rbp - 40]
-    mov rax, [rax + 8]
+    ; --- call str_concat ---
+    mov rax, [rbp - 104]
     push rax
     mov rax, str_251
     push rax
@@ -13890,445 +13331,9 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 32]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, 8
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 8], rcx
-
-    ; let off_str
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 48], rax
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_252
-    push rax
-    mov rax, [rbp - 48]
-    push rax
-    mov rax, str_253
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; env_head =
-    mov rdi, 32
-    call alloc_mem
-    push rax
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, [rbp - 40]
-    mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    mov rax, [rbp - 16]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
-    mov qword [rbp - 16], rax
-
-.if_end_393:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 20
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_394
-    ; let ident
-    mov rax, [rbp - 32]
-    mov rax, [rax + 16]
-    mov qword [rbp - 56], rax
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_254
-    push rax
-    mov rax, [rbp - 56]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, str_255
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 32]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, 8
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 8], rcx
-
-    ; let off_str
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 64], rax
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_256
-    push rax
-    mov rax, [rbp - 64]
-    push rax
-    mov rax, str_257
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; env_head =
-    mov rdi, 32
-    call alloc_mem
-    push rax
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
-    mov rax, [rbp - 56]
-    mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    mov rax, [rbp - 24]
-    mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    mov rax, [rbp - 16]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
-    mov qword [rbp - 16], rax
-
-.if_end_394:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 15
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_395
-    ; let ident
-    mov rax, [rbp - 32]
-    mov rax, [rax + 16]
-    mov qword [rbp - 72], rax
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_258
-    push rax
-    mov rax, [rbp - 72]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, str_259
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 32]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; let var_name
-    mov rax, [rbp - 72]
-    mov rax, [rax + 8]
-    mov qword [rbp - 80], rax
-
-    ; let curr
-    mov rax, [rbp - 16]
-    mov qword [rbp - 88], rax
-
-    ; let found_offset
-    mov rax, 0
-    mov qword [rbp - 96], rax
-
-.while_start_396:
-    ; while condition
-    mov rax, [rbp - 88]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_396
-    ; if condition
-    mov rax, [rbp - 88]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, [rbp - 80]
-    push rax
-    pop rsi
-    pop rdi
-    call string_equals
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_397
-    ; found_offset =
-    mov rax, [rbp - 88]
-    mov rax, [rax + 16]
-    mov qword [rbp - 96], rax
-
-    ; curr =
-    mov rax, 0
-    mov qword [rbp - 88], rax
-
-.if_end_397:
-
-    ; if condition
-    mov rax, [rbp - 88]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_398
-    ; curr =
-    mov rax, [rbp - 88]
-    mov rax, [rax + 24]
-    mov qword [rbp - 88], rax
-
-.if_end_398:
-
-    jmp .while_start_396
-.while_end_396:
-
-    ; if condition
-    mov rax, [rbp - 96]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setg al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_399
-    ; let off_str
-    mov rax, [rbp - 96]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 104], rax
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_260
-    push rax
-    mov rax, [rbp - 104]
-    push rax
-    mov rax, str_261
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-.if_end_399:
-
-.if_end_395:
-
-    ; if condition
+.if_end_367:
+.if_end_363:
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
@@ -14339,12 +13344,13 @@ generate_block:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_400
-    ; property assignment
+    je .if_end_368
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_262
+    mov rax, str_252
     push rax
     pop rsi
     pop rdi
@@ -14353,8 +13359,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 32]
     push rax
@@ -14379,12 +13385,12 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_263
+    mov rax, str_253
     push rax
     pop rsi
     pop rdi
@@ -14393,8 +13399,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
     push rax
@@ -14419,12 +13425,12 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_264
+    mov rax, str_254
     push rax
     pop rsi
     pop rdi
@@ -14433,8 +13439,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; let offset
+    ; --- let offset ---
+    ; --- call get_property_offset ---
     mov rax, [rbp - 32]
     mov rax, [rax + 24]
     push rax
@@ -14445,23 +13451,25 @@ generate_block:
     pop rdi
     call get_property_offset
     mov qword [rbp - 112], rax
-
-    ; let off_str
+    ; --- let off_str ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 112]
     push rax
     pop rdi
     call int_to_string
     mov qword [rbp - 120], rax
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_265
+    ; --- call str_concat ---
+    mov rax, str_255
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 120]
     push rax
-    mov rax, str_266
+    mov rax, str_256
     push rax
     pop rsi
     pop rdi
@@ -14478,10 +13486,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_400:
-
-    ; if condition
+.if_end_368:
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
@@ -14492,12 +13498,13 @@ generate_block:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_401
-    ; property assignment
+    je .if_end_369
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_267
+    mov rax, str_257
     push rax
     pop rsi
     pop rdi
@@ -14506,8 +13513,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 24]
     push rax
@@ -14532,12 +13539,12 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_268
+    mov rax, str_258
     push rax
     pop rsi
     pop rdi
@@ -14546,8 +13553,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
     mov rax, [rax + 24]
@@ -14573,12 +13580,12 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_269
+    mov rax, str_259
     push rax
     pop rsi
     pop rdi
@@ -14587,8 +13594,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
     mov rax, [rax + 8]
@@ -14614,8 +13621,268 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_260
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_261
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_262
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+.if_end_369:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 27
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_370
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, str_263
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_371
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_264
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    mov rax, [rax + 16]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_265
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+.if_end_371:
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, str_266
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_372
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_267
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+.if_end_372:
+.if_end_370:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 18
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_373
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_268
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_269
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -14628,8 +13895,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -14642,8 +13909,21 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+.if_end_373:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 8
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_374
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -14656,22 +13936,47 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_401:
-
-    ; if condition
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
     mov rax, [rax + 0]
     push rax
-    mov rax, 27
+    mov rax, 12
     mov rbx, rax
     pop rax
     cmp rax, rbx
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_402
-    ; property assignment
+    je .if_end_375
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -14684,48 +13989,22 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+.if_end_375:
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-.if_end_402:
-
-    ; if condition
-    mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
-    mov rax, 18
+    mov rax, 12
     mov rbx, rax
     pop rax
     cmp rax, rbx
-    sete al
+    setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_403
-    ; property assignment
+    je .if_end_376
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -14738,8 +14017,83 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+.if_end_376:
+.if_end_374:
+    ; --- if ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 14
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_377
+    ; --- property assign ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 0], rcx
+    ; --- let l_id ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 128], rax
+    ; --- let start_label ---
+    ; --- call str_concat ---
+    mov rax, str_275
+    push rax
+    mov rax, [rbp - 128]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 136], rax
+    ; --- let end_label ---
+    ; --- call str_concat ---
+    mov rax, str_276
+    push rax
+    mov rax, [rbp - 128]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 144], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 136]
+    push rax
+    mov rax, str_277
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
     push rax
@@ -14764,64 +14118,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_275
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_276
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_277
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-.if_end_403:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 8
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_404
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -14834,81 +14132,54 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 32]
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
     mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_279
+    push rax
+    mov rax, [rbp - 144]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- standalone call ---
+    ; --- call generate_block ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 24]
     push rax
     mov rax, [rbp - 16]
     push rax
     mov rax, [rbp - 24]
-    mov rax, [rax + 16]
     push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
     pop rdx
     pop rsi
     pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; if condition
-    mov rax, [rbp - 32]
-    mov rax, [rax + 16]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 12
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_405
-    ; property assignment
+    call generate_block
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_279
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-.if_end_405:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    mov rax, [rax + 16]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 12
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_406
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
+    ; --- call str_concat ---
     mov rax, str_280
     push rax
+    mov rax, [rbp - 136]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
     pop rsi
     pop rdi
     call emit
@@ -14916,24 +14187,41 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_406:
-
-.if_end_404:
-
-    ; if condition
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 144]
+    push rax
+    mov rax, str_281
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+.if_end_377:
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
-    mov rax, 14
+    mov rax, 13
     mov rbx, rax
     pop rax
     cmp rax, rbx
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_407
-    ; property assignment
+    je .if_end_378
+    ; --- property assign ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -14945,46 +14233,30 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 0], rcx
-
-    ; let l_id
+    ; --- let l_id ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
     pop rdi
     call int_to_string
-    mov qword [rbp - 128], rax
-
-    ; let start_label
-    mov rax, str_281
-    push rax
-    mov rax, [rbp - 128]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov qword [rbp - 136], rax
-
-    ; let end_label
+    mov qword [rbp - 152], rax
+    ; --- let end_label ---
+    ; --- call str_concat ---
     mov rax, str_282
     push rax
-    mov rax, [rbp - 128]
+    mov rax, [rbp - 152]
     push rax
     pop rsi
     pop rdi
     call str_concat
-    mov qword [rbp - 144], rax
-
-    ; property assignment
+    mov qword [rbp - 160], rax
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, [rbp - 136]
-    push rax
     mov rax, str_283
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
     push rax
     pop rsi
     pop rdi
@@ -14993,8 +14265,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
     mov rax, [rbp - 32]
     mov rax, [rax + 16]
     push rax
@@ -15019,8 +14291,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -15033,14 +14305,15 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
+    ; --- call str_concat ---
     mov rax, str_285
     push rax
-    mov rax, [rbp - 144]
+    mov rax, [rbp - 160]
     push rax
     pop rsi
     pop rdi
@@ -15053,7 +14326,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- standalone call ---
+    ; --- call generate_block ---
     mov rax, [rbp - 32]
     mov rax, [rax + 24]
     push rax
@@ -15065,15 +14339,16 @@ generate_block:
     pop rsi
     pop rdi
     call generate_block
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 160]
     push rax
     mov rax, str_286
     push rax
-    mov rax, [rbp - 136]
-    push rax
     pop rsi
     pop rdi
     call str_concat
@@ -15085,42 +14360,20 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 144]
-    push rax
-    mov rax, str_287
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-.if_end_407:
-
-    ; if condition
+.if_end_378:
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 0]
     push rax
-    mov rax, 13
+    mov rax, 9
     mov rbx, rax
     pop rax
     cmp rax, rbx
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_408
-    ; property assignment
+    je .if_end_379
+    ; --- property assign ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -15132,26 +14385,66 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 0], rcx
-
-    ; let l_id
+    ; --- let m_id ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
     pop rdi
     call int_to_string
-    mov qword [rbp - 152], rax
-
-    ; let end_label
-    mov rax, str_288
+    mov qword [rbp - 168], rax
+    ; --- let m_base ---
+    ; --- call str_concat ---
+    mov rax, str_287
     push rax
-    mov rax, [rbp - 152]
+    mov rax, [rbp - 168]
     push rax
     pop rsi
     pop rdi
     call str_concat
-    mov qword [rbp - 160], rax
-
-    ; property assignment
+    mov qword [rbp - 176], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_288
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 48]
+    push rax
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call evaluate_to_rax
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -15164,9 +14457,89 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- let c_node ---
     mov rax, [rbp - 32]
+    mov rax, [rax + 24]
+    mov qword [rbp - 184], rax
+    ; --- let c_idx ---
+    mov rax, 0
+    mov qword [rbp - 192], rax
+.while_start_380:
+    mov rax, [rbp - 184]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_380
+    ; --- reassign c_idx ---
+    mov rax, [rbp - 192]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    mov qword [rbp - 192], rax
+    ; --- let c_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 192]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 200], rax
+    ; --- let next_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 192]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 208], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 176]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_290
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 200]
+    push rax
+    mov rax, str_291
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call evaluate_to_rax ---
+    mov rax, [rbp - 184]
     mov rax, [rax + 16]
     push rax
     mov rax, [rbp - 16]
@@ -15190,64 +14563,26 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
-    push rax
-    mov rax, str_290
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_291
-    push rax
-    mov rax, [rbp - 160]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    mov rax, [rbp - 32]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    pop rdx
-    pop rsi
-    pop rdi
-    call generate_block
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 160]
     push rax
     mov rax, str_292
     push rax
     pop rsi
     pop rdi
-    call str_concat
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_293
     push rax
     pop rsi
     pop rdi
@@ -15256,53 +14591,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_408:
-
-    ; if condition
-    mov rax, [rbp - 32]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 9
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_409
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 0], rcx
-
-    ; let m_id
-    mov rax, [rbp - 24]
-    mov rax, [rax + 0]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 168], rax
-
-    ; let m_base
-    mov rax, str_293
-    push rax
-    mov rax, [rbp - 168]
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    mov qword [rbp - 176], rax
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -15315,205 +14605,19 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 32]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
+    ; --- call str_concat ---
     mov rax, str_295
     push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; let c_node
-    mov rax, [rbp - 32]
-    mov rax, [rax + 24]
-    mov qword [rbp - 184], rax
-
-    ; let c_idx
-    mov rax, 0
-    mov qword [rbp - 192], rax
-
-.while_start_410:
-    ; while condition
-    mov rax, [rbp - 184]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_410
-    ; c_idx =
-    mov rax, [rbp - 192]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov qword [rbp - 192], rax
-
-    ; let c_str
-    mov rax, [rbp - 192]
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 200], rax
-
-    ; let next_str
-    mov rax, [rbp - 192]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    push rax
-    pop rdi
-    call int_to_string
-    mov qword [rbp - 208], rax
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 176]
     push rax
+    ; --- call str_concat ---
     mov rax, str_296
-    push rax
-    mov rax, [rbp - 200]
-    push rax
-    mov rax, str_297
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 184]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 24]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 48]
-    push rax
-    pop r8
-    pop rcx
-    pop rdx
-    pop rsi
-    pop rdi
-    call evaluate_to_rax
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_298
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_299
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_300
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_301
-    push rax
-    mov rax, [rbp - 176]
-    push rax
-    mov rax, str_302
     push rax
     mov rax, [rbp - 208]
     push rax
@@ -15536,7 +14640,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- standalone call ---
+    ; --- call generate_block ---
     mov rax, [rbp - 184]
     mov rax, [rax + 24]
     push rax
@@ -15548,16 +14653,18 @@ generate_block:
     pop rsi
     pop rdi
     call generate_block
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_303
+    ; --- call str_concat ---
+    mov rax, str_297
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 176]
     push rax
-    mov rax, str_304
+    mov rax, str_298
     push rax
     pop rsi
     pop rdi
@@ -15574,16 +14681,14 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; c_node =
+    ; --- reassign c_node ---
     mov rax, [rbp - 184]
     mov rax, [rax + 8]
     mov qword [rbp - 184], rax
-
-    jmp .while_start_410
-.while_end_410:
-
-    ; let final_str
+    jmp .while_start_380
+.while_end_380:
+    ; --- let final_str ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 192]
     push rax
     mov rax, 1
@@ -15594,18 +14699,21 @@ generate_block:
     pop rdi
     call int_to_string
     mov qword [rbp - 216], rax
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 176]
     push rax
-    mov rax, str_305
+    ; --- call str_concat ---
+    mov rax, str_299
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 216]
     push rax
-    mov rax, str_306
+    mov rax, str_300
     push rax
     pop rsi
     pop rdi
@@ -15626,8 +14734,7 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 32]
     mov rax, [rax + 32]
     push rax
@@ -15638,12 +14745,13 @@ generate_block:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .if_end_411
-    ; property assignment
+    je .if_end_381
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_307
+    mov rax, str_301
     push rax
     pop rsi
     pop rdi
@@ -15652,7 +14760,8 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- standalone call ---
+    ; --- call generate_block ---
     mov rax, [rbp - 32]
     mov rax, [rax + 32]
     push rax
@@ -15664,16 +14773,16 @@ generate_block:
     pop rsi
     pop rdi
     call generate_block
-
-.if_end_411:
-
-    ; property assignment
+.if_end_381:
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 176]
     push rax
-    mov rax, str_308
+    mov rax, str_302
     push rax
     pop rsi
     pop rdi
@@ -15686,12 +14795,12 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_309
+    mov rax, str_303
     push rax
     pop rsi
     pop rdi
@@ -15700,19 +14809,14 @@ generate_block:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_409:
-
-.if_end_391:
-
-    ; current_stmt =
+.if_end_379:
+.if_end_359:
+    ; --- reassign current_stmt ---
     mov rax, [rbp - 32]
     mov rax, [rax + 8]
     mov qword [rbp - 32], rax
-
-    jmp .while_start_390
-.while_end_390:
-
+    jmp .while_start_358
+.while_end_358:
     mov rsp, rbp
     pop rbp
     ret
@@ -15721,13 +14825,71 @@ get_stdlib_asm:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-
-    ; let asm
-    mov rax, str_310
+    ; --- let asm ---
+    mov rax, str_304
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, str_305
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 8], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, str_306
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 8], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, str_307
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 8], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, str_308
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 8], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, str_309
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 8], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, str_310
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 8], rax
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_311
@@ -15736,8 +14898,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_312
@@ -15746,8 +14908,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_313
@@ -15756,8 +14918,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_314
@@ -15766,8 +14928,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_315
@@ -15776,8 +14938,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_316
@@ -15786,8 +14948,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_317
@@ -15796,8 +14958,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_318
@@ -15806,8 +14968,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_319
@@ -15816,8 +14978,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_320
@@ -15826,8 +14988,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_321
@@ -15836,8 +14998,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_322
@@ -15846,8 +15008,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_323
@@ -15856,8 +15018,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_324
@@ -15866,8 +15028,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_325
@@ -15876,8 +15038,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_326
@@ -15886,8 +15048,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_327
@@ -15896,8 +15058,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_328
@@ -15906,8 +15068,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_329
@@ -15916,8 +15078,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_330
@@ -15926,8 +15088,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_331
@@ -15936,8 +15098,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_332
@@ -15946,8 +15108,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_333
@@ -15956,8 +15118,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_334
@@ -15966,8 +15128,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_335
@@ -15976,8 +15138,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_336
@@ -15986,8 +15148,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_337
@@ -15996,8 +15158,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_338
@@ -16006,8 +15168,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_339
@@ -16016,8 +15178,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_340
@@ -16026,8 +15188,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_341
@@ -16036,8 +15198,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_342
@@ -16046,8 +15208,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_343
@@ -16056,8 +15218,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_344
@@ -16066,8 +15228,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_345
@@ -16076,8 +15238,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_346
@@ -16086,8 +15248,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_347
@@ -16096,8 +15258,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_348
@@ -16106,8 +15268,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_349
@@ -16116,8 +15278,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_350
@@ -16126,8 +15288,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_351
@@ -16136,8 +15298,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_352
@@ -16146,8 +15308,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_353
@@ -16156,8 +15318,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_354
@@ -16166,8 +15328,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_355
@@ -16176,8 +15338,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_356
@@ -16186,8 +15348,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_357
@@ -16196,8 +15358,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_358
@@ -16206,8 +15368,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_359
@@ -16216,8 +15378,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_360
@@ -16226,8 +15388,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_361
@@ -16236,8 +15398,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_362
@@ -16246,8 +15408,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_363
@@ -16256,8 +15418,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_364
@@ -16266,8 +15428,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_365
@@ -16276,8 +15438,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_366
@@ -16286,8 +15448,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_367
@@ -16296,8 +15458,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_368
@@ -16306,8 +15468,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_369
@@ -16316,8 +15478,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_370
@@ -16326,8 +15488,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_371
@@ -16336,8 +15498,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_372
@@ -16346,8 +15508,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_373
@@ -16356,8 +15518,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_374
@@ -16366,8 +15528,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_375
@@ -16376,8 +15538,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_376
@@ -16386,8 +15548,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_377
@@ -16396,8 +15558,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_378
@@ -16406,8 +15568,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_379
@@ -16416,8 +15578,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_380
@@ -16426,8 +15588,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_381
@@ -16436,8 +15598,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_382
@@ -16446,8 +15608,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_383
@@ -16456,8 +15618,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_384
@@ -16466,8 +15628,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_385
@@ -16476,8 +15638,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_386
@@ -16486,8 +15648,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_387
@@ -16496,8 +15658,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_388
@@ -16506,8 +15668,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_389
@@ -16516,8 +15678,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_390
@@ -16526,8 +15688,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_391
@@ -16536,8 +15698,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_392
@@ -16546,8 +15708,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_393
@@ -16556,8 +15718,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_394
@@ -16566,8 +15728,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_395
@@ -16576,8 +15738,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_396
@@ -16586,8 +15748,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_397
@@ -16596,8 +15758,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_398
@@ -16606,8 +15768,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_399
@@ -16616,8 +15778,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_400
@@ -16626,8 +15788,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_401
@@ -16636,8 +15798,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_402
@@ -16646,8 +15808,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_403
@@ -16656,8 +15818,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_404
@@ -16666,8 +15828,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_405
@@ -16676,8 +15838,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_406
@@ -16686,8 +15848,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_407
@@ -16696,8 +15858,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_408
@@ -16706,8 +15868,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_409
@@ -16716,8 +15878,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_410
@@ -16726,8 +15888,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_411
@@ -16736,8 +15898,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_412
@@ -16746,8 +15908,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_413
@@ -16756,8 +15918,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_414
@@ -16766,8 +15928,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_415
@@ -16776,8 +15938,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_416
@@ -16786,8 +15948,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_417
@@ -16796,8 +15958,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_418
@@ -16806,8 +15968,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_419
@@ -16816,8 +15978,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_420
@@ -16826,8 +15988,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_421
@@ -16836,8 +15998,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_422
@@ -16846,8 +16008,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_423
@@ -16856,8 +16018,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_424
@@ -16866,8 +16028,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_425
@@ -16876,8 +16038,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_426
@@ -16886,8 +16048,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_427
@@ -16896,8 +16058,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_428
@@ -16906,8 +16068,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_429
@@ -16916,8 +16078,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_430
@@ -16926,8 +16088,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_431
@@ -16936,8 +16098,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_432
@@ -16946,8 +16108,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_433
@@ -16956,8 +16118,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_434
@@ -16966,8 +16128,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_435
@@ -16976,8 +16138,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_436
@@ -16986,8 +16148,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_437
@@ -16996,8 +16158,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_438
@@ -17006,8 +16168,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_439
@@ -17016,8 +16178,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_440
@@ -17026,8 +16188,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_441
@@ -17036,8 +16198,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_442
@@ -17046,8 +16208,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_443
@@ -17056,8 +16218,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_444
@@ -17066,8 +16228,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_445
@@ -17076,8 +16238,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_446
@@ -17086,8 +16248,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_447
@@ -17096,8 +16258,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_448
@@ -17106,8 +16268,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_449
@@ -17116,8 +16278,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_450
@@ -17126,8 +16288,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_451
@@ -17136,8 +16298,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_452
@@ -17146,8 +16308,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_453
@@ -17156,8 +16318,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_454
@@ -17166,8 +16328,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_455
@@ -17176,8 +16338,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_456
@@ -17186,8 +16348,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_457
@@ -17196,8 +16358,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_458
@@ -17206,8 +16368,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_459
@@ -17216,8 +16378,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_460
@@ -17226,8 +16388,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_461
@@ -17236,8 +16398,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_462
@@ -17246,8 +16408,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_463
@@ -17256,8 +16418,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_464
@@ -17266,8 +16428,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_465
@@ -17276,8 +16438,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_466
@@ -17286,8 +16448,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_467
@@ -17296,8 +16458,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_468
@@ -17306,8 +16468,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_469
@@ -17316,8 +16478,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_470
@@ -17326,8 +16488,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_471
@@ -17336,8 +16498,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_472
@@ -17346,8 +16508,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_473
@@ -17356,8 +16518,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_474
@@ -17366,8 +16528,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_475
@@ -17376,8 +16538,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_476
@@ -17386,8 +16548,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_477
@@ -17396,8 +16558,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_478
@@ -17406,8 +16568,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_479
@@ -17416,8 +16578,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_480
@@ -17426,8 +16588,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_481
@@ -17436,8 +16598,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_482
@@ -17446,8 +16608,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_483
@@ -17456,8 +16618,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_484
@@ -17466,8 +16628,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_485
@@ -17476,8 +16638,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_486
@@ -17486,8 +16648,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_487
@@ -17496,8 +16658,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_488
@@ -17506,8 +16668,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_489
@@ -17516,8 +16678,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_490
@@ -17526,8 +16688,8 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
+    ; --- reassign asm ---
+    ; --- call emit ---
     mov rax, [rbp - 8]
     push rax
     mov rax, str_491
@@ -17536,72 +16698,11 @@ get_stdlib_asm:
     pop rdi
     call emit
     mov qword [rbp - 8], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, str_492
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 8], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, str_493
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 8], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, str_494
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 8], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, str_495
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 8], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, str_496
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 8], rax
-
-    ; asm =
-    mov rax, [rbp - 8]
-    push rax
-    mov rax, str_497
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    mov qword [rbp - 8], rax
-
+    ; --- return ---
     mov rax, [rbp - 8]
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -17610,51 +16711,212 @@ generate_nasm:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param program
     mov qword [rbp - 8], rdi
-
-    ; let data_init
-    mov rax, str_498
+    ; --- let data_init ---
+    ; --- call str_concat ---
+    mov rax, str_492
     push rax
+    ; --- call get_newline ---
     call get_newline
     push rax
     pop rsi
     pop rdi
     call str_concat
     mov qword [rbp - 16], rax
-
-    ; let state
-    mov rdi, 56
-    call alloc_mem
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_493
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_494
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_495
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_496
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_497
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_498
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_499
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_500
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_501
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_502
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_503
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_504
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_505
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_506
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_507
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_508
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- reassign data_init ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, str_509
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    mov qword [rbp - 16], rax
+    ; --- let state ---
+    ; --- call CodeGenState ---
+    mov rax, 0
     push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
+    mov rax, str_510
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    mov rax, str_499
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    mov rax, 0
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
+    push rax
     mov rax, [rbp - 16]
-    pop rbx
-    mov qword [rbx + 32], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 40], rax
-    push rbx
-    pop rax
+    push rax
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call CodeGenState
     mov qword [rbp - 24], rax
-
+    ; --- standalone call ---
+    ; --- call extract_strings ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     push rax
@@ -17663,22 +16925,17 @@ generate_nasm:
     pop rsi
     pop rdi
     call extract_strings
-
-    ; let global_props
+    ; --- let global_props ---
     mov rax, 0
     mov qword [rbp - 32], rax
-
-    ; let global_consts
+    ; --- let global_consts ---
     mov rax, 0
     mov qword [rbp - 40], rax
-
-    ; let curr_stmt
+    ; --- let curr_stmt ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 48], rax
-
-.while_start_412:
-    ; while condition
+.while_start_382:
     mov rax, [rbp - 48]
     push rax
     mov rax, 0
@@ -17688,8 +16945,8 @@ generate_nasm:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_412
-    ; if condition
+    je .while_end_382
+    ; --- if ---
     mov rax, [rbp - 48]
     mov rax, [rax + 0]
     push rax
@@ -17700,18 +16957,15 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_413
-    ; let f_node
+    je .if_end_383
+    ; --- let f_node ---
     mov rax, [rbp - 48]
     mov rax, [rax + 24]
     mov qword [rbp - 56], rax
-
-    ; let f_idx
+    ; --- let f_idx ---
     mov rax, 0
     mov qword [rbp - 64], rax
-
-.while_start_414:
-    ; while condition
+.while_start_384:
     mov rax, [rbp - 56]
     push rax
     mov rax, 0
@@ -17721,33 +16975,27 @@ generate_nasm:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_414
-    ; global_props =
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    je .while_end_384
+    ; --- reassign global_props ---
+    ; --- call PropertyNode ---
     mov rax, [rbp - 56]
     mov rax, [rax + 16]
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 64]
     push rax
     mov rax, 8
     mov rbx, rax
     pop rax
     imul rax, rbx
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 32]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call PropertyNode
     mov qword [rbp - 32], rax
-
-    ; f_idx =
+    ; --- reassign f_idx ---
     mov rax, [rbp - 64]
     push rax
     mov rax, 1
@@ -17755,18 +17003,14 @@ generate_nasm:
     pop rax
     add rax, rbx
     mov qword [rbp - 64], rax
-
-    ; f_node =
+    ; --- reassign f_node ---
     mov rax, [rbp - 56]
     mov rax, [rax + 8]
     mov qword [rbp - 56], rax
-
-    jmp .while_start_414
-.while_end_414:
-
-.if_end_413:
-
-    ; if condition
+    jmp .while_start_384
+.while_end_384:
+.if_end_383:
+    ; --- if ---
     mov rax, [rbp - 48]
     mov rax, [rax + 0]
     push rax
@@ -17777,8 +17021,8 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_415
-    ; if condition
+    je .if_end_385
+    ; --- if ---
     mov rax, [rbp - 48]
     mov rax, [rax + 24]
     mov rax, [rax + 0]
@@ -17790,238 +17034,46 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_416
-    ; global_consts =
-    mov rdi, 24
-    call alloc_mem
-    push rax
+    je .if_end_386
+    ; --- reassign global_consts ---
+    ; --- call ConstNode ---
     mov rax, [rbp - 48]
     mov rax, [rax + 16]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 48]
     mov rax, [rax + 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 40]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
-    pop rax
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call ConstNode
     mov qword [rbp - 40], rax
-
-.if_end_416:
-
-.if_end_415:
-
-    ; curr_stmt =
+.if_end_386:
+.if_end_385:
+    ; --- reassign curr_stmt ---
     mov rax, [rbp - 48]
     mov rax, [rax + 8]
     mov qword [rbp - 48], rax
-
-    jmp .while_start_412
-.while_end_412:
-
-    ; property assignment
+    jmp .while_start_382
+.while_end_382:
+    ; --- property assign ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 24], rcx
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, [rbp - 40]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 48], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_500
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 24]
-    mov rax, [rax + 32]
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_501
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_502
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_503
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_504
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_505
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_506
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    push rax
-    mov rax, 0
-    push rax
-    mov rax, [rbp - 24]
-    push rax
-    pop rdx
-    pop rsi
-    pop rdi
-    call generate_block
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_507
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_508
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_509
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_510
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18034,8 +17086,23 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18048,37 +17115,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; let curr
-    mov rax, [rbp - 8]
-    mov rax, [rax + 8]
-    mov qword [rbp - 72], rax
-
-.while_start_417:
-    ; while condition
-    mov rax, [rbp - 72]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_417
-    ; if condition
-    mov rax, [rbp - 72]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 17
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_418
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18091,19 +17129,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, [rbp - 72]
-    mov rax, [rax + 16]
-    push rax
     mov rax, str_514
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
     push rax
     pop rsi
     pop rdi
@@ -18112,8 +17143,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18126,8 +17157,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18140,8 +17171,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18154,29 +17185,225 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; let f_env
+    ; --- standalone call ---
+    ; --- call generate_block ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, 0
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    pop rdx
+    pop rsi
+    pop rdi
+    call generate_block
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_518
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_519
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_520
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_521
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_522
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_523
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- let curr ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    mov qword [rbp - 72], rax
+.while_start_387:
+    mov rax, [rbp - 72]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_387
+    ; --- if ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 17
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_388
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_524
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_525
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_526
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_527
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_528
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- let f_env ---
     mov rax, 0
     mov qword [rbp - 80], rax
-
-    ; let p_node
+    ; --- let p_node ---
     mov rax, [rbp - 72]
     mov rax, [rax + 24]
     mov qword [rbp - 88], rax
-
-    ; let p_idx
+    ; --- let p_idx ---
     mov rax, 0
     mov qword [rbp - 96], rax
-
-    ; property assignment
+    ; --- property assign ---
     mov rax, 0
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 8], rcx
-
-.while_start_419:
-    ; while condition
+.while_start_389:
     mov rax, [rbp - 88]
     push rax
     mov rax, 0
@@ -18186,8 +17413,8 @@ generate_nasm:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_419
-    ; property assignment
+    je .while_end_389
+    ; --- property assign ---
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     push rax
@@ -18199,16 +17426,15 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 8], rcx
-
-    ; let off_str
+    ; --- let off_str ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     push rax
     pop rdi
     call int_to_string
     mov qword [rbp - 104], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 0
@@ -18218,16 +17444,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_420
-    ; property assignment
+    je .if_end_390
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_518
+    ; --- call str_concat ---
+    mov rax, str_529
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 104]
     push rax
-    mov rax, str_519
+    mov rax, str_530
     push rax
     pop rsi
     pop rdi
@@ -18244,10 +17473,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_420:
-
-    ; if condition
+.if_end_390:
+    ; --- if ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 1
@@ -18257,16 +17484,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_421
-    ; property assignment
+    je .if_end_391
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_520
+    ; --- call str_concat ---
+    mov rax, str_531
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 104]
     push rax
-    mov rax, str_521
+    mov rax, str_532
     push rax
     pop rsi
     pop rdi
@@ -18283,10 +17513,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_421:
-
-    ; if condition
+.if_end_391:
+    ; --- if ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 2
@@ -18296,16 +17524,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_422
-    ; property assignment
+    je .if_end_392
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_522
+    ; --- call str_concat ---
+    mov rax, str_533
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 104]
     push rax
-    mov rax, str_523
+    mov rax, str_534
     push rax
     pop rsi
     pop rdi
@@ -18322,10 +17553,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_422:
-
-    ; if condition
+.if_end_392:
+    ; --- if ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 3
@@ -18335,16 +17564,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_423
-    ; property assignment
+    je .if_end_393
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_524
+    ; --- call str_concat ---
+    mov rax, str_535
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 104]
     push rax
-    mov rax, str_525
+    mov rax, str_536
     push rax
     pop rsi
     pop rdi
@@ -18361,10 +17593,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_423:
-
-    ; if condition
+.if_end_393:
+    ; --- if ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 4
@@ -18374,16 +17604,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_424
-    ; property assignment
+    je .if_end_394
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_526
+    ; --- call str_concat ---
+    mov rax, str_537
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 104]
     push rax
-    mov rax, str_527
+    mov rax, str_538
     push rax
     pop rsi
     pop rdi
@@ -18400,10 +17633,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_424:
-
-    ; if condition
+.if_end_394:
+    ; --- if ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 5
@@ -18413,16 +17644,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_425
-    ; property assignment
+    je .if_end_395
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_528
+    ; --- call str_concat ---
+    mov rax, str_539
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 104]
     push rax
-    mov rax, str_529
+    mov rax, str_540
     push rax
     pop rsi
     pop rdi
@@ -18439,35 +17673,26 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_425:
-
-    ; f_env =
-    mov rdi, 32
-    call alloc_mem
-    push rax
+.if_end_395:
+    ; --- reassign f_env ---
+    ; --- call EnvNode ---
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, [rbp - 88]
     mov rax, [rax + 16]
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
+    push rax
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
-    pop rbx
-    mov qword [rbx + 16], rax
-    push rbx
+    push rax
     mov rax, [rbp - 80]
-    pop rbx
-    mov qword [rbx + 24], rax
-    push rbx
-    pop rax
+    push rax
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    call EnvNode
     mov qword [rbp - 80], rax
-
-    ; p_idx =
+    ; --- reassign p_idx ---
     mov rax, [rbp - 96]
     push rax
     mov rax, 1
@@ -18475,15 +17700,14 @@ generate_nasm:
     pop rax
     add rax, rbx
     mov qword [rbp - 96], rax
-
-    ; p_node =
+    ; --- reassign p_node ---
     mov rax, [rbp - 88]
     mov rax, [rax + 8]
     mov qword [rbp - 88], rax
-
-    jmp .while_start_419
-.while_end_419:
-
+    jmp .while_start_389
+.while_end_389:
+    ; --- standalone call ---
+    ; --- call generate_block ---
     mov rax, [rbp - 72]
     mov rax, [rax + 32]
     push rax
@@ -18495,221 +17719,8 @@ generate_nasm:
     pop rsi
     pop rdi
     call generate_block
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_530
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_531
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_532
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-.if_end_418:
-
-    ; if condition
-    mov rax, [rbp - 72]
-    mov rax, [rax + 0]
-    push rax
-    mov rax, 21
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    sete al
-    movzx rax, al
-    cmp rax, 0
-    je .if_end_426
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_533
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, [rbp - 72]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_534
-    push rax
-    pop rsi
-    pop rdi
-    call str_concat
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_535
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_536
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; let f_node
-    mov rax, [rbp - 72]
-    mov rax, [rax + 24]
-    mov qword [rbp - 112], rax
-
-    ; let f_count
-    mov rax, 0
-    mov qword [rbp - 120], rax
-
-.while_start_427:
-    ; while condition
-    mov rax, [rbp - 112]
-    push rax
-    mov rax, 0
-    mov rbx, rax
-    pop rax
-    cmp rax, rbx
-    setne al
-    movzx rax, al
-    cmp rax, 0
-    je .while_end_427
-    ; f_count =
-    mov rax, [rbp - 120]
-    push rax
-    mov rax, 1
-    mov rbx, rax
-    pop rax
-    add rax, rbx
-    mov qword [rbp - 120], rax
-
-    ; f_node =
-    mov rax, [rbp - 112]
-    mov rax, [rax + 8]
-    mov qword [rbp - 112], rax
-
-    jmp .while_start_427
-.while_end_427:
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_537
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_538
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_539
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
-    mov rax, [rbp - 24]
-    mov rax, [rax + 16]
-    push rax
-    mov rax, str_540
-    push rax
-    pop rsi
-    pop rdi
-    call emit
-    push rax
-    mov rax, [rbp - 24]
-    pop rcx
-    mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18722,8 +17733,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -18736,8 +17747,215 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; let size_str
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_543
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+.if_end_388:
+    ; --- if ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 21
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_396
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_544
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_545
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_546
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_547
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- let f_node ---
+    mov rax, [rbp - 72]
+    mov rax, [rax + 24]
+    mov qword [rbp - 112], rax
+    ; --- let f_count ---
+    mov rax, 0
+    mov qword [rbp - 120], rax
+.while_start_397:
+    mov rax, [rbp - 112]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_397
+    ; --- reassign f_count ---
+    mov rax, [rbp - 120]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    mov qword [rbp - 120], rax
+    ; --- reassign f_node ---
+    mov rax, [rbp - 112]
+    mov rax, [rax + 8]
+    mov qword [rbp - 112], rax
+    jmp .while_start_397
+.while_end_397:
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_548
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_549
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_550
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_551
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_552
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, str_553
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 24]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- let size_str ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 120]
     push rax
     mov rax, 8
@@ -18748,12 +17966,13 @@ generate_nasm:
     pop rdi
     call int_to_string
     mov qword [rbp - 128], rax
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_543
+    ; --- call str_concat ---
+    mov rax, str_554
     push rax
     mov rax, [rbp - 128]
     push rax
@@ -18768,12 +17987,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_544
+    mov rax, str_555
     push rax
     pop rsi
     pop rdi
@@ -18782,12 +18001,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_545
+    mov rax, str_556
     push rax
     pop rsi
     pop rdi
@@ -18796,12 +18015,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_546
+    mov rax, str_557
     push rax
     pop rsi
     pop rdi
@@ -18810,12 +18029,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_547
+    mov rax, str_558
     push rax
     pop rsi
     pop rdi
@@ -18824,12 +18043,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_548
+    mov rax, str_559
     push rax
     pop rsi
     pop rdi
@@ -18838,12 +18057,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_549
+    mov rax, str_560
     push rax
     pop rsi
     pop rdi
@@ -18852,12 +18071,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_550
+    mov rax, str_561
     push rax
     pop rsi
     pop rdi
@@ -18866,13 +18085,10 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; let f_idx
+    ; --- let f_idx ---
     mov rax, 0
     mov qword [rbp - 136], rax
-
-.while_start_428:
-    ; while condition
+.while_start_398:
     mov rax, [rbp - 136]
     push rax
     mov rax, [rbp - 120]
@@ -18882,8 +18098,9 @@ generate_nasm:
     setl al
     movzx rax, al
     cmp rax, 0
-    je .while_end_428
-    ; let off_str
+    je .while_end_398
+    ; --- let off_str ---
+    ; --- call int_to_string ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 8
@@ -18894,8 +18111,7 @@ generate_nasm:
     pop rdi
     call int_to_string
     mov qword [rbp - 144], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 0
@@ -18905,16 +18121,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_429
-    ; property assignment
+    je .if_end_399
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_551
+    ; --- call str_concat ---
+    mov rax, str_562
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 144]
     push rax
-    mov rax, str_552
+    mov rax, str_563
     push rax
     pop rsi
     pop rdi
@@ -18931,10 +18150,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_429:
-
-    ; if condition
+.if_end_399:
+    ; --- if ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 1
@@ -18944,16 +18161,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_430
-    ; property assignment
+    je .if_end_400
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_553
+    ; --- call str_concat ---
+    mov rax, str_564
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 144]
     push rax
-    mov rax, str_554
+    mov rax, str_565
     push rax
     pop rsi
     pop rdi
@@ -18970,10 +18190,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_430:
-
-    ; if condition
+.if_end_400:
+    ; --- if ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 2
@@ -18983,16 +18201,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_431
-    ; property assignment
+    je .if_end_401
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_555
+    ; --- call str_concat ---
+    mov rax, str_566
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 144]
     push rax
-    mov rax, str_556
+    mov rax, str_567
     push rax
     pop rsi
     pop rdi
@@ -19009,10 +18230,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_431:
-
-    ; if condition
+.if_end_401:
+    ; --- if ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 3
@@ -19022,16 +18241,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_432
-    ; property assignment
+    je .if_end_402
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_557
+    ; --- call str_concat ---
+    mov rax, str_568
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 144]
     push rax
-    mov rax, str_558
+    mov rax, str_569
     push rax
     pop rsi
     pop rdi
@@ -19048,10 +18270,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_432:
-
-    ; if condition
+.if_end_402:
+    ; --- if ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 4
@@ -19061,16 +18281,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_433
-    ; property assignment
+    je .if_end_403
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_559
+    ; --- call str_concat ---
+    mov rax, str_570
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 144]
     push rax
-    mov rax, str_560
+    mov rax, str_571
     push rax
     pop rsi
     pop rdi
@@ -19087,10 +18310,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_433:
-
-    ; if condition
+.if_end_403:
+    ; --- if ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 5
@@ -19100,16 +18321,19 @@ generate_nasm:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_434
-    ; property assignment
+    je .if_end_404
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_561
+    ; --- call str_concat ---
+    mov rax, str_572
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 144]
     push rax
-    mov rax, str_562
+    mov rax, str_573
     push rax
     pop rsi
     pop rdi
@@ -19126,10 +18350,8 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_434:
-
-    ; f_idx =
+.if_end_404:
+    ; --- reassign f_idx ---
     mov rax, [rbp - 136]
     push rax
     mov rax, 1
@@ -19137,15 +18359,14 @@ generate_nasm:
     pop rax
     add rax, rbx
     mov qword [rbp - 136], rax
-
-    jmp .while_start_428
-.while_end_428:
-
-    ; property assignment
+    jmp .while_start_398
+.while_end_398:
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_563
+    mov rax, str_574
     push rax
     pop rsi
     pop rdi
@@ -19154,12 +18375,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_564
+    mov rax, str_575
     push rax
     pop rsi
     pop rdi
@@ -19168,12 +18389,12 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-    ; property assignment
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
-    mov rax, str_565
+    mov rax, str_576
     push rax
     pop rsi
     pop rdi
@@ -19182,21 +18403,19 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
-.if_end_426:
-
-    ; curr =
+.if_end_396:
+    ; --- reassign curr ---
     mov rax, [rbp - 72]
     mov rax, [rax + 8]
     mov qword [rbp - 72], rax
-
-    jmp .while_start_417
-.while_end_417:
-
-    ; property assignment
+    jmp .while_start_387
+.while_end_387:
+    ; --- property assign ---
+    ; --- call emit ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
+    ; --- call get_stdlib_asm ---
     call get_stdlib_asm
     push rax
     pop rsi
@@ -19206,13 +18425,1286 @@ generate_nasm:
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 16], rcx
-
+    ; --- return ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     mov rsp, rbp
     pop rbp
     ret
+    mov rsp, rbp
+    pop rbp
+    ret
 
+EnvNode:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 32
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+PropertyNode:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+ConstNode:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 24
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov rsp, rbp
+    pop rbp
+    ret
+
+CodeGenState:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    push rdx
+    push rcx
+    push r8
+    push r9
+    mov rdi, 56
+    call alloc_mem
+    pop r9
+    pop r8
+    pop rcx
+    pop rdx
+    pop rsi
+    pop rdi
+    mov [rax + 0], rdi
+    mov [rax + 8], rsi
+    mov [rax + 16], rdx
+    mov [rax + 24], rcx
+    mov [rax + 32], r8
+    mov [rax + 40], r9
+    mov rsp, rbp
+    pop rbp
+    ret
+
+get_newline:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    ; --- let buf ---
+    ; --- call alloc_mem ---
+    mov rax, 2
+    push rax
+    pop rdi
+    call alloc_mem
+    mov qword [rbp - 8], rax
+    ; --- index assign ---
+    mov rax, 10
+    push rax
+    mov rax, 0
+    push rax
+    mov rax, [rbp - 8]
+    pop rbx
+    pop rcx
+    mov byte [rax + rbx], cl
+    ; --- index assign ---
+    mov rax, 0
+    push rax
+    mov rax, 1
+    push rax
+    mov rax, [rbp - 8]
+    pop rbx
+    pop rcx
+    mov byte [rax + rbx], cl
+    ; --- return ---
+    mov rax, [rbp - 8]
+    mov rsp, rbp
+    pop rbp
+    ret
+    mov rsp, rbp
+    pop rbp
+    ret
+
+emit:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    mov qword [rbp - 8], rdi
+    mov qword [rbp - 16], rsi
+    ; --- let temp ---
+    ; --- call str_concat ---
+    mov rax, [rbp - 16]
+    push rax
+    ; --- call get_newline ---
+    call get_newline
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    ; --- call str_concat ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov rsp, rbp
+    pop rbp
+    ret
+    mov rsp, rbp
+    pop rbp
+    ret
+
+int_to_string:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    mov qword [rbp - 8], rdi
+    ; --- if ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_405
+    ; --- let z ---
+    ; --- call alloc_mem ---
+    mov rax, 2
+    push rax
+    pop rdi
+    call alloc_mem
+    mov qword [rbp - 16], rax
+    ; --- index assign ---
+    mov rax, 48
+    push rax
+    mov rax, 0
+    push rax
+    mov rax, [rbp - 16]
+    pop rbx
+    pop rcx
+    mov byte [rax + rbx], cl
+    ; --- index assign ---
+    mov rax, 0
+    push rax
+    mov rax, 1
+    push rax
+    mov rax, [rbp - 16]
+    pop rbx
+    pop rcx
+    mov byte [rax + rbx], cl
+    ; --- return ---
+    mov rax, [rbp - 16]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_405:
+    ; --- let temp ---
+    mov rax, [rbp - 8]
+    mov qword [rbp - 24], rax
+    ; --- let len ---
+    mov rax, 0
+    mov qword [rbp - 32], rax
+.while_start_406:
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setg al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_406
+    ; --- reassign len ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    mov qword [rbp - 32], rax
+    ; --- reassign temp ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 10
+    mov rbx, rax
+    pop rax
+    cqo
+    idiv rbx
+    mov qword [rbp - 24], rax
+    jmp .while_start_406
+.while_end_406:
+    ; --- let buf ---
+    ; --- call alloc_mem ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    pop rdi
+    call alloc_mem
+    mov qword [rbp - 40], rax
+    ; --- index assign ---
+    mov rax, 0
+    push rax
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 40]
+    pop rbx
+    pop rcx
+    mov byte [rax + rbx], cl
+    ; --- reassign temp ---
+    mov rax, [rbp - 8]
+    mov qword [rbp - 24], rax
+    ; --- let i ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    sub rax, rbx
+    mov qword [rbp - 48], rax
+.while_start_407:
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setg al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_407
+    ; --- index assign ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 10
+    mov rbx, rax
+    pop rax
+    cqo
+    idiv rbx
+    mov rax, rdx
+    push rax
+    mov rax, 48
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    mov rax, [rbp - 48]
+    push rax
+    mov rax, [rbp - 40]
+    pop rbx
+    pop rcx
+    mov byte [rax + rbx], cl
+    ; --- reassign temp ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 10
+    mov rbx, rax
+    pop rax
+    cqo
+    idiv rbx
+    mov qword [rbp - 24], rax
+    ; --- reassign i ---
+    mov rax, [rbp - 48]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    sub rax, rbx
+    mov qword [rbp - 48], rax
+    jmp .while_start_407
+.while_end_407:
+    ; --- return ---
+    mov rax, [rbp - 40]
+    mov rsp, rbp
+    pop rbp
+    ret
+    mov rsp, rbp
+    pop rbp
+    ret
+
+string_to_bytes_asm:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    mov qword [rbp - 8], rdi
+    ; --- let len ---
+    ; --- call string_length ---
+    mov rax, [rbp - 8]
+    push rax
+    pop rdi
+    call string_length
+    mov qword [rbp - 16], rax
+    ; --- if ---
+    mov rax, [rbp - 16]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_408
+    ; --- return ---
+    mov rax, str_577
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_408:
+    ; --- let buf ---
+    mov rax, str_578
+    mov qword [rbp - 24], rax
+    ; --- let i ---
+    mov rax, 0
+    mov qword [rbp - 32], rax
+.while_start_409:
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 16]
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setl al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_409
+    ; --- let val ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, [rbp - 32]
+    mov rbx, rax
+    pop rax
+    movzx rax, byte [rax + rbx]
+    mov qword [rbp - 40], rax
+    ; --- let char_val ---
+    mov rax, [rbp - 40]
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    mov rax, 256
+    mov rbx, rax
+    pop rax
+    cqo
+    idiv rbx
+    push rax
+    mov rax, 256
+    mov rbx, rax
+    pop rax
+    imul rax, rbx
+    mov rbx, rax
+    pop rax
+    sub rax, rbx
+    mov qword [rbp - 48], rax
+    ; --- let char_str ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 48]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 56], rax
+    ; --- reassign buf ---
+    ; --- call str_concat ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, [rbp - 56]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 24], rax
+    ; --- reassign buf ---
+    ; --- call str_concat ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_579
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 24], rax
+    ; --- reassign i ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    mov qword [rbp - 32], rax
+    jmp .while_start_409
+.while_end_409:
+    ; --- reassign buf ---
+    ; --- call str_concat ---
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, str_580
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 24], rax
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rsp, rbp
+    pop rbp
+    ret
+    mov rsp, rbp
+    pop rbp
+    ret
+
+get_property_offset:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    mov qword [rbp - 8], rdi
+    mov qword [rbp - 16], rsi
+    ; --- let curr ---
+    mov rax, [rbp - 16]
+    mov qword [rbp - 24], rax
+.while_start_410:
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_410
+    ; --- if ---
+    ; --- call string_equals ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, [rbp - 8]
+    push rax
+    pop rsi
+    pop rdi
+    call string_equals
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_411
+    ; --- return ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_411:
+    ; --- reassign curr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    mov qword [rbp - 24], rax
+    jmp .while_start_410
+.while_end_410:
+    ; --- print() ---
+    mov rax, str_581
+    call print_string
+    ; --- print() ---
+    mov rax, [rbp - 8]
+    call print_int
+    ; --- return ---
+    mov rax, 0
+    mov rsp, rbp
+    pop rbp
+    ret
+    mov rsp, rbp
+    pop rbp
+    ret
+
+extract_strings_expr:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    mov qword [rbp - 8], rdi
+    mov qword [rbp - 16], rsi
+    ; --- if ---
+    mov rax, [rbp - 8]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_412
+    ; --- return ---
+    mov rax, 0
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_412:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 12
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_413
+    ; --- let s_id ---
+    ; --- call int_to_string ---
+    mov rax, [rbp - 16]
+    mov rax, [rax + 40]
+    push rax
+    pop rdi
+    call int_to_string
+    mov qword [rbp - 24], rax
+    ; --- let label ---
+    ; --- call str_concat ---
+    mov rax, str_582
+    push rax
+    mov rax, [rbp - 24]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 32], rax
+    ; --- property assign ---
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, [rbp - 8]
+    pop rcx
+    mov qword [rax + 16], rcx
+    ; --- property assign ---
+    mov rax, [rbp - 16]
+    mov rax, [rax + 40]
+    push rax
+    mov rax, 1
+    mov rbx, rax
+    pop rax
+    add rax, rbx
+    push rax
+    mov rax, [rbp - 16]
+    pop rcx
+    mov qword [rax + 40], rcx
+    ; --- let bytes_str ---
+    ; --- call string_to_bytes_asm ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    pop rdi
+    call string_to_bytes_asm
+    mov qword [rbp - 40], rax
+    ; --- let def ---
+    ; --- call str_concat ---
+    mov rax, str_583
+    push rax
+    ; --- call str_concat ---
+    mov rax, [rbp - 32]
+    push rax
+    ; --- call str_concat ---
+    mov rax, str_584
+    push rax
+    mov rax, [rbp - 40]
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    push rax
+    pop rsi
+    pop rdi
+    call str_concat
+    mov qword [rbp - 48], rax
+    ; --- property assign ---
+    ; --- call emit ---
+    mov rax, [rbp - 16]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, [rbp - 48]
+    push rax
+    pop rsi
+    pop rdi
+    call emit
+    push rax
+    mov rax, [rbp - 16]
+    pop rcx
+    mov qword [rax + 32], rcx
+    ; --- return ---
+    mov rax, 0
+    mov rsp, rbp
+    pop rbp
+    ret
+.if_end_413:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 5
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_414
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_414:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 19
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_415
+    ; --- let curr_arg ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    mov qword [rbp - 56], rax
+.while_start_416:
+    mov rax, [rbp - 56]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_416
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 56]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- reassign curr_arg ---
+    mov rax, [rbp - 56]
+    mov rax, [rax + 8]
+    mov qword [rbp - 56], rax
+    jmp .while_start_416
+.while_end_416:
+.if_end_415:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 16
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_417
+    ; --- let curr_elem ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    mov qword [rbp - 64], rax
+.while_start_418:
+    mov rax, [rbp - 64]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_418
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 64]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- reassign curr_elem ---
+    mov rax, [rbp - 64]
+    mov rax, [rax + 8]
+    mov qword [rbp - 64], rax
+    jmp .while_start_418
+.while_end_418:
+.if_end_417:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 6
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_419
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_419:
+    ; --- if ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 24
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_420
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 8]
+    mov rax, [rax + 8]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_420:
+    ; --- return ---
+    mov rax, 0
+    mov rsp, rbp
+    pop rbp
+    ret
+    mov rsp, rbp
+    pop rbp
+    ret
+
+extract_strings:
+    push rbp
+    mov rbp, rsp
+    sub rsp, 4096
+    mov qword [rbp - 8], rdi
+    mov qword [rbp - 16], rsi
+    ; --- let curr ---
+    mov rax, [rbp - 8]
+    mov qword [rbp - 24], rax
+.while_start_421:
+    mov rax, [rbp - 24]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_421
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 2
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_422
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_422:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 20
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_423
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_423:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 15
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_424
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_424:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 25
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_425
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_425:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 26
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_426
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_426:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 27
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_427
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_427:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 18
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_428
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_428:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 8
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_429
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+.if_end_429:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 14
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_430
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- standalone call ---
+    ; --- call extract_strings ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings
+.if_end_430:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 13
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_431
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- standalone call ---
+    ; --- call extract_strings ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_432
+    ; --- standalone call ---
+    ; --- call extract_strings ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings
+.if_end_432:
+.if_end_431:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 17
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_433
+    ; --- standalone call ---
+    ; --- call extract_strings ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings
+.if_end_433:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 0]
+    push rax
+    mov rax, 9
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    sete al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_434
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- let c_node ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 24]
+    mov qword [rbp - 32], rax
+.while_start_435:
+    mov rax, [rbp - 32]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .while_end_435
+    ; --- standalone call ---
+    ; --- call extract_strings_expr ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 16]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings_expr
+    ; --- standalone call ---
+    ; --- call extract_strings ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 24]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings
+    ; --- reassign c_node ---
+    mov rax, [rbp - 32]
+    mov rax, [rax + 8]
+    mov qword [rbp - 32], rax
+    jmp .while_start_435
+.while_end_435:
+    ; --- if ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, 0
+    mov rbx, rax
+    pop rax
+    cmp rax, rbx
+    setne al
+    movzx rax, al
+    cmp rax, 0
+    je .if_end_436
+    ; --- standalone call ---
+    ; --- call extract_strings ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 32]
+    push rax
+    mov rax, [rbp - 16]
+    push rax
+    pop rsi
+    pop rdi
+    call extract_strings
+.if_end_436:
+.if_end_434:
+    ; --- reassign curr ---
+    mov rax, [rbp - 24]
+    mov rax, [rax + 8]
+    mov qword [rbp - 24], rax
+    jmp .while_start_421
+.while_end_421:
     mov rsp, rbp
     pop rbp
     ret
@@ -19221,13 +19713,9 @@ append_statements:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param master_program
     mov qword [rbp - 8], rdi
-    ; init param file_program
     mov qword [rbp - 16], rsi
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     push rax
@@ -19238,29 +19726,25 @@ append_statements:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_435
-    ; property assignment
+    je .if_end_437
+    ; --- property assign ---
     mov rax, [rbp - 16]
     mov rax, [rax + 8]
     push rax
     mov rax, [rbp - 8]
     pop rcx
     mov qword [rax + 8], rcx
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_435:
-
-    ; let current
+.if_end_437:
+    ; --- let current ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-.while_start_436:
-    ; while condition
+.while_start_438:
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     push rax
@@ -19271,28 +19755,25 @@ append_statements:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_436
-    ; current =
+    je .while_end_438
+    ; --- reassign current ---
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-    jmp .while_start_436
-.while_end_436:
-
-    ; property assignment
+    jmp .while_start_438
+.while_end_438:
+    ; --- property assign ---
     mov rax, [rbp - 16]
     mov rax, [rax + 8]
     push rax
     mov rax, [rbp - 24]
     pop rcx
     mov qword [rax + 8], rcx
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -19301,19 +19782,13 @@ has_been_imported:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param master_program
     mov qword [rbp - 8], rdi
-    ; init param target_imp_path
     mov qword [rbp - 16], rsi
-
-    ; let curr
+    ; --- let curr ---
     mov rax, [rbp - 8]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-.while_start_437:
-    ; while condition
+.while_start_439:
     mov rax, [rbp - 24]
     push rax
     mov rax, 0
@@ -19323,8 +19798,8 @@ has_been_imported:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_437
-    ; if condition
+    je .while_end_439
+    ; --- if ---
     mov rax, [rbp - 24]
     mov rax, [rax + 0]
     push rax
@@ -19335,8 +19810,9 @@ has_been_imported:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_438
-    ; if condition
+    je .if_end_440
+    ; --- if ---
+    ; --- call string_equals ---
     mov rax, [rbp - 24]
     mov rax, [rax + 16]
     push rax
@@ -19353,29 +19829,25 @@ has_been_imported:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_439
+    je .if_end_441
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_439:
-
-.if_end_438:
-
-    ; curr =
+.if_end_441:
+.if_end_440:
+    ; --- reassign curr ---
     mov rax, [rbp - 24]
     mov rax, [rax + 8]
     mov qword [rbp - 24], rax
-
-    jmp .while_start_437
-.while_end_437:
-
+    jmp .while_start_439
+.while_end_439:
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -19384,24 +19856,18 @@ parse_file:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-    ; init param filepath
     mov qword [rbp - 8], rdi
-    ; init param master_program
     mov qword [rbp - 16], rsi
-    ; init param base_dir
     mov qword [rbp - 24], rdx
-    ; init param std_dir
     mov qword [rbp - 32], rcx
-
-    ; let sourceCode
+    ; --- let sourceCode ---
+    ; --- call readFile ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call readFile
     mov qword [rbp - 40], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 40]
     push rax
     mov rax, 0
@@ -19411,50 +19877,45 @@ parse_file:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_440
-    ; io.print
-    mov rax, str_566
+    je .if_end_442
+    ; --- print() ---
+    mov rax, str_585
     call print_string
-
-    ; io.print
+    ; --- print() ---
     mov rax, [rbp - 8]
     call print_int
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_440:
-
-    ; let lexer
+.if_end_442:
+    ; --- let lexer ---
+    ; --- call new_lexer ---
     mov rax, [rbp - 40]
     push rax
     pop rdi
     call new_lexer
     mov qword [rbp - 48], rax
-
-    ; let parser
+    ; --- let parser ---
+    ; --- call new_parser ---
     mov rax, [rbp - 48]
     push rax
     pop rdi
     call new_parser
     mov qword [rbp - 56], rax
-
-    ; let fileProg
+    ; --- let fileProg ---
+    ; --- call parse_program ---
     mov rax, [rbp - 56]
     push rax
     pop rdi
     call parse_program
     mov qword [rbp - 64], rax
-
-    ; let stmt
+    ; --- let stmt ---
     mov rax, [rbp - 64]
     mov rax, [rax + 8]
     mov qword [rbp - 72], rax
-
-.while_start_441:
-    ; while condition
+.while_start_443:
     mov rax, [rbp - 72]
     push rax
     mov rax, 0
@@ -19464,8 +19925,8 @@ parse_file:
     setne al
     movzx rax, al
     cmp rax, 0
-    je .while_end_441
-    ; if condition
+    je .while_end_443
+    ; --- if ---
     mov rax, [rbp - 72]
     mov rax, [rax + 0]
     push rax
@@ -19476,13 +19937,13 @@ parse_file:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_442
-    ; let impPath
+    je .if_end_444
+    ; --- let impPath ---
     mov rax, [rbp - 72]
     mov rax, [rax + 16]
     mov qword [rbp - 80], rax
-
-    ; if condition
+    ; --- if ---
+    ; --- call has_been_imported ---
     mov rax, [rbp - 16]
     push rax
     mov rax, [rbp - 80]
@@ -19498,12 +19959,11 @@ parse_file:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_443
-    ; let fullPath
+    je .if_end_445
+    ; --- let fullPath ---
     mov rax, [rbp - 80]
     mov qword [rbp - 88], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 72]
     mov rax, [rax + 24]
     push rax
@@ -19514,8 +19974,9 @@ parse_file:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_444
-    ; fullPath =
+    je .if_end_446
+    ; --- reassign fullPath ---
+    ; --- call str_concat ---
     mov rax, [rbp - 32]
     push rax
     mov rax, [rbp - 80]
@@ -19524,10 +19985,8 @@ parse_file:
     pop rdi
     call str_concat
     mov qword [rbp - 88], rax
-
-.if_end_444:
-
-    ; if condition
+.if_end_446:
+    ; --- if ---
     mov rax, [rbp - 72]
     mov rax, [rax + 24]
     push rax
@@ -19538,8 +19997,9 @@ parse_file:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_445
-    ; fullPath =
+    je .if_end_447
+    ; --- reassign fullPath ---
+    ; --- call str_concat ---
     mov rax, [rbp - 24]
     push rax
     mov rax, [rbp - 80]
@@ -19548,9 +20008,9 @@ parse_file:
     pop rdi
     call str_concat
     mov qword [rbp - 88], rax
-
-.if_end_445:
-
+.if_end_447:
+    ; --- standalone call ---
+    ; --- call parse_file ---
     mov rax, [rbp - 88]
     push rax
     mov rax, [rbp - 16]
@@ -19564,19 +20024,16 @@ parse_file:
     pop rsi
     pop rdi
     call parse_file
-
-.if_end_443:
-
-.if_end_442:
-
-    ; stmt =
+.if_end_445:
+.if_end_444:
+    ; --- reassign stmt ---
     mov rax, [rbp - 72]
     mov rax, [rax + 8]
     mov qword [rbp - 72], rax
-
-    jmp .while_start_441
-.while_end_441:
-
+    jmp .while_start_443
+.while_end_443:
+    ; --- standalone call ---
+    ; --- call append_statements ---
     mov rax, [rbp - 16]
     push rax
     mov rax, [rbp - 64]
@@ -19584,12 +20041,11 @@ parse_file:
     pop rsi
     pop rdi
     call append_statements
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
@@ -19598,20 +20054,17 @@ main:
     push rbp
     mov rbp, rsp
     sub rsp, 4096
-
-
-    ; io.print
-    mov rax, str_567
+    ; --- print() ---
+    mov rax, str_586
     call print_string
-
-    ; let filename
+    ; --- let filename ---
+    ; --- call getArg ---
     mov rax, 1
     push rax
     pop rdi
     call getArg
     mov qword [rbp - 8], rax
-
-    ; if condition
+    ; --- if ---
     mov rax, [rbp - 8]
     push rax
     mov rax, 0
@@ -19621,71 +20074,65 @@ main:
     sete al
     movzx rax, al
     cmp rax, 0
-    je .if_end_446
-    ; io.print
-    mov rax, str_568
+    je .if_end_448
+    ; --- print() ---
+    mov rax, str_587
     call print_string
-
+    ; --- return ---
     mov rax, 1
     mov rsp, rbp
     pop rbp
     ret
-
-.if_end_446:
-
-    ; let file_dir
+.if_end_448:
+    ; --- let file_dir ---
+    ; --- call get_dir_from_path ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call get_dir_from_path
     mov qword [rbp - 16], rax
-
-    ; let base_dir
+    ; --- let base_dir ---
+    ; --- call str_concat ---
     mov rax, [rbp - 16]
     push rax
-    mov rax, str_569
+    mov rax, str_588
     push rax
     pop rsi
     pop rdi
     call str_concat
     mov qword [rbp - 24], rax
-
-    ; let parent_dir
+    ; --- let parent_dir ---
+    ; --- call get_dir_from_path ---
     mov rax, [rbp - 16]
     push rax
     pop rdi
     call get_dir_from_path
     mov qword [rbp - 32], rax
-
-    ; let std_dir
+    ; --- let std_dir ---
+    ; --- call str_concat ---
     mov rax, [rbp - 32]
     push rax
-    mov rax, str_570
+    mov rax, str_589
     push rax
     pop rsi
     pop rdi
     call str_concat
     mov qword [rbp - 40], rax
-
-    ; io.print
-    mov rax, str_571
+    ; --- print() ---
+    mov rax, str_590
     call print_string
-
-    ; let master_program
-    mov rdi, 16
-    call alloc_mem
-    push rax
+    ; --- let master_program ---
+    ; --- call ASTProgram ---
     mov rax, 1
-    pop rbx
-    mov qword [rbx + 0], rax
-    push rbx
+    push rax
     mov rax, 0
-    pop rbx
-    mov qword [rbx + 8], rax
-    push rbx
-    pop rax
+    push rax
+    pop rsi
+    pop rdi
+    call ASTProgram
     mov qword [rbp - 48], rax
-
+    ; --- standalone call ---
+    ; --- call parse_file ---
     mov rax, [rbp - 8]
     push rax
     mov rax, [rbp - 48]
@@ -19699,37 +20146,38 @@ main:
     pop rsi
     pop rdi
     call parse_file
-
-    ; io.print
-    mov rax, str_572
+    ; --- print() ---
+    mov rax, str_591
     call print_string
-
-    ; let asm_code
+    ; --- let asm_code ---
+    ; --- call generate_nasm ---
     mov rax, [rbp - 48]
     push rax
     pop rdi
     call generate_nasm
     mov qword [rbp - 56], rax
-
-    ; let out_file
+    ; --- let out_file ---
+    ; --- call str_concat ---
+    ; --- call strip_extension ---
     mov rax, [rbp - 8]
     push rax
     pop rdi
     call strip_extension
     push rax
-    mov rax, str_573
+    mov rax, str_592
     push rax
     pop rsi
     pop rdi
     call str_concat
     mov qword [rbp - 64], rax
-
-    ; io.print
-    mov rax, str_574
+    ; --- print() ---
+    ; --- call str_concat ---
+    mov rax, str_593
     push rax
+    ; --- call str_concat ---
     mov rax, [rbp - 64]
     push rax
-    mov rax, str_575
+    mov rax, str_594
     push rax
     pop rsi
     pop rdi
@@ -19738,8 +20186,9 @@ main:
     pop rsi
     pop rdi
     call str_concat
-    call print_string
-
+    call print_int
+    ; --- standalone call ---
+    ; --- call writeFile ---
     mov rax, [rbp - 64]
     push rax
     mov rax, [rbp - 56]
@@ -19747,172 +20196,18 @@ main:
     pop rsi
     pop rdi
     call writeFile
-
-    ; io.print
-    mov rax, str_576
+    ; --- print() ---
+    mov rax, str_595
     call print_string
-
+    ; --- return ---
     mov rax, 0
     mov rsp, rbp
     pop rbp
     ret
-
     mov rsp, rbp
     pop rbp
     ret
-
-
-; --- FROSTYYY STANDARD LIBRARY HELPERS ---
-
-alloc_mem:
-    push rdi            ; Save original requested size
-    add rdi, 8          ; Add 8 bytes for size header
-    mov rsi, rdi
-    mov rax, 9          ; sys_mmap
-    mov rdi, 0          ; addr = NULL (kernel chooses)
-    mov rdx, 3          ; PROT_READ | PROT_WRITE
-    mov r10, 34         ; MAP_PRIVATE | MAP_ANONYMOUS
-    mov r8, -1          ; fd = -1 (not backed by file)
-    mov r9, 0           ; offset = 0
-    syscall
-    pop rdi             ; Retrieve original requested size
-    cmp rax, 0
-    jl .mmap_error
-    mov [rax], rdi      ; Write size header
-    add rax, 8          ; Return pointer shifted past the size header
-    ret
-.mmap_error:
-    mov rax, 60         ; sys_exit
-    mov rdi, 1          ; exit code 1 (allocation failure)
-    syscall
-
-free_mem:
-    test rdi, rdi
-    jz .free_done       ; Exit if null pointer
-    sub rdi, 8          ; Shift back to the size header
-    mov rsi, [rdi]      ; Read the original requested size
-    add rsi, 8          ; Account for the size header itself
-    mov rax, 11         ; sys_munmap
-    syscall
-.free_done:
-    ret
-
-readFile:
-    push rbp
-    mov rbp, rsp
-    push rdi            
-    
-    ; sys_open(path, O_RDONLY, 0)
-    mov rax, 2          ; sys_open
-    mov rdi, [rbp - 8]  ; path
-    mov rsi, 0          ; O_RDONLY
-    mov rdx, 0          ; mode (unused for read)
-    syscall
-    
-    cmp rax, 0
-    jl .read_error
-    mov r8, rax         ; r8 = file descriptor
-    
-    ; fstat to get file size
-    sub rsp, 144        ; struct stat buffer (144 bytes on x86_64)
-    mov rax, 5          ; sys_fstat
-    mov rdi, r8         ; fd
-    mov rsi, rsp        ; stat buffer
-    syscall
-    
-    mov rdi, [rsp + 48] ; st_size is at offset 48
-    add rdi, 1          ; +1 for null terminator
-    mov r10, rdi        ; r10 = alloc size
-    add rsp, 144        ; pop stat buffer
-    
-    push r8             ; save fd
-    push r10            ; save alloc size
-    call alloc_mem
-    pop r10             ; restore alloc size
-    pop r8              ; restore fd
-    mov r9, rax         ; r9 = buffer pointer
-    
-    ; sys_read(fd, buf, size)
-    mov rax, 0          ; sys_read
-    mov rdi, r8         ; fd
-    mov rsi, r9         ; buffer
-    mov rdx, r10        ; count = file size + 1
-    dec rdx             ; don't count the null terminator space
-    syscall
-    
-    mov byte [r9 + rax], 0 ; null-terminate
-    
-    ; sys_close(fd)
-    mov rax, 3          ; sys_close
-    mov rdi, r8
-    syscall
-    
-    mov rax, r9         ; return buffer pointer
-    mov rsp, rbp
-    pop rbp
-    ret
-.read_error:
-    mov rax, 0          ; return NULL on error
-    mov rsp, rbp
-    pop rbp
-    ret
-
-writeFile:
-    push rsi            
-    ; sys_open(path, O_WRONLY|O_CREAT|O_TRUNC, 0644)
-    mov rax, 2          ; sys_open
-    mov rsi, 577        ; O_WRONLY(1) | O_CREAT(64) | O_TRUNC(512) = 577
-    mov rdx, 420        ; 0644 octal = 420 decimal
-    syscall
-    mov r8, rax         ; r8 = fd
-    pop rsi             
-    push r8
-    push rsi
-    mov rax, rsi
-    mov rdx, 0
-.wf_len_loop:
-    cmp byte [rax + rdx], 0
-    je .wf_len_done
-    inc rdx
-    jmp .wf_len_loop
-.wf_len_done:
-    pop rsi
-    pop r8
-    mov rax, 1          ; sys_write
-    mov rdi, r8         ; fd
-    syscall
-    mov rax, 3          ; sys_close
-    mov rdi, r8
-    syscall
-    ret
-
-sub_string:
-    push rdi            
-    push rsi
-    push rdx
-    mov rdi, rdx
-    sub rdi, rsi
-    inc rdi
-    call alloc_mem
-    mov r8, rax 
-    pop rdx
-    pop rsi
-    pop r10             
-    mov rcx, 0
-.sub_loop:
-    mov r9, rsi
-    add r9, rcx 
-    cmp r9, rdx
-    jg .sub_done        
-    mov al, byte [r10 + r9] 
-    mov byte [r8 + rcx], al 
-    inc rcx
-    jmp .sub_loop
-.sub_done:
-    mov byte [r8 + rcx], 0 
-    mov rax, r8 
-    ret
-
+; --- FROSTYYY STANDARD LIBRARY ---
 print_string:
     mov rsi, rax
     mov rdx, 0
@@ -19922,56 +20217,181 @@ print_string:
     inc rdx
     jmp .len_loop
 .len_done:
-    mov rdi, 1          ; fd = stdout
-    mov rax, 1          ; sys_write
+    mov rdi, STDOUT
+    mov rax, SYS_WRITE
     syscall
-    push 10             ; newline
+    push 10
     mov rsi, rsp
     mov rdx, 1
-    mov rax, 1          ; sys_write
+    mov rax, SYS_WRITE
     syscall
     pop rax
     ret
-
+sub_string:
+    push rdi
+    push rsi
+    push rdx
+    mov rdi, rdx
+    sub rdi, rsi
+    inc rdi
+    cmp rdi, 0
+    jg .alloc
+    mov rdi, 1
+.alloc:
+    call alloc_mem
+    mov r8, rax
+    pop rdx
+    pop rsi
+    pop r10
+    mov rcx, 0
+.sub_loop:
+    mov r9, rsi
+    add r9, rcx
+    cmp r9, rdx
+    jg .sub_done
+    mov al, byte [r10 + r9]
+    mov byte [r8 + rcx], al
+    inc rcx
+    jmp .sub_loop
+.sub_done:
+    mov byte [r8 + rcx], 0
+    mov rax, r8
+    ret
 print_int:
     mov r8, rsp
     dec rsp
-    mov byte [rsp], 10  ; newline
+    mov byte [rsp], 10
     mov rbx, 10
     test rax, rax
     jnz .itoa_loop
     dec rsp
-    mov byte [rsp], '0'
+    mov byte [rsp], 48
     jmp .itoa_done
 .itoa_loop:
     xor rdx, rdx
     div rbx
-    add dl, '0'
+    add dl, 48
     dec rsp
     mov [rsp], dl
     test rax, rax
     jnz .itoa_loop
 .itoa_done:
-    mov rdi, 1          ; fd = stdout
+    mov rdi, STDOUT
     mov rsi, rsp
     mov rdx, r8
     sub rdx, rsp
-    mov rax, 1          ; sys_write
+    mov rax, SYS_WRITE
     syscall
     mov rsp, r8
     ret
-
+alloc_mem:
+    mov rsi, rdi
+    mov rax, SYS_MMAP
+    mov rdi, 0
+    mov rdx, PROT_READ | PROT_WRITE
+    mov r10, MAP_PRIVATE | MAP_ANON
+    mov r8, -1
+    mov r9, 0
+    syscall
+    cmp rax, 0
+    jl .mmap_error
+    ret
+.mmap_error:
+    mov rax, SYS_EXIT
+    mov rdi, 1
+    syscall
+readFile:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    mov rax, SYS_OPEN
+    mov rdi, [rbp - 8]
+    mov rsi, O_RDONLY
+    mov rdx, 0
+    syscall
+    cmp rax, 0
+    jl .read_error
+    mov r8, rax
+    sub rsp, 144
+    mov rax, SYS_FSTAT
+    mov rdi, r8
+    mov rsi, rsp
+    syscall
+    mov r10, [rsp + 48]
+    add r10, 1
+    add rsp, 144
+    mov rdi, r10
+    push r8
+    push r10
+    call alloc_mem
+    pop r10
+    pop r8
+    mov r9, rax
+    mov rax, SYS_READ
+    mov rdi, r8
+    mov rsi, r9
+    mov rdx, r10
+    dec rdx
+    syscall
+    mov byte [r9 + rax], 0
+    mov rax, SYS_CLOSE
+    mov rdi, r8
+    syscall
+    mov rax, r9
+    mov rsp, rbp
+    pop rbp
+    ret
+.read_error:
+    mov rax, 0
+    mov rsp, rbp
+    pop rbp
+    ret
+writeFile:
+    push rbp
+    mov rbp, rsp
+    push rdi
+    push rsi
+    mov rbx, rsi
+    xor rdx, rdx
+.strlen_loop:
+    cmp byte [rbx + rdx], 0
+    je .strlen_done
+    inc rdx
+    jmp .strlen_loop
+.strlen_done:
+    push rdx
+    mov rax, SYS_OPEN
+    mov rdi, [rbp - 8]
+    mov rsi, O_WRONLY | O_CREAT | O_TRUNC
+    mov rdx, FILE_MODE_644
+    syscall
+    cmp rax, 0
+    jl .write_error
+    mov r8, rax
+    mov rax, SYS_WRITE
+    mov rdi, r8
+    mov rsi, [rbp - 16]
+    mov rdx, [rbp - 24]
+    syscall
+    mov rax, SYS_CLOSE
+    mov rdi, r8
+    syscall
+.write_error:
+    mov rsp, rbp
+    pop rbp
+    ret
 getArg:
-    mov rax, [r12]       ; argc
-    cmp rdi, rax         ; check index < argc
+    mov rax, [r12]
+    cmp rdi, rax
     jge .get_arg_none
     mov rax, r12
-    add rax, 8           ; skip argc
+    add rax, 8
     mov rcx, rdi
-    shl rcx, 3           ; index * 8
+    shl rcx, 3
     add rax, rcx
-    mov rax, [rax]       ; argv[index]
+    mov rax, [rax]
     ret
 .get_arg_none:
-    mov rax, 0           ; return NULL
+    mov rax, 0
     ret
+
