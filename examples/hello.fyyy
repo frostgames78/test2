@@ -1,0 +1,6 @@
+fn main() {
+    print("Hello, World! Welcome to Frostyyy.")
+    return 0
+}
+
+main()

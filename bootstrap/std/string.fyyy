@@ -1,0 +1,81 @@
+// bootstrap/std/string.fyyy
+
+fn string_length(str) {
+    if str == 0 - 1 { return 0 }
+    if str == 0 { return 0 }
+    let len = 0
+    let loop = 1
+    while loop == 1 {
+        if str[len] == 0 { loop = 0 }
+        if str[len] != 0 { len = len + 1 }
+    }
+    return len
+}
+
+fn string_equals(s1, s2) {
+    let l1 = string_length(s1)
+    let l2 = string_length(s2)
+    if l1 != l2 { return 0 }
+    
+    let i = 0
+    let loop = 1
+    while loop == 1 {
+        if i == l1 { loop = 0 }
+        if i != l1 {
+            if s1[i] != s2[i] { return 0 }
+            i = i + 1
+        }
+    }
+    return 1
+}
+
+fn str_concat(s1, s2) {
+    let l1 = string_length(s1)
+    let l2 = string_length(s2)
+    let buf = alloc_mem(l1 + l2 + 1)
+    
+    let i = 0
+    while i < l1 {
+        buf[i] = s1[i]
+        i = i + 1
+    }
+    
+    let j = 0
+    while j < l2 {
+        buf[i] = s2[j]
+        i = i + 1
+        j = j + 1
+    }
+    buf[i] = 0
+    return buf
+}
+
+// Returns the directory part of a path (everything up to and including last '/')
+// e.g. "bootstrap/src/main.fyyy" => "bootstrap/src/"
+// If no '/' is found, returns ""
+fn get_dir_from_path(path) {
+    let len = string_length(path)
+    let last_slash = 0 - 1
+    let i = 0
+    while i < len {
+        if path[i] == 47 { last_slash = i } // 47 = '/'
+        i = i + 1
+    }
+    if last_slash < 0 { return "" }
+    return sub_string(path, 0, last_slash)
+}
+
+// Strips the file extension and returns the base name
+// e.g. "bootstrap/src/main.fyyy" => "bootstrap/src/main"
+fn strip_extension(path) {
+    let len = string_length(path)
+    let last_dot = 0 - 1
+    let i = 0
+    while i < len {
+        if path[i] == 46 { last_dot = i } // 46 = '.'
+        i = i + 1
+    }
+    if last_dot < 0 { return path }
+    if last_dot == 0 { return path }
+    return sub_string(path, 0, last_dot - 1)
+}

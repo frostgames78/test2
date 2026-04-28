@@ -1,0 +1,66 @@
+// bootstrap/src/ast.fyyy
+const NODE_NONE = 0
+const NODE_PROGRAM = 1
+const NODE_LET = 2
+const NODE_IDENT = 3
+const NODE_INT = 4
+const NODE_INFIX = 5 
+const NODE_PREFIX = 6
+const NODE_POSTFIX = 7
+const NODE_PRINT = 8   
+const NODE_MATCH = 9        
+const NODE_MATCH_CASE = 10  
+const NODE_IMPORT = 11      
+const NODE_STRING = 12      
+const NODE_IF = 13          
+const NODE_WHILE = 14       
+const NODE_REASSIGN = 15    
+const NODE_ARRAY = 16    
+const NODE_FUNCTION = 17    
+const NODE_RETURN = 18      
+const NODE_CALL = 19        
+const NODE_CONST = 20       
+const NODE_STRUCT = 21      
+const NODE_FLOAT = 22       
+const NODE_BOOL = 23        
+const NODE_PROPERTY_ACCESS = 24
+const NODE_PROPERTY_ASSIGN = 25
+const NODE_INDEX_ASSIGN = 26
+const NODE_CALL_STMT = 27
+
+struct ASTProgram { type; statements_head }
+
+// --- STATEMENTS ---
+struct ASTLetStatement { type; next_stmt; let_name; let_value }
+struct ASTConstStatement { type; next_stmt; const_name; const_value } 
+struct ASTStructDecl { type; next_stmt; struct_name; fields_head }    
+struct ASTStructField { type; next_field; field_name }                
+struct ASTPropertyAssign { type; next_stmt; assign_obj; assign_prop; assign_val } 
+struct ASTIndexAssign { type; next_stmt; left_node; assign_value }           
+struct ASTReassignStatement { type; next_stmt; reassign_name; reassign_value }
+struct ASTCallStatement { type; next_stmt; call_expr } 
+
+struct ASTPrintStatement { type; next_stmt; print_value }
+struct ASTMatchStatement { type; next_stmt; match_value; cases_head; default_case }
+struct ASTMatchCase { type; next_case; case_value; case_body }
+struct ASTImportStatement { type; next_stmt; import_path; is_std }
+struct ASTIfStatement { type; next_stmt; condition; consequence; alternative }
+struct ASTWhileStatement { type; next_stmt; condition; while_body }
+struct ASTFunctionDecl { type; next_stmt; func_name; params_head; func_body } 
+struct ASTReturnStatement { type; next_stmt; return_value } 
+
+// --- EXPRESSIONS ---
+struct ASTIdentifier { type; ident_value }
+struct ASTInteger { type; int_value }
+struct ASTFloat { type; float_value }   
+struct ASTBoolean { type; bool_value }  
+struct ASTString { type; string_value; string_label } 
+struct ASTPropertyAccess { type; access_obj; access_prop } 
+struct ASTInfixExpression { type; infix_left; infix_op; infix_right }
+struct ASTPrefixExpression { type; prefix_op; prefix_right }
+struct ASTPostfixExpression { type; postfix_left; postfix_op }
+struct ASTArrayLiteral { type; elements_head; length }
+struct ASTArrayElement { type; next_element; value }
+struct ASTCallExpression { type; call_name; args_head } 
+struct ASTParameter { type; next_param; param_name }    
+struct ASTArgument { type; next_arg; arg_value }

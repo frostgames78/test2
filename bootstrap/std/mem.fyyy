@@ -1,0 +1,12 @@
+// bootstrap/std/mem.fyyy
+
+// Copies a specific number of bytes from source memory to destination memory
+fn mem_copy(dest, src, length) {
+    let i = 0
+    while i < length {
+        // Raw byte-by-byte memory copy using Frostyyy array assignment!
+        dest[i] = src[i]
+        i = i + 1
+    }
+    return dest
+}

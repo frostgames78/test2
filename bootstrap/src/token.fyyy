@@ -1,0 +1,218 @@
+// bootstrap/src/token.fyyy
+struct Token { type; literal }
+
+const TOK_EOF = 0
+const TOK_ILLEGAL = 1
+const TOK_IDENT = 2
+const TOK_INT = 3
+const TOK_FLOAT = 4         // <-- NEW
+const TOK_STRING = 5
+
+const TOK_ASSIGN = 10       
+const TOK_PLUS = 11         
+const TOK_MINUS = 12        
+const TOK_ASTERISK = 13     
+const TOK_SLASH = 14        
+const TOK_MOD = 15          
+const TOK_INC = 16          
+const TOK_DEC = 17          
+
+const TOK_AND = 18          
+const TOK_OR = 19           
+const TOK_BANG = 20         
+
+const TOK_EQ = 21           
+const TOK_NOT_EQ = 22       
+const TOK_LT = 23           
+const TOK_GT = 24        
+const TOK_LTE = 25          
+const TOK_GTE = 26          
+
+const TOK_BIT_AND = 27      
+const TOK_BIT_OR = 28       
+const TOK_BIT_XOR = 29      
+const TOK_BIT_NOT = 30      
+const TOK_LSHIFT = 31       
+const TOK_RSHIFT = 32       
+
+const TOK_PLUS_EQ = 33      
+const TOK_MINUS_EQ = 34  
+const TOK_MUL_EQ = 35       
+
+const TOK_LPAREN = 36       
+const TOK_RPAREN = 37       
+const TOK_LBRACE = 38       
+const TOK_RBRACE = 39       
+const TOK_LBRACKET = 40     
+const TOK_RBRACKET = 41     
+const TOK_COMMA = 42        
+const TOK_DOT = 43          
+const TOK_ARROW = 44    
+const TOK_UNDERSCORE = 45   
+const TOK_COLON = 46        // <-- NEW
+
+const TOK_LET = 50
+const TOK_FN = 51
+const TOK_PRINT = 52
+const TOK_MATCH = 53
+const TOK_IMPORT = 54
+const TOK_IF = 55           
+const TOK_ELSE = 56         
+const TOK_WHILE = 57        
+const TOK_RETURN = 58       
+const TOK_CONST = 59        // <-- NEW
+const TOK_STRUCT = 60       // <-- NEW
+const TOK_CLASS = 61        // <-- NEW
+const TOK_TRUE = 62         // <-- NEW
+const TOK_FALSE = 63        // <-- NEW
+const TOK_SWITCH = 64       // <-- NEW
+const TOK_CASE = 65         // <-- NEW
+const TOK_DEFAULT = 66      // <-- NEW
+
+const PREC_LOWEST = 0
+const PREC_ASSIGNMENT = 1
+const PREC_LOGICAL_OR = 2
+const PREC_LOGICAL_AND = 3
+const PREC_EQUALITY = 4
+const PREC_RELATIONAL = 5
+const PREC_BIT_OR = 6
+const PREC_BIT_XOR = 7
+const PREC_BIT_AND = 8
+const PREC_SHIFT = 9
+const PREC_ADDITIVE = 10
+const PREC_MULTIPLICATIVE = 11
+const PREC_PREFIX = 12
+const PREC_POSTFIX = 13 
+
+fn token_string(type) {
+    if type == TOK_EOF { return "EOF" }
+    if type == TOK_IDENT { return "IDENT" }
+    if type == TOK_INT { return "INT" }
+    if type == TOK_FLOAT { return "FLOAT" } // <-- NEW
+    if type == TOK_STRING { return "STRING" }
+    if type == TOK_LBRACKET { return "[" }  
+    if type == TOK_RBRACKET { return "]" }  
+    
+    if type == TOK_PLUS { return "+" }
+    if type == TOK_MINUS { return "-" }
+    if type == TOK_ASTERISK { return "*" }
+    if type == TOK_SLASH { return "/" }
+    if type == TOK_MOD { return "%" }
+    
+    if type == TOK_ASSIGN { return "=" }
+    if type == TOK_EQ { return "==" }
+    if type == TOK_NOT_EQ { return "!=" }
+    if type == TOK_LT { return "<" }
+    if type == TOK_GT { return ">" }
+    if type == TOK_LTE { return "<=" }
+    if type == TOK_GTE { return ">=" }
+    
+    if type == TOK_LPAREN { return "(" }
+    if type == TOK_RPAREN { return ")" }
+    if type == TOK_LBRACE { return "{" }
+    if type == TOK_RBRACE { return "}" }
+    if type == TOK_ARROW { return "=>" }
+    if type == TOK_UNDERSCORE { return "_" }
+    if type == TOK_COMMA { return "," }
+    if type == TOK_DOT { return "." }
+    if type == TOK_COLON { return ":" } // <-- NEW
+    
+    if type == TOK_LET { return "let" }
+    if type == TOK_FN { return "fn" }
+    if type == TOK_PRINT { return "print" }
+    if type == TOK_MATCH { return "match" }
+    if type == TOK_IMPORT { return "import" }
+    if type == TOK_IF { return "if" }       
+    if type == TOK_ELSE { return "else" }   
+    if type == TOK_WHILE { return "while" } 
+    if type == TOK_RETURN { return "return" } 
+
+    // --- NEW KEYWORDS ---
+    if type == TOK_CONST { return "const" } 
+    if type == TOK_STRUCT { return "struct" } 
+    if type == TOK_CLASS { return "class" } 
+    if type == TOK_TRUE { return "true" } 
+    if type == TOK_FALSE { return "false" } 
+    if type == TOK_SWITCH { return "switch" } 
+    if type == TOK_CASE { return "case" } 
+    if type == TOK_DEFAULT { return "default" } 
+
+    return "UNKNOWN_TOKEN"
+}
+
+fn token_precedence(type) {
+    if type == TOK_LPAREN { return PREC_POSTFIX }   
+    if type == TOK_LBRACKET { return PREC_POSTFIX } 
+    if type == TOK_DOT { return PREC_POSTFIX }      
+    if type == TOK_INC { return PREC_POSTFIX }      
+    if type == TOK_DEC { return PREC_POSTFIX }     
+
+    if type == TOK_ASTERISK { return PREC_MULTIPLICATIVE }
+    if type == TOK_SLASH { return PREC_MULTIPLICATIVE }
+    if type == TOK_MOD { return PREC_MULTIPLICATIVE }
+
+    if type == TOK_PLUS { return PREC_ADDITIVE }
+    if type == TOK_MINUS { return PREC_ADDITIVE }
+
+    if type == TOK_LSHIFT { return PREC_SHIFT }
+    if type == TOK_RSHIFT { return PREC_SHIFT }
+
+    if type == TOK_BIT_AND { return PREC_BIT_AND }
+    if type == TOK_BIT_XOR { return PREC_BIT_XOR }
+    if type == TOK_BIT_OR { return PREC_BIT_OR }
+
+    if type == TOK_LT { return PREC_RELATIONAL }
+    if type == TOK_GT { return PREC_RELATIONAL }
+    if type == TOK_LTE { return PREC_RELATIONAL }
+    if type == TOK_GTE { return PREC_RELATIONAL }
+
+    if type == TOK_EQ { return PREC_EQUALITY }
+    if type == TOK_NOT_EQ { return PREC_EQUALITY }
+
+    if type == TOK_AND { return PREC_LOGICAL_AND }
+    if type == TOK_OR { return PREC_LOGICAL_OR }
+
+    if type == TOK_ASSIGN { return PREC_ASSIGNMENT }
+    if type == TOK_PLUS_EQ { return PREC_ASSIGNMENT }
+    if type == TOK_MINUS_EQ { return PREC_ASSIGNMENT }
+    if type == TOK_MUL_EQ { return PREC_ASSIGNMENT }
+
+    return PREC_LOWEST
+}
+
+fn lookup_ident(ident) {
+    if string_equals(ident, "let") == 1 { return TOK_LET }
+    if string_equals(ident, "fn") == 1 { return TOK_FN }
+    if string_equals(ident, "print") == 1 { return TOK_PRINT } 
+    if string_equals(ident, "match") == 1 { return TOK_MATCH } 
+    if string_equals(ident, "import") == 1 { return TOK_IMPORT } 
+    if string_equals(ident, "if") == 1 { return TOK_IF }          
+    if string_equals(ident, "else") == 1 { return TOK_ELSE }      
+    if string_equals(ident, "while") == 1 { return TOK_WHILE }    
+    if string_equals(ident, "return") == 1 { return TOK_RETURN } 
+    if string_equals(ident, "_") == 1 { return TOK_UNDERSCORE } 
+
+    // --- NEW KEYWORDS ---
+    if string_equals(ident, "const") == 1 { return TOK_CONST }
+    if string_equals(ident, "struct") == 1 { return TOK_STRUCT }
+    if string_equals(ident, "class") == 1 { return TOK_CLASS }
+    if string_equals(ident, "true") == 1 { return TOK_TRUE }
+    if string_equals(ident, "false") == 1 { return TOK_FALSE }
+    if string_equals(ident, "switch") == 1 { return TOK_SWITCH }
+    if string_equals(ident, "case") == 1 { return TOK_CASE }
+    if string_equals(ident, "default") == 1 { return TOK_DEFAULT }
+
+    return TOK_IDENT
+}
+
+fn is_operator(type) {
+    if type >= 10 {
+        if type < 50 { return 1 }
+    }
+    return 0
+}
+
+fn is_keyword(type) {
+    if type >= 50 { return 1 }
+    return 0
+}

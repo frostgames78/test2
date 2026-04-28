@@ -1,0 +1,247 @@
+// bootstrap/src/lexer.fyyy
+import "token.fyyy"
+import std.string
+
+// ASCII character constants
+const CHAR_NEWLINE = 10
+const CHAR_TAB = 9
+const CHAR_SPACE = 32
+const CHAR_CR = 13
+const CHAR_SEMICOLON = 59
+const CHAR_DQUOTE = 34
+const CHAR_BACKSLASH = 92
+const CHAR_SLASH = 47
+const CHAR_DOT = 46
+const CHAR_ZERO = 48
+const CHAR_UNDERSCORE = 95
+
+struct Lexer {
+    input
+    position
+    readPosition
+    ch
+    line
+    column
+}
+
+fn new_lexer(input) {
+    let l = Lexer(input, 0, 0, 0, 1, 0)
+    read_char(l)
+    return l
+}
+
+fn read_char(l) {
+    let inputStr = l.input
+    let inputLen = string_length(inputStr)
+
+    if l.ch == CHAR_NEWLINE { 
+        l.line = l.line + 1
+        l.column = 0
+    }
+    if l.ch != CHAR_NEWLINE {
+        l.column = l.column + 1
+    }
+
+    if l.readPosition >= inputLen { l.ch = 0 }
+    if l.readPosition < inputLen { l.ch = inputStr[l.readPosition] }
+
+    l.position = l.readPosition
+    l.readPosition = l.readPosition + 1
+}
+
+fn peek_char(l) {
+    let inputStr = l.input
+    let inputLen = string_length(inputStr)
+    if l.readPosition >= inputLen { return 0 }
+    return inputStr[l.readPosition]
+}
+
+fn skip_whitespace(l) {
+    let loop = 1
+    while loop == 1 {
+        let c = l.ch
+        let matched = 0
+        if c == CHAR_SPACE { matched = 1 }
+        if c == CHAR_TAB { matched = 1 }
+        if c == CHAR_NEWLINE { matched = 1 }
+        if c == CHAR_CR { matched = 1 }
+        if c == CHAR_SEMICOLON { matched = 1 } // Semicolons treated as whitespace by design
+        
+        if matched == 1 { read_char(l) }
+        if matched == 0 { loop = 0 }
+    }
+}
+
+fn is_letter(ch) {
+    if ch >= 97 && ch <= 122 { return 1 }  // a-z
+    if ch >= 65 && ch <= 90 { return 1 }   // A-Z
+    if ch == CHAR_UNDERSCORE { return 1 }
+    return 0
+}
+
+fn is_digit(ch) {
+    if ch >= CHAR_ZERO && ch <= 57 { return 1 }  // '0'-'9'
+    return 0
+}
+
+fn read_identifier(l) {
+    let start = l.position
+    let loop = 1
+    while loop == 1 {
+        let matched = 0
+        if is_letter(l.ch) == 1 { read_char(l); matched = 1 }
+        if matched == 0 {
+            if is_digit(l.ch) == 1 { read_char(l); matched = 1 }
+        }
+        if matched == 0 { loop = 0 }
+    }
+    return sub_string(l.input, start, l.position - 1)
+}
+
+fn next_token(l) {
+    skip_whitespace(l)
+    let ch = l.ch
+    let tok = 0
+    let is_multi = 0
+
+    if ch == 61 { 
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_EQ, "=="); is_multi = 1 }
+        if peek_char(l) == 62 { read_char(l); tok = Token(TOK_ARROW, "=>"); is_multi = 1 } 
+        if is_multi == 0 { tok = Token(TOK_ASSIGN, "=") }
+        read_char(l); return tok
+    }
+
+    if ch == 33 { 
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_NOT_EQ, "!="); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_BANG, "!") }
+        read_char(l); return tok
+    }
+
+    if ch == 60 { 
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_LTE, "<="); is_multi = 1 }
+        if peek_char(l) == 60 { read_char(l); tok = Token(TOK_LSHIFT, "<<"); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_LT, "<") }
+        read_char(l); return tok
+    }
+
+    if ch == 62 { 
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_GTE, ">="); is_multi = 1 }
+        if peek_char(l) == 62 { read_char(l); tok = Token(TOK_RSHIFT, ">>"); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_GT, ">") }
+        read_char(l); return tok
+    }
+
+    if ch == 43 { 
+        if peek_char(l) == 43 { read_char(l); tok = Token(TOK_INC, "++"); is_multi = 1 }
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_PLUS_EQ, "+="); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_PLUS, "+") }
+        read_char(l); return tok
+    }
+    
+    if ch == 45 { 
+        if peek_char(l) == 45 { read_char(l); tok = Token(TOK_DEC, "--"); is_multi = 1 }
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_MINUS_EQ, "-="); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_MINUS, "-") }
+        read_char(l); return tok
+    }
+    
+    if ch == 42 { 
+        if peek_char(l) == 61 { read_char(l); tok = Token(TOK_MUL_EQ, "*="); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_ASTERISK, "*") }
+        read_char(l); return tok
+    }
+
+    if ch == 38 {
+        if peek_char(l) == 38 { read_char(l); tok = Token(TOK_AND, "&&"); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_BIT_AND, "&") }
+        read_char(l); return tok
+    }
+
+    if ch == 124 {
+        if peek_char(l) == 124 { read_char(l); tok = Token(TOK_OR, "||"); is_multi = 1 }
+        if is_multi == 0 { tok = Token(TOK_BIT_OR, "|") }
+        read_char(l); return tok
+    }
+
+    if ch == CHAR_DQUOTE { 
+        read_char(l) 
+        let start = l.position
+        let loop = 1
+        
+        while loop == 1 {
+            let is_escaped = 0
+            if l.ch == CHAR_BACKSLASH { 
+                read_char(l) 
+                is_escaped = 1
+            }
+            if is_escaped == 0 {
+                if l.ch == CHAR_DQUOTE { loop = 0 }
+                if l.ch == 0 { loop = 0 }
+            }
+            if loop == 1 { read_char(l) }
+        }
+        
+        let str_val = sub_string(l.input, start, l.position - 1)
+        read_char(l) 
+        return Token(TOK_STRING, str_val)
+    }
+
+    // --- Comment Skipping Logic ---
+    if ch == CHAR_SLASH { 
+        if peek_char(l) == CHAR_SLASH {
+            let c_loop = 1
+            while c_loop == 1 {
+                read_char(l)
+                if l.ch == CHAR_NEWLINE { c_loop = 0 } // Stop at newline
+                if l.ch == 0 { c_loop = 0 }             // Stop at EOF
+            }
+            return next_token(l) // Recursively fetch the *next* valid token
+        }
+        tok = Token(TOK_SLASH, "/")
+        read_char(l)
+        return tok 
+    }
+
+    if ch == 37 { tok = Token(TOK_MOD, "%"); read_char(l); return tok }
+    if ch == 94 { tok = Token(TOK_BIT_XOR, "^"); read_char(l); return tok }
+    if ch == 126 { tok = Token(TOK_BIT_NOT, "~"); read_char(l); return tok }
+    if ch == CHAR_DOT { tok = Token(TOK_DOT, "."); read_char(l); return tok }
+    if ch == 58 { tok = Token(TOK_COLON, ":"); read_char(l); return tok } 
+    if ch == 91 { tok = Token(TOK_LBRACKET, "["); read_char(l); return tok }
+    if ch == 93 { tok = Token(TOK_RBRACKET, "]"); read_char(l); return tok }
+    
+    if ch == 40 { tok = Token(TOK_LPAREN, "("); read_char(l); return tok } 
+    if ch == 41 { tok = Token(TOK_RPAREN, ")"); read_char(l); return tok } 
+    if ch == 44 { tok = Token(TOK_COMMA, ","); read_char(l); return tok } 
+    if ch == 123 { tok = Token(TOK_LBRACE, "{"); read_char(l); return tok } 
+    if ch == 125 { tok = Token(TOK_RBRACE, "}"); read_char(l); return tok } 
+
+    if ch == 0 { tok = Token(TOK_EOF, "EOF"); return tok }
+
+    if is_letter(ch) == 1 {
+        let literal = read_identifier(l)
+        let type = lookup_ident(literal)
+        tok = Token(type, literal)
+        return tok
+    }
+
+    if is_digit(ch) == 1 {
+        let start = l.position
+        let is_float = 0
+        
+        while is_digit(l.ch) == 1 || l.ch == CHAR_DOT {
+            if l.ch == CHAR_DOT { is_float = 1 }
+            read_char(l)
+        }
+        
+        let literal = sub_string(l.input, start, l.position - 1)
+        
+        if is_float == 1 { tok = Token(TOK_FLOAT, literal) }
+        if is_float == 0 { tok = Token(TOK_INT, literal) }
+        return tok
+    }
+
+    tok = Token(TOK_ILLEGAL, "ILLEGAL")
+    read_char(l)
+    return tok
+}

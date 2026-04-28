@@ -1,0 +1,113 @@
+// bootstrap/src/main.fyyy
+import "lexer.fyyy"
+import "parser.fyyy"
+import "codegen.fyyy"
+import "ast.fyyy"
+import std.string
+
+// Appends statements from the file's AST to the master AST
+fn append_statements(master_program, file_program) {
+    if master_program.statements_head == 0 {
+        master_program.statements_head = file_program.statements_head
+        return 0
+    }
+    
+    let current = master_program.statements_head
+    while current.next_stmt != 0 {
+        current = current.next_stmt
+    }
+    current.next_stmt = file_program.statements_head
+    return 0
+}
+
+// Checks the Master AST to see if a file has already been imported
+fn has_been_imported(master_program, target_imp_path) {
+    let curr = master_program.statements_head
+    while curr != 0 {
+        if curr.type == NODE_IMPORT {
+            if string_equals(curr.import_path, target_imp_path) == 1 {
+                return 1
+            }
+        }
+        curr = curr.next_stmt
+    }
+    return 0
+}
+
+// Recursively parses a file and its imports
+fn parse_file(filepath, master_program, base_dir, std_dir) {
+    let sourceCode = readFile(filepath)
+    if sourceCode == 0 {
+        print("FATAL ERROR: Could not open file!")
+        print(filepath)
+        return 0
+    }
+
+    let lexer = new_lexer(sourceCode)
+    let parser = new_parser(lexer)
+    let fileProg = parse_program(parser)
+
+    // 1. Resolve all dependencies FIRST
+    let stmt = fileProg.statements_head
+    while stmt != 0 {
+        if stmt.type == NODE_IMPORT {
+            let impPath = stmt.import_path
+            
+            // Only parse if not already in the master AST
+            if has_been_imported(master_program, impPath) == 0 {
+                let fullPath = impPath
+                
+                if stmt.is_std == 1 {
+                    // std imports resolve relative to std_dir
+                    fullPath = str_concat(std_dir, impPath)
+                } 
+                if stmt.is_std == 0 {
+                    // relative imports resolve relative to current file's directory
+                    fullPath = str_concat(base_dir, impPath)
+                }
+                
+                parse_file(fullPath, master_program, base_dir, std_dir)
+            }
+        }
+        stmt = stmt.next_stmt
+    }
+
+    // 2. Append this file's logic to the master AST
+    append_statements(master_program, fileProg)
+    return 0
+}
+
+fn main() {
+    print("--- Frostyyy Self-Hosted Compiler ---")
+
+    let filename = getArg(1)
+    if filename == 0 {
+        print("FATAL ERROR: No input file provided!")
+        return 1
+    }
+
+    // Derive directories from input file path
+    let file_dir = get_dir_from_path(filename)
+    let base_dir = str_concat(file_dir, "/")
+    // std dir is a sibling of the src dir (e.g. bootstrap/src/ -> bootstrap/std/)
+    let parent_dir = get_dir_from_path(file_dir)
+    let std_dir = str_concat(parent_dir, "/")
+
+    print("Linking and Parsing AST...")
+    
+    let master_program = ASTProgram(NODE_PROGRAM, 0)
+    parse_file(filename, master_program, base_dir, std_dir)
+
+    print("Generating NASM Assembly...")
+    let asm_code = generate_nasm(master_program)
+
+    // Derive output filename from input: main.fyyy -> main.asm
+    let out_file = str_concat(strip_extension(filename), ".asm")
+    print(str_concat("Writing to ", str_concat(out_file, "...")))
+    writeFile(out_file, asm_code) 
+
+    print("Compilation Complete!")
+    return 0
+}
+
+main()
