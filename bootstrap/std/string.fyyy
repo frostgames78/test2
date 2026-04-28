@@ -50,8 +50,8 @@ fn str_concat(s1, s2) {
     return buf
 }
 
-// Returns the directory part of a path (everything up to and including last '/')
-// e.g. "bootstrap/src/main.fyyy" => "bootstrap/src/"
+// Returns the directory part of a path (everything up to but excluding the last '/')
+// e.g. "bootstrap/src/main.fyyy" => "bootstrap/src"
 // If no '/' is found, returns ""
 fn get_dir_from_path(path) {
     let len = string_length(path)
@@ -62,7 +62,7 @@ fn get_dir_from_path(path) {
         i = i + 1
     }
     if last_slash < 0 { return "" }
-    return sub_string(path, 0, last_slash)
+    return sub_string(path, 0, last_slash - 1)
 }
 
 // Strips the file extension and returns the base name
